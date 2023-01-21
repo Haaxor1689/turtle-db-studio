@@ -1,0 +1,1276 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/userDb"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("USER_DATABASE_URL")
+}
+
+model account {
+  id             Int      @id @default(autoincrement()) @db.UnsignedInt
+  username       String   @unique(map: "idx_username") @db.VarChar(32)
+  sha_pass_hash  String   @db.VarChar(40)
+  rank           Int      @default(0) @db.UnsignedInt
+  sessionkey     String?  @db.LongText
+  v              String?  @db.LongText
+  s              String?  @db.LongText
+  email          String?  @db.Text
+  joindate       DateTime @default(now()) @db.Timestamp(0)
+  tfa_verif      String?  @db.VarChar(255)
+  last_ip        String   @default("0.0.0.0") @db.VarChar(30)
+  last_local_ip  String   @default("0.0.0.0") @db.VarChar(30)
+  failed_logins  Int      @default(0) @db.UnsignedInt
+  locked         Int      @default(0) @db.UnsignedTinyInt
+  last_login     DateTime @default(dbgenerated("('0000-00-00 00:00:00')")) @db.Timestamp(0)
+  online         Int      @default(0) @db.TinyInt
+  expansion      Int      @default(0) @db.UnsignedTinyInt
+  mutetime       BigInt   @default(0)
+  mutereason     String   @default("") @db.VarChar(255)
+  muteby         String   @default("") @db.VarChar(50)
+  locale         Int      @default(0) @db.UnsignedTinyInt
+  os             String   @default("") @db.VarChar(4)
+  platform       String   @default("") @db.VarChar(4)
+  current_realm  Int      @default(0) @db.UnsignedTinyInt
+  banned         Boolean  @default(false)
+  flags          Int      @default(0) @db.UnsignedInt
+  security       String?  @db.VarChar(255)
+  pass_verif     String?  @db.VarChar(255)
+  email_verif    Boolean  @default(false)
+  forum_username String?  @db.VarChar(32)
+  token_key      String?  @default("") @db.VarChar(100)
+  email_keyword  String?  @db.VarChar(16)
+  email_status   Int?
+  email_sub      Int      @default(1) @db.TinyInt
+  comments       String?  @db.Text
+  geolock_pin    Int?     @default(0)
+
+  @@index([rank], map: "idx_gmlevel")
+}
+
+model account_banned {
+  banid     BigInt @unique(map: "banid") @default(autoincrement())
+  id        BigInt @default(0)
+  bandate   BigInt @default(0)
+  unbandate BigInt @default(0)
+  bannedby  String @db.VarChar(50)
+  banreason String @db.VarChar(255)
+  active    Int    @default(1) @db.TinyInt
+  realm     Int    @default(1) @db.TinyInt
+  gmlevel   Int    @default(0) @db.UnsignedTinyInt
+
+  @@id([id, bandate])
+}
+
+model account_mailstatus {
+  message_id Int     @id @default(autoincrement()) @db.UnsignedInt
+  account_id Int     @default(0) @db.UnsignedInt
+  email      String? @db.Text
+  status     Int?
+  letterid   Int?
+}
+
+model account_mailstatus_archive {
+  message_id Int     @id @default(autoincrement()) @db.UnsignedInt
+  account_id Int     @default(0) @db.UnsignedInt
+  email      String? @db.Text
+  status     Int?
+  letterid   Int?
+}
+
+model account_twofactor_allowed {
+  id         Int     @id @default(autoincrement())
+  ip_address String  @default("0") @db.VarChar(30)
+  account_id Int?    @db.UnsignedInt
+  expires_at BigInt? @db.UnsignedBigInt
+}
+
+model antispam_blacklist {
+  string String @id @db.VarChar(64)
+}
+
+model antispam_client {
+  Regex String  @id @db.VarChar(255)
+  Note  String? @db.VarChar(64)
+}
+
+model antispam_replacement {
+  from String @id @default("") @db.VarChar(32)
+  to   String @default("") @db.VarChar(32)
+}
+
+model antispam_unicode_replacement {
+  from Int @id @default(0) @db.UnsignedMediumInt
+  to   Int @default(0) @db.UnsignedMediumInt
+}
+
+model auction {
+  id            Int    @id @default(0) @db.UnsignedInt
+  houseid       Int    @default(0) @db.UnsignedInt
+  itemguid      Int    @unique(map: "key_item_guid") @default(0) @db.UnsignedInt
+  item_template Int    @default(0) @db.UnsignedInt
+  itemowner     Int    @default(0) @db.UnsignedInt
+  buyoutprice   Int    @default(0)
+  time          BigInt @default(0)
+  buyguid       Int    @default(0) @db.UnsignedInt
+  lastbid       Int    @default(0)
+  startbid      Int    @default(0)
+  deposit       Int    @default(0)
+}
+
+model bounty_quest_targets {
+  id              Int @id @default(1) @db.UnsignedInt
+  horde_player    Int @default(0) @db.UnsignedInt
+  alliance_player Int @default(0)
+}
+
+model bugreport {
+  id      Int    @id @default(autoincrement())
+  type    String @db.LongText
+  content String @db.LongText
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model bugreports {
+  id                Int                  @default(autoincrement())
+  reportTime        DateTime?            @default(now()) @db.Timestamp(0)
+  playerGuid        Int?
+  playerMap         Int?
+  playerInstanceId  Int?
+  playerX           Float?               @db.Float
+  playerY           Float?               @db.Float
+  playerZ           Float?               @db.Float
+  clientIp          String?              @db.VarChar(100)
+  reportType        Int?                 @db.TinyInt
+  reportText        String?              @db.Text
+  serverInformation String?              @db.Text
+  bugStatus         bugreports_bugStatus @default(New)
+
+  @@index([id], map: "idx_id")
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model census {
+  time        DateTime? @db.DateTime(0)
+  race        Int?
+  onlineCount Int?
+
+  @@ignore
+}
+
+model character_action {
+  guid   Int @default(0) @db.UnsignedInt
+  button Int @default(0) @db.UnsignedTinyInt
+  action Int @default(0) @db.UnsignedInt
+  type   Int @default(0) @db.UnsignedTinyInt
+
+  @@id([guid, button])
+}
+
+model character_armory_stats {
+  guid              Int    @id @default(0) @db.UnsignedInt
+  maxhealth         Int    @default(0) @db.UnsignedInt
+  maxpower1         Int    @default(0) @db.UnsignedInt
+  maxpower2         Int    @default(0) @db.UnsignedInt
+  maxpower3         Int    @default(0) @db.UnsignedInt
+  maxpower4         Int    @default(0) @db.UnsignedInt
+  maxpower5         Int    @default(0) @db.UnsignedInt
+  strength          Float  @default(0) @db.Float
+  agility           Float  @default(0) @db.Float
+  stamina           Float  @default(0) @db.Float
+  intellect         Float  @default(0) @db.Float
+  spirit            Float  @default(0) @db.Float
+  armor             Int    @default(0) @db.UnsignedInt
+  resHoly           Int    @default(0) @db.UnsignedInt
+  resFire           Int    @default(0) @db.UnsignedInt
+  resNature         Int    @default(0) @db.UnsignedInt
+  resFrost          Int    @default(0) @db.UnsignedInt
+  resShadow         Int    @default(0) @db.UnsignedInt
+  resArcane         Int    @default(0) @db.UnsignedInt
+  dmgModNormal      Int    @default(0) @db.UnsignedInt
+  dmgModHoly        Int    @default(0) @db.UnsignedInt
+  dmgModFire        Int    @default(0) @db.UnsignedInt
+  dmgModNature      Int    @default(0) @db.UnsignedInt
+  dmgModFrost       Int    @default(0) @db.UnsignedInt
+  dmgModShadow      Int    @default(0) @db.UnsignedInt
+  dmgModArcane      Int    @default(0) @db.UnsignedInt
+  blockPct          Float  @default(0) @db.Float
+  dodgePct          Float  @default(0) @db.Float
+  parryPct          Float  @default(0) @db.Float
+  meleeCritPct      Float  @default(0) @db.Float
+  rangedCritPct     Float  @default(0) @db.Float
+  attackPower       Float  @default(0) @db.Float
+  rangedAttackPower Float  @default(0) @db.Float
+  meleeDamage       String @db.Text
+  rangedDamage      String @db.Text
+  meleeWeaponSpeed  Float  @default(0) @db.Float
+  rangedWeaponSpeed Float  @default(0) @db.Float
+  castSpeed         Float  @default(0) @db.Float
+  meleeHit          Float  @default(0) @db.Float
+  rangedHit         Float  @default(0) @db.Float
+  spellHit          Float  @default(0) @db.Float
+}
+
+model character_aura {
+  guid          Int    @default(0) @db.UnsignedInt
+  caster_guid   BigInt @default(0) @db.UnsignedBigInt
+  item_guid     Int    @default(0) @db.UnsignedInt
+  spell         Int    @default(0) @db.UnsignedInt
+  stackcount    Int    @default(1) @db.UnsignedInt
+  remaincharges Int    @default(0) @db.UnsignedInt
+  basepoints0   Int    @default(0)
+  basepoints1   Int    @default(0)
+  basepoints2   Int    @default(0)
+  periodictime0 Int    @default(0) @db.UnsignedInt
+  periodictime1 Int    @default(0) @db.UnsignedInt
+  periodictime2 Int    @default(0) @db.UnsignedInt
+  maxduration   Int    @default(0)
+  remaintime    Int    @default(0)
+  effIndexMask  Int    @default(0) @db.UnsignedInt
+
+  @@id([guid, caster_guid, item_guid, spell])
+}
+
+model character_aura_suspended {
+  guid          Int    @default(0) @db.UnsignedInt
+  caster_guid   BigInt @default(0) @db.UnsignedBigInt
+  item_guid     Int    @default(0) @db.UnsignedInt
+  spell         Int    @default(0) @db.UnsignedInt
+  stackcount    Int    @default(1) @db.UnsignedInt
+  remaincharges Int    @default(0) @db.UnsignedInt
+  basepoints0   Int    @default(0)
+  basepoints1   Int    @default(0)
+  basepoints2   Int    @default(0)
+  periodictime0 Int    @default(0) @db.UnsignedInt
+  periodictime1 Int    @default(0) @db.UnsignedInt
+  periodictime2 Int    @default(0) @db.UnsignedInt
+  maxduration   Int    @default(0)
+  remaintime    Int    @default(0)
+  effIndexMask  Int    @default(0) @db.UnsignedInt
+
+  @@id([guid, caster_guid, item_guid, spell])
+}
+
+model character_battleground_data {
+  guid        Int   @id @default(0) @db.UnsignedInt
+  instance_id Int   @default(0) @db.UnsignedInt
+  team        Int   @default(0) @db.UnsignedInt
+  join_x      Float @default(0) @db.Float
+  join_y      Float @default(0) @db.Float
+  join_z      Float @default(0) @db.Float
+  join_o      Float @default(0) @db.Float
+  join_map    Int   @default(0)
+}
+
+model character_bgqueue {
+  PlayerGUID Int    @id @default(0)
+  playerName String @db.VarChar(12)
+  playerIP   Int
+  BGtype     Int
+  action     Int
+  time       Int
+}
+
+model character_deleted_items {
+  id          Int @id @default(autoincrement()) @db.UnsignedInt
+  player_guid Int @default(0) @db.UnsignedInt
+  item_entry  Int @default(0) @db.UnsignedMediumInt
+  stack_count Int @default(1) @db.UnsignedMediumInt
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model character_destroyed_items {
+  player_guid Int    @db.UnsignedInt
+  item_entry  Int    @db.UnsignedMediumInt
+  stack_count Int    @db.UnsignedMediumInt
+  time        BigInt @db.UnsignedBigInt
+
+  @@index([player_guid], map: "player_guid")
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model character_duplicate_account {
+  account Int?
+
+  @@ignore
+}
+
+model character_forgotten_skills {
+  guid  Int @db.UnsignedInt
+  skill Int @db.UnsignedMediumInt
+  value Int @db.UnsignedMediumInt
+
+  @@id([guid, skill])
+}
+
+model character_gifts {
+  guid      Int @default(0) @db.UnsignedInt
+  item_guid Int @id @default(0) @db.UnsignedInt
+  entry     Int @default(0) @db.UnsignedInt
+  flags     Int @default(0) @db.UnsignedInt
+
+  @@index([guid], map: "idx_guid")
+}
+
+model character_homebind {
+  guid       Int   @id @default(0) @db.UnsignedInt
+  map        Int   @default(0) @db.UnsignedInt
+  zone       Int   @default(0) @db.UnsignedInt
+  position_x Float @default(0) @db.Float
+  position_y Float @default(0) @db.Float
+  position_z Float @default(0) @db.Float
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model character_honor_cp {
+  guid       Int   @default(0) @db.UnsignedInt
+  victimType Int   @default(4) @db.UnsignedTinyInt
+  victim     Int   @default(0) @db.UnsignedInt
+  cp         Float @default(0) @db.Float
+  date       Int   @default(0) @db.UnsignedInt
+  type       Int   @default(0) @db.UnsignedTinyInt
+
+  @@index([guid], map: "idx_guid")
+  @@ignore
+}
+
+model character_instance {
+  guid      Int     @default(0) @db.UnsignedInt
+  instance  Int     @default(0) @db.UnsignedInt
+  permanent Boolean @default(false)
+
+  @@id([guid, instance])
+  @@index([instance], map: "idx_instance")
+}
+
+model character_inventory {
+  guid          Int @default(0) @db.UnsignedInt
+  bag           Int @default(0) @db.UnsignedInt
+  slot          Int @default(0) @db.UnsignedTinyInt
+  item          Int @id @default(0) @db.UnsignedInt
+  item_template Int @default(0) @db.UnsignedInt
+
+  @@index([guid], map: "idx_guid")
+}
+
+model character_item_logs {
+  id            Int    @id @default(autoincrement()) @db.UnsignedInt
+  playerLowGuid Int    @db.UnsignedInt
+  itemLowGuid   Int    @db.UnsignedInt
+  itemEntry     Int    @db.UnsignedInt
+  itemCount     Int    @db.UnsignedInt
+  action        Int    @db.UnsignedInt
+  timestamp     BigInt @default(0) @db.UnsignedBigInt
+
+  @@index([action], map: "action")
+  @@index([playerLowGuid, itemLowGuid, itemEntry], map: "playerLowGuid")
+  @@index([timestamp], map: "timestamp")
+}
+
+model character_pet {
+  id                Int     @id @default(0) @db.UnsignedInt
+  entry             Int     @default(0) @db.UnsignedInt
+  owner             Int     @default(0) @db.UnsignedInt
+  modelid           Int?    @default(0) @db.UnsignedInt
+  CreatedBySpell    Int     @default(0) @db.UnsignedInt
+  PetType           Int     @default(0) @db.UnsignedTinyInt
+  level             Int     @default(1) @db.UnsignedInt
+  exp               Int     @default(0) @db.UnsignedInt
+  Reactstate        Boolean @default(false)
+  loyaltypoints     Int     @default(0)
+  loyalty           Int     @default(0) @db.UnsignedInt
+  trainpoint        Int     @default(0)
+  name              String? @default("Pet") @db.VarChar(100)
+  renamed           Boolean @default(false)
+  slot              Int     @default(0) @db.UnsignedInt
+  curhealth         Int     @default(1) @db.UnsignedInt
+  curmana           Int     @default(0) @db.UnsignedInt
+  curhappiness      Int     @default(0) @db.UnsignedInt
+  savetime          BigInt  @default(0) @db.UnsignedBigInt
+  resettalents_cost Int     @default(0) @db.UnsignedInt
+  resettalents_time BigInt  @default(0) @db.UnsignedBigInt
+  abdata            String? @db.LongText
+  teachspelldata    String? @db.LongText
+
+  @@index([owner], map: "idx_owner")
+}
+
+model character_queststatus {
+  guid          Int     @default(0) @db.UnsignedInt
+  quest         Int     @default(0) @db.UnsignedInt
+  status        Int     @default(0) @db.UnsignedInt
+  rewarded      Boolean @default(false)
+  explored      Boolean @default(false)
+  timer         BigInt  @default(0) @db.UnsignedBigInt
+  mobcount1     Int     @default(0) @db.UnsignedInt
+  mobcount2     Int     @default(0) @db.UnsignedInt
+  mobcount3     Int     @default(0) @db.UnsignedInt
+  mobcount4     Int     @default(0) @db.UnsignedInt
+  itemcount1    Int     @default(0) @db.UnsignedInt
+  itemcount2    Int     @default(0) @db.UnsignedInt
+  itemcount3    Int     @default(0) @db.UnsignedInt
+  itemcount4    Int     @default(0) @db.UnsignedInt
+  reward_choice Int     @default(0) @db.UnsignedInt
+
+  @@id([guid, quest])
+}
+
+model character_reputation {
+  guid     Int @default(0) @db.UnsignedInt
+  faction  Int @default(0) @db.UnsignedInt
+  standing Int @default(0)
+  flags    Int @default(0)
+
+  @@id([guid, faction])
+}
+
+model character_skills {
+  guid  Int @db.UnsignedInt
+  skill Int @db.UnsignedMediumInt
+  value Int @db.UnsignedMediumInt
+  max   Int @db.UnsignedMediumInt
+
+  @@id([guid, skill])
+}
+
+model character_skills_copy {
+  guid  Int @db.UnsignedInt
+  skill Int @db.UnsignedMediumInt
+  value Int @db.UnsignedMediumInt
+  max   Int @db.UnsignedMediumInt
+
+  @@id([guid, skill])
+}
+
+model character_social {
+  guid   Int     @default(0) @db.UnsignedInt
+  friend Int     @default(0) @db.UnsignedInt
+  flags  Boolean @default(false)
+
+  @@id([guid, friend, flags])
+  @@index([friend], map: "idx_friend")
+  @@index([friend, flags], map: "idx_friend_flags")
+  @@index([guid], map: "idx_guid")
+  @@index([guid, flags], map: "idx_guid_flags")
+}
+
+model character_spell {
+  guid     Int @default(0) @db.UnsignedInt
+  spell    Int @default(0) @db.UnsignedInt
+  active   Int @default(1) @db.UnsignedTinyInt
+  disabled Int @default(0) @db.UnsignedTinyInt
+
+  @@id([guid, spell])
+  @@index([spell], map: "idx_spell")
+}
+
+model character_spell_cooldown {
+  guid    Int    @default(0) @db.UnsignedInt
+  spell   Int    @default(0) @db.UnsignedInt
+  item    Int    @default(0) @db.UnsignedInt
+  time    BigInt @default(0) @db.UnsignedBigInt
+  catTime BigInt @default(0) @db.UnsignedBigInt
+
+  @@id([guid, spell])
+}
+
+model character_spell_dual_spec {
+  guid  Int @default(0) @db.UnsignedInt
+  spell Int @default(0) @db.UnsignedInt
+  spec  Int @default(1) @db.UnsignedTinyInt
+
+  @@id([guid, spell, spec])
+  @@index([spell], map: "idx_spell")
+}
+
+model character_stats {
+  guid              Int   @id @default(0) @db.UnsignedInt
+  maxhealth         Int   @default(0) @db.UnsignedInt
+  maxpower1         Int   @default(0) @db.UnsignedInt
+  maxpower2         Int   @default(0) @db.UnsignedInt
+  maxpower3         Int   @default(0) @db.UnsignedInt
+  maxpower4         Int   @default(0) @db.UnsignedInt
+  maxpower5         Int   @default(0) @db.UnsignedInt
+  maxpower6         Int   @default(0) @db.UnsignedInt
+  maxpower7         Int   @default(0) @db.UnsignedInt
+  strength          Int   @default(0) @db.UnsignedInt
+  agility           Int   @default(0) @db.UnsignedInt
+  stamina           Int   @default(0) @db.UnsignedInt
+  intellect         Int   @default(0) @db.UnsignedInt
+  spirit            Int   @default(0) @db.UnsignedInt
+  armor             Int   @default(0) @db.UnsignedInt
+  resHoly           Int   @default(0) @db.UnsignedInt
+  resFire           Int   @default(0) @db.UnsignedInt
+  resNature         Int   @default(0) @db.UnsignedInt
+  resFrost          Int   @default(0) @db.UnsignedInt
+  resShadow         Int   @default(0) @db.UnsignedInt
+  resArcane         Int   @default(0) @db.UnsignedInt
+  blockPct          Float @default(0) @db.Float
+  dodgePct          Float @default(0) @db.Float
+  parryPct          Float @default(0) @db.Float
+  critPct           Float @default(0) @db.Float
+  rangedCritPct     Float @default(0) @db.Float
+  attackPower       Int   @default(0) @db.UnsignedInt
+  rangedAttackPower Int   @default(0) @db.UnsignedInt
+}
+
+model character_ticket {
+  ticket_id         Int      @id @default(autoincrement()) @db.UnsignedInt
+  guid              Int      @default(0) @db.UnsignedInt
+  ticket_text       String?  @db.Text
+  response_text     String?  @db.Text
+  ticket_lastchange DateTime @default(now()) @db.Timestamp(0)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model character_titles {
+  guid   Int @default(0) @db.UnsignedInt
+  title  Int @default(0) @db.UnsignedInt
+  active Int @default(0) @db.TinyInt
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model character_transmogs {
+  guid   Int @default(0) @db.UnsignedInt
+  itemId Int @default(0) @db.UnsignedInt
+
+  @@ignore
+}
+
+model character_tutorial {
+  account BigInt @id @default(autoincrement()) @db.UnsignedBigInt
+  tut0    Int    @default(0) @db.UnsignedInt
+  tut1    Int    @default(0) @db.UnsignedInt
+  tut2    Int    @default(0) @db.UnsignedInt
+  tut3    Int    @default(0) @db.UnsignedInt
+  tut4    Int    @default(0) @db.UnsignedInt
+  tut5    Int    @default(0) @db.UnsignedInt
+  tut6    Int    @default(0) @db.UnsignedInt
+  tut7    Int    @default(0) @db.UnsignedInt
+}
+
+model character_variables {
+  lowGuid      Int    @db.UnsignedInt
+  variableType Int    @db.UnsignedInt
+  value        String @default("") @db.VarChar(255)
+
+  @@id([lowGuid, variableType])
+}
+
+model character_xp_from_log {
+  guid Int    @default(0) @db.UnsignedInt
+  type Int    @default(0) @db.UnsignedTinyInt
+  xp   BigInt @default(0) @db.UnsignedBigInt
+
+  @@id([guid, type])
+}
+
+model characters {
+  guid                    Int     @id @default(0) @db.UnsignedInt
+  account                 Int     @default(0) @db.UnsignedInt
+  name                    String  @default("") @db.VarChar(12)
+  race                    Int     @default(0) @db.UnsignedTinyInt
+  class                   Int     @default(0) @db.UnsignedTinyInt
+  gender                  Int     @default(0) @db.UnsignedTinyInt
+  level                   Int     @default(0) @db.UnsignedTinyInt
+  xp                      Int     @default(0) @db.UnsignedInt
+  money                   Int     @default(0) @db.UnsignedInt
+  playerBytes             Int     @default(0) @db.UnsignedInt
+  playerBytes2            Int     @default(0) @db.UnsignedInt
+  playerFlags             Int     @default(0) @db.UnsignedInt
+  position_x              Float   @default(0) @db.Float
+  position_y              Float   @default(0) @db.Float
+  position_z              Float   @default(0) @db.Float
+  map                     Int     @default(0) @db.UnsignedInt
+  orientation             Float   @default(0) @db.Float
+  taximask                String? @db.LongText
+  online                  Int     @default(0) @db.UnsignedTinyInt
+  cinematic               Int     @default(0) @db.UnsignedTinyInt
+  totaltime               Int     @default(0) @db.UnsignedInt
+  leveltime               Int     @default(0) @db.UnsignedInt
+  logout_time             BigInt  @default(0) @db.UnsignedBigInt
+  is_logout_resting       Int     @default(0) @db.UnsignedTinyInt
+  rest_bonus              Float   @default(0) @db.Float
+  resettalents_multiplier Int     @default(0) @db.UnsignedInt
+  resettalents_time       BigInt  @default(0) @db.UnsignedBigInt
+  trans_x                 Float   @default(0) @db.Float
+  trans_y                 Float   @default(0) @db.Float
+  trans_z                 Float   @default(0) @db.Float
+  trans_o                 Float   @default(0) @db.Float
+  transguid               BigInt  @default(0) @db.UnsignedBigInt
+  extra_flags             Int     @default(0) @db.UnsignedInt
+  stable_slots            Boolean @default(false)
+  at_login                Int     @default(0) @db.UnsignedInt
+  zone                    Int     @default(0) @db.UnsignedInt
+  death_expire_time       BigInt  @default(0) @db.UnsignedBigInt
+  taxi_path               String? @db.Text
+  honorRankPoints         Float   @default(0) @db.Float
+  honorHighestRank        Int     @default(0) @db.UnsignedInt
+  honorStanding           Int     @default(0) @db.UnsignedInt
+  honorLastWeekHK         Int     @default(0) @db.UnsignedInt
+  honorLastWeekCP         Decimal @default(0.0) @db.Decimal(11, 1)
+  honorStoredHK           Int     @default(0)
+  honorStoredDK           Int     @default(0)
+  watchedFaction          Int     @default(0) @db.UnsignedInt
+  drunk                   Int     @default(0) @db.UnsignedSmallInt
+  health                  Int     @default(0) @db.UnsignedInt
+  power1                  Int     @default(0) @db.UnsignedInt
+  power2                  Int     @default(0) @db.UnsignedInt
+  power3                  Int     @default(0) @db.UnsignedInt
+  power4                  Int     @default(0) @db.UnsignedInt
+  power5                  Int     @default(0) @db.UnsignedInt
+  exploredZones           String? @db.LongText
+  equipmentCache          String? @db.LongText
+  ammoId                  Int     @default(0) @db.UnsignedInt
+  actionBars              Int     @default(0) @db.UnsignedTinyInt
+  deleteInfos_Account     Int?    @db.UnsignedInt
+  deleteInfos_Name        String? @db.VarChar(12)
+  deleteDate              BigInt?
+  area                    Int     @default(0) @db.UnsignedInt
+  world_phase_mask        Int?    @default(0)
+  customFlags             Int     @default(0)
+  city_protector          Int     @default(0) @db.TinyInt
+  regexFilterCount        Int     @default(0) @db.UnsignedInt
+  isGMCharacter           Boolean @default(false)
+  ignore_titles           Int     @default(0) @db.TinyInt
+  mortality_status        Int     @default(0) @db.TinyInt
+  total_deaths            Int     @default(0)
+  xp_gain                 Int     @default(1) @db.UnsignedTinyInt
+
+  @@index([account], map: "idx_account")
+  @@index([name], map: "idx_name")
+  @@index([online], map: "idx_online")
+}
+
+model config {
+  id      Int     @id
+  value   String? @db.VarChar(45)
+  comment String? @db.VarChar(255)
+}
+
+model corpse {
+  guid        Int    @id @default(0) @db.UnsignedInt
+  player      Int    @default(0) @db.UnsignedInt
+  position_x  Float  @default(0) @db.Float
+  position_y  Float  @default(0) @db.Float
+  position_z  Float  @default(0) @db.Float
+  orientation Float  @default(0) @db.Float
+  map         Int    @default(0) @db.UnsignedInt
+  time        BigInt @default(0) @db.UnsignedBigInt
+  corpse_type Int    @default(0) @db.UnsignedTinyInt
+  instance    Int    @default(0) @db.UnsignedInt
+
+  @@index([instance], map: "idx_instance")
+  @@index([player], map: "idx_player")
+  @@index([time], map: "idx_time")
+  @@index([corpse_type], map: "idx_type")
+}
+
+model creature_respawn {
+  guid        Int    @default(0) @db.UnsignedInt
+  respawntime BigInt @default(0)
+  instance    Int    @default(0) @db.UnsignedMediumInt
+  map         Int?   @default(0) @db.UnsignedInt
+
+  @@id([guid, instance])
+  @@index([instance], map: "idx_instance")
+}
+
+model game_event_status {
+  event Int @id @default(0) @db.UnsignedSmallInt
+}
+
+model gameobject_respawn {
+  guid        Int    @default(0) @db.UnsignedInt
+  respawntime BigInt @default(0)
+  instance    Int    @default(0) @db.UnsignedMediumInt
+  map         Int?   @default(0) @db.UnsignedInt
+
+  @@id([guid, instance])
+  @@index([instance], map: "idx_instance")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model geoip {
+  network_start_integer          Int?
+  network_last_integer           Int?
+  geoname_id                     String? @db.Text
+  registered_country_geoname_id  String? @db.Text
+  represented_country_geoname_id String? @db.Text
+  is_anonymous_proxy             Int?
+  is_satellite_provider          Int?
+  postal_code                    String? @db.Text
+  latitude                       Float?
+  longitude                      Float?
+  accuracy_radius                Int?
+
+  @@index([network_last_integer], map: "ip_end")
+  @@index([network_start_integer], map: "ip_start")
+  @@ignore
+}
+
+model gm_subsurveys {
+  surveyId    Int    @default(autoincrement()) @db.UnsignedInt
+  subsurveyId Int    @default(0) @db.UnsignedInt
+  rank        Int    @default(0) @db.UnsignedInt
+  comment     String @db.Text
+
+  @@id([surveyId, subsurveyId])
+}
+
+model gm_surveys {
+  surveyId       Int    @id @default(autoincrement()) @db.UnsignedInt
+  guid           Int    @default(0) @db.UnsignedInt
+  mainSurvey     Int    @default(0) @db.UnsignedInt
+  overallComment String @db.LongText
+  createTime     Int    @default(0) @db.UnsignedInt
+}
+
+model gm_tickets {
+  ticketId         Int    @id @default(autoincrement()) @db.UnsignedInt
+  guid             Int    @default(0) @db.UnsignedInt
+  name             String @db.VarChar(12)
+  message          String @db.Text
+  createTime       Int    @default(0) @db.UnsignedInt
+  mapId            Int    @default(0) @db.UnsignedSmallInt
+  posX             Float  @default(0) @db.Float
+  posY             Float  @default(0) @db.Float
+  posZ             Float  @default(0) @db.Float
+  lastModifiedTime Int    @default(0) @db.UnsignedInt
+  closedBy         Int    @default(0)
+  assignedTo       Int    @default(0) @db.UnsignedInt
+  comment          String @db.Text
+  response         String @db.Text
+  completed        Int    @default(0) @db.UnsignedTinyInt
+  escalated        Int    @default(0) @db.UnsignedTinyInt
+  viewed           Int    @default(0) @db.UnsignedTinyInt
+  haveTicket       Int    @default(0) @db.UnsignedTinyInt
+  ticketType       Int    @default(0) @db.UnsignedTinyInt
+  securityNeeded   Int    @default(0) @db.UnsignedTinyInt
+}
+
+model gp_history {
+  account_id Int    @db.UnsignedInt
+  code       String @db.VarChar(256)
+
+  @@id([account_id, code])
+}
+
+model group_instance {
+  leaderGuid Int     @default(0) @db.UnsignedInt
+  instance   Int     @default(0) @db.UnsignedInt
+  permanent  Boolean @default(false)
+
+  @@id([leaderGuid, instance])
+  @@index([instance], map: "idx_instance")
+}
+
+model group_member {
+  groupId    Int     @db.UnsignedInt
+  memberGuid Int     @db.UnsignedInt
+  assistant  Boolean
+  subgroup   Int     @db.UnsignedSmallInt
+
+  @@id([groupId, memberGuid])
+  @@index([memberGuid], map: "idx_memberGuid")
+}
+
+model groups {
+  groupId       Int     @id @db.UnsignedInt
+  leaderGuid    Int     @unique(map: "key_leaderGuid") @db.UnsignedInt
+  mainTank      Int     @db.UnsignedInt
+  mainAssistant Int     @db.UnsignedInt
+  lootMethod    Int     @db.UnsignedTinyInt
+  looterGuid    Int     @db.UnsignedInt
+  lootThreshold Int     @db.UnsignedTinyInt
+  icon1         Int     @db.UnsignedInt
+  icon2         Int     @db.UnsignedInt
+  icon3         Int     @db.UnsignedInt
+  icon4         Int     @db.UnsignedInt
+  icon5         Int     @db.UnsignedInt
+  icon6         Int     @db.UnsignedInt
+  icon7         Int     @db.UnsignedInt
+  icon8         Int     @db.UnsignedInt
+  isRaid        Boolean
+}
+
+model guild {
+  guildid         Int    @id @default(0) @db.UnsignedInt
+  name            String @default("") @db.VarChar(255)
+  leaderguid      Int    @default(0) @db.UnsignedInt
+  EmblemStyle     Int    @default(0)
+  EmblemColor     Int    @default(0)
+  BorderStyle     Int    @default(0)
+  BorderColor     Int    @default(0)
+  BackgroundColor Int    @default(0)
+  info            String @db.Text
+  motd            String @default("") @db.VarChar(255)
+  createdate      BigInt @default(0)
+}
+
+model guild_bank {
+  guildid          Int     @db.UnsignedInt
+  guid             Int
+  tab              Int     @default(0) @db.UnsignedInt
+  slot             Int     @db.UnsignedTinyInt
+  item_template    Int     @db.UnsignedInt
+  creatorGuid      Int     @default(0) @db.UnsignedInt
+  giftCreatorGuid  Int     @default(0) @db.UnsignedInt
+  count            Int     @default(0) @db.UnsignedInt
+  duration         Int     @default(0)
+  charges          String? @db.TinyText
+  flags            Int     @default(0) @db.UnsignedMediumInt
+  enchantments     String  @db.Text
+  randomPropertyId Int     @default(0) @db.SmallInt
+  transmogrifyId   Int     @default(0) @db.UnsignedInt
+  durability       Int     @default(0) @db.UnsignedSmallInt
+  text             Int     @default(0) @db.UnsignedInt
+  generated_loot   Int?    @default(0) @db.TinyInt
+
+  @@unique([guildid, guid], map: "guildidandguid")
+}
+
+model guild_bank_log {
+  log_id           Int    @id @default(autoincrement())
+  guildid          Int
+  player           Int
+  action           Int
+  tab              Int    @default(1)
+  item             Int
+  randomPropertyId Int    @default(0)
+  enchant          Int    @default(0)
+  count            Int
+  stamp            BigInt
+
+  @@index([stamp], map: "stamp")
+}
+
+model guild_bank_money {
+  guildid Int @id @unique(map: "guildid")
+  money   Int @default(0)
+}
+
+model guild_bank_tabs {
+  id          Int    @id @default(autoincrement())
+  guildid     Int
+  tabs        Int    @default(0)
+  name1       String @default("Tab1") @db.VarChar(64)
+  name2       String @default("Tab2") @db.VarChar(64)
+  name3       String @default("Tab3") @db.VarChar(64)
+  name4       String @default("Tab4") @db.VarChar(64)
+  name5       String @default("Tab5") @db.VarChar(64)
+  icon1       String @default("inv_misc_bag_08") @db.VarChar(128)
+  icon2       String @default("inv_misc_bag_05") @db.VarChar(128)
+  icon3       String @default("inv_misc_bag_03") @db.VarChar(128)
+  icon4       String @default("inv_misc_bag_06") @db.VarChar(128)
+  icon5       String @default("inv_misc_bag_02") @db.VarChar(128)
+  withdrawal1 Int    @default(0)
+  withdrawal2 Int    @default(0)
+  withdrawal3 Int    @default(0)
+  withdrawal4 Int    @default(0)
+  withdrawal5 Int    @default(0)
+  minrank1    Int    @default(0)
+  minrank2    Int    @default(0)
+  minrank3    Int    @default(0)
+  minrank4    Int    @default(0)
+  minrank5    Int    @default(0)
+}
+
+model guild_eventlog {
+  guildid     Int
+  LogGuid     Int
+  EventType   Boolean
+  PlayerGuid1 Int
+  PlayerGuid2 Int
+  NewRank     Int     @db.TinyInt
+  TimeStamp   BigInt
+
+  @@id([guildid, LogGuid])
+  @@index([LogGuid], map: "idx_LogGuid")
+  @@index([PlayerGuid1], map: "idx_PlayerGuid1")
+  @@index([PlayerGuid2], map: "idx_PlayerGuid2")
+}
+
+model guild_house {
+  guild_id    Int   @id @default(0) @db.UnsignedMediumInt
+  map_id      Int   @default(0) @db.UnsignedSmallInt
+  position_x  Float @default(0) @db.Float
+  position_y  Float @default(0) @db.Float
+  position_z  Float @default(0) @db.Float
+  orientation Float @default(0) @db.Float
+}
+
+model guild_member {
+  guildid Int    @default(0) @db.UnsignedInt
+  guid    Int    @unique(map: "key_guid") @default(0) @db.UnsignedInt
+  rank    Int    @default(0) @db.UnsignedTinyInt
+  pnote   String @default("") @db.VarChar(255)
+  offnote String @default("") @db.VarChar(255)
+
+  @@index([guildid], map: "idx_guildid")
+  @@index([guildid, rank], map: "idx_guildid_rank")
+}
+
+model guild_rank {
+  guildid Int    @default(0) @db.UnsignedInt
+  rid     Int    @db.UnsignedInt
+  rname   String @default("") @db.VarChar(255)
+  rights  Int    @default(0) @db.UnsignedInt
+
+  @@id([guildid, rid])
+  @@index([rid], map: "idx_rid")
+}
+
+model hardcore_deaths {
+  lowGuid       Int   @id @db.UnsignedInt
+  race          Int   @default(0) @db.UnsignedMediumInt
+  class         Int   @default(0) @db.UnsignedMediumInt
+  level         Int   @db.UnsignedInt
+  attackerEntry Int   @db.UnsignedInt
+  position_x    Float @default(0) @db.Float
+  position_y    Float @default(0) @db.Float
+  position_z    Float @default(0) @db.Float
+  mapId         Int   @default(0) @db.UnsignedInt
+}
+
+model instance {
+  id        Int     @id @default(0) @db.UnsignedInt
+  map       Int     @default(0) @db.UnsignedInt
+  resettime BigInt  @default(0)
+  data      String? @db.LongText
+
+  @@index([map], map: "idx_map")
+  @@index([resettime], map: "idx_resettime")
+}
+
+model instance_copy {
+  id        Int     @id @default(0) @db.UnsignedInt
+  map       Int     @default(0) @db.UnsignedInt
+  resettime BigInt  @default(0)
+  data      String? @db.LongText
+
+  @@index([map], map: "idx_map")
+  @@index([resettime], map: "idx_resettime")
+}
+
+model instance_reset {
+  mapid     Int    @id @default(0) @db.UnsignedInt
+  resettime BigInt @default(0)
+}
+
+model ip_banned {
+  ip        String @default("0.0.0.0") @db.VarChar(32)
+  bandate   Int
+  unbandate Int
+  bannedby  String @default("[Console]") @db.VarChar(50)
+  banreason String @default("no reason") @db.VarChar(128)
+
+  @@id([ip, bandate])
+}
+
+model item_instance {
+  guid             Int     @id @default(0) @db.UnsignedInt
+  itemEntry        Int     @default(0) @db.UnsignedMediumInt
+  owner_guid       Int     @default(0) @db.UnsignedInt
+  creatorGuid      Int     @default(0) @db.UnsignedInt
+  giftCreatorGuid  Int     @default(0) @db.UnsignedInt
+  count            Int     @default(1) @db.UnsignedInt
+  duration         Int     @default(0)
+  charges          String? @db.TinyText
+  flags            Int     @default(0) @db.UnsignedMediumInt
+  enchantments     String  @db.Text
+  randomPropertyId Int     @default(0) @db.SmallInt
+  transmogrifyId   Int     @default(0) @db.UnsignedInt
+  durability       Int     @default(0) @db.UnsignedSmallInt
+  text             Int     @default(0) @db.UnsignedInt
+  generated_loot   Int?    @default(0) @db.TinyInt
+
+  @@index([itemEntry], map: "idx_itemEntry")
+  @@index([owner_guid], map: "idx_owner_guid")
+}
+
+model item_loot {
+  guid       Int @default(0) @db.UnsignedInt
+  owner_guid Int @default(0) @db.UnsignedInt
+  itemid     Int @default(0) @db.UnsignedInt
+  amount     Int @default(0) @db.UnsignedInt
+  property   Int @default(0)
+
+  @@id([guid, itemid])
+  @@index([owner_guid], map: "idx_owner_guid")
+}
+
+model item_text {
+  id   Int     @id @default(0) @db.UnsignedInt
+  text String? @db.LongText
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model logs_movement {
+  account    Int     @db.UnsignedInt
+  guid       Int     @db.UnsignedInt
+  posx       Float   @db.Float
+  posy       Float   @db.Float
+  posz       Float   @db.Float
+  map        Int     @db.UnsignedInt
+  desyncMs   Int
+  desyncDist Float   @db.Float
+  cheats     String? @db.VarChar(50)
+
+  @@ignore
+}
+
+model logs_warden {
+  entry      Int      @id @default(autoincrement()) @db.UnsignedInt
+  check      Int      @db.UnsignedSmallInt
+  action     Int      @default(0) @db.UnsignedTinyInt
+  account    Int      @db.UnsignedInt
+  guid       Int      @default(0) @db.UnsignedInt
+  map        Int?     @db.UnsignedInt
+  position_x Float?   @db.Float
+  position_y Float?   @db.Float
+  position_z Float?   @db.Float
+  date       DateTime @default(now()) @db.Timestamp(0)
+}
+
+model mail {
+  id             Int     @id @default(autoincrement()) @db.UnsignedInt
+  messageType    Int     @default(0) @db.UnsignedTinyInt
+  stationery     Int     @default(41) @db.TinyInt
+  mailTemplateId Int     @default(0) @db.UnsignedMediumInt
+  sender         Int     @default(0) @db.UnsignedInt
+  receiver       Int     @default(0) @db.UnsignedInt
+  subject        String? @db.LongText
+  itemTextId     Int     @default(0) @db.UnsignedInt
+  has_items      Int     @default(0) @db.UnsignedTinyInt
+  expire_time    BigInt  @default(0)
+  deliver_time   BigInt  @default(0)
+  money          Int     @default(0) @db.UnsignedInt
+  cod            Int     @default(0) @db.UnsignedInt
+  checked        Int     @default(0) @db.UnsignedTinyInt
+  isDeleted      Int?    @default(0) @db.UnsignedTinyInt
+
+  @@index([itemTextId], map: "FK_mail_item_text")
+  @@index([receiver], map: "idx_receiver")
+}
+
+model mail_items {
+  mail_id       Int @default(0) @db.UnsignedInt
+  item_guid     Int @default(0) @db.UnsignedInt
+  item_template Int @default(0) @db.UnsignedInt
+  receiver      Int @default(0) @db.UnsignedInt
+
+  @@id([mail_id, item_guid])
+  @@index([item_guid], map: "idx_item_guid")
+  @@index([receiver], map: "idx_receiver")
+}
+
+model migrations {
+  id   String @id @db.VarChar(255)
+  Name String @default("") @db.VarChar(255)
+  Hash String @default("0") @db.VarChar(128)
+}
+
+model pet_aura {
+  guid          Int    @default(0) @db.UnsignedInt
+  caster_guid   BigInt @default(0) @db.UnsignedBigInt
+  item_guid     Int    @default(0) @db.UnsignedInt
+  spell         Int    @default(0) @db.UnsignedInt
+  stackcount    Int    @default(1) @db.UnsignedInt
+  remaincharges Int    @default(0) @db.UnsignedInt
+  basepoints0   Int    @default(0)
+  basepoints1   Int    @default(0)
+  basepoints2   Int    @default(0)
+  periodictime0 Int    @default(0) @db.UnsignedInt
+  periodictime1 Int    @default(0) @db.UnsignedInt
+  periodictime2 Int    @default(0) @db.UnsignedInt
+  maxduration   Int    @default(0)
+  remaintime    Int    @default(0)
+  effIndexMask  Int    @default(0) @db.UnsignedInt
+
+  @@id([guid, caster_guid, item_guid, spell])
+}
+
+model pet_spell {
+  guid   Int @default(0) @db.UnsignedInt
+  spell  Int @default(0) @db.UnsignedInt
+  active Int @default(0) @db.UnsignedInt
+
+  @@id([guid, spell])
+}
+
+model pet_spell_cooldown {
+  guid  Int    @default(0) @db.UnsignedInt
+  spell Int    @default(0) @db.UnsignedInt
+  time  BigInt @default(0) @db.UnsignedBigInt
+
+  @@id([guid, spell])
+}
+
+model petition {
+  ownerguid    Int    @id @db.UnsignedInt
+  petitionguid Int?   @default(0) @db.UnsignedInt
+  charterguid  Int?   @unique(map: "charterguid") @db.UnsignedInt
+  name         String @default("") @db.VarChar(255)
+
+  @@unique([ownerguid, petitionguid], map: "key_ownerguid_petitionguid")
+}
+
+model petition_sign {
+  ownerguid      Int @db.UnsignedInt
+  petitionguid   Int @default(0) @db.UnsignedInt
+  playerguid     Int @default(0) @db.UnsignedInt
+  player_account Int @default(0) @db.UnsignedInt
+
+  @@id([petitionguid, playerguid])
+  @@index([ownerguid], map: "idx_ownerguid")
+  @@index([playerguid], map: "idx_playerguid")
+}
+
+model playerbot {
+  char_guid BigInt  @id @db.UnsignedBigInt
+  chance    Int     @default(10) @db.UnsignedInt
+  comment   String? @db.VarChar(255)
+  ai        String? @db.VarChar(50)
+}
+
+model realmcharacters {
+  realmid  Int    @default(0) @db.UnsignedInt
+  acctid   BigInt @db.UnsignedBigInt
+  numchars Int    @default(0) @db.UnsignedTinyInt
+
+  @@id([realmid, acctid])
+  @@index([acctid], map: "acctid")
+}
+
+model realmlist {
+  id                   Int    @id @default(autoincrement()) @db.UnsignedInt
+  name                 String @unique(map: "idx_name") @default("") @db.VarChar(32)
+  address              String @default("127.0.0.1") @db.VarChar(32)
+  port                 Int    @default(8085)
+  icon                 Int    @default(0) @db.UnsignedTinyInt
+  realmflags           Int    @default(2) @db.UnsignedTinyInt
+  timezone             Int    @default(0) @db.UnsignedTinyInt
+  allowedSecurityLevel Int    @default(0) @db.UnsignedInt
+  population           Float  @default(0) @db.Float
+  realmbuilds          String @default("5875") @db.VarChar(64)
+}
+
+model saved_variables {
+  key                     Boolean @id @default(false)
+  cleaning_flags          Int     @default(0) @db.UnsignedInt
+  lastHonorMaintenanceDay Int     @default(0) @db.UnsignedInt
+  nextHonorMaintenanceDay Int     @default(0) @db.UnsignedInt
+  honorMaintenanceMarker  Boolean @default(false)
+}
+
+model shop_coins {
+  id    Int @id @db.UnsignedInt
+  coins Int @default(0)
+}
+
+model shop_coins_history {
+  id            Int      @id @default(autoincrement()) @db.UnsignedInt
+  account_id    Int      @db.UnsignedInt
+  points        Int
+  actual_points Int
+  new_points    Int
+  type          String   @db.VarChar(256)
+  system        String   @db.VarChar(256)
+  reference     String   @db.VarChar(256)
+  date          DateTime @default(now()) @db.Timestamp(0)
+}
+
+model shop_diff {
+  guid       BigInt  @id @default(autoincrement()) @db.UnsignedBigInt
+  accountid  Int     @default(0) @db.UnsignedInt
+  prev_bonus Int
+  new_bonus  Int
+  date       Int     @default(0) @db.UnsignedInt
+  query      String? @db.VarChar(32)
+}
+
+model statistics_online {
+  guid         Int  @id @default(autoincrement()) @db.UnsignedInt
+  online       Int? @default(0) @db.UnsignedInt
+  online_alli  Int? @default(0)
+  online_horde Int? @default(0)
+  connections  Int? @default(0) @db.UnsignedInt
+  realm        Int? @default(0) @db.UnsignedTinyInt
+  date         Int? @db.UnsignedInt
+}
+
+model store_racechange {
+  guid         Int     @db.UnsignedInt
+  race         Boolean
+  gender       Boolean
+  playerbytes1 Int     @db.UnsignedInt
+  playerbytes2 Int     @db.UnsignedInt
+  transaction  Int     @id @default(autoincrement()) @db.UnsignedInt
+}
+
+model system_fingerprint_usage {
+  id           Int      @id @default(autoincrement()) @db.UnsignedInt
+  fingerprint  Int      @db.UnsignedInt
+  account      Int      @db.UnsignedInt
+  ip           String   @db.VarChar(16)
+  realm        Int      @db.UnsignedInt
+  time         DateTime @default(now()) @db.DateTime(0)
+  architecture String?  @db.VarChar(16)
+  cputype      String?  @db.VarChar(64)
+  activecpus   Int?     @db.UnsignedInt
+  totalcpus    Int?     @db.UnsignedInt
+  pagesize     Int?     @db.UnsignedInt
+
+  @@index([account], map: "account")
+  @@index([fingerprint], map: "fingerprint")
+  @@index([ip], map: "ip")
+}
+
+model uptime {
+  realmid       Int    @db.UnsignedInt
+  starttime     BigInt @default(0) @db.UnsignedBigInt
+  startstring   String @default("") @db.VarChar(64)
+  uptime        BigInt @default(0) @db.UnsignedBigInt
+  onlineplayers Int    @default(0) @db.UnsignedSmallInt
+  maxplayers    Int    @default(0) @db.UnsignedSmallInt
+  revision      String @default("Turtle WoW") @db.VarChar(255)
+
+  @@id([realmid, starttime])
+}
+
+model whisper_targets {
+  account     Int @db.UnsignedInt
+  target_guid Int @db.UnsignedInt
+  time        Int @db.UnsignedInt
+
+  @@unique([account, target_guid], map: "account_target")
+}
+
+model world {
+  map  Int     @id @default(0) @db.UnsignedInt
+  data String? @db.LongText
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model worldstates {
+  entry   Int?    @unique(map: "key_entry")
+  value   Int?
+  comment String? @db.VarChar(255)
+
+  @@ignore
+}
+
+enum bugreports_bugStatus {
+  New
+  NeedTest
+  Fixed
+  Invalid
+  Duplicate
+  Confirmed
+}
