@@ -8,14 +8,17 @@ import Head from 'next/head';
 import type { NextPage } from 'next';
 
 import { trpc } from '../utils/trpc';
-import theme from '../utils/theme';
 import Layout from '../components/Layout';
+import Theme from '../utils/theme';
 
-export type ExtendedNextPage = NextPage & {
+export type ExtendedPageProps = {
 	centered?: boolean;
 	rank?: number;
+	expandable?: boolean;
 	noBreadcrumbs?: boolean;
 };
+
+export type ExtendedNextPage = NextPage & ExtendedPageProps;
 
 type ExtendedAppProps = AppProps & {
 	Component: ExtendedNextPage;
@@ -37,9 +40,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
 			<link rel="icon" href="/favicon.ico" />
 		</Head>
 		<SessionProvider session={session}>
-			<ThemeProvider theme={theme}>
-				<GlobalStyles<typeof theme>
-					styles={_t => ({
+			<ThemeProvider theme={Theme}>
+				<GlobalStyles
+					styles={{
 						// Box model baseline
 						'*, *::before, *::after': {
 							margin: 0,
@@ -58,7 +61,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 							backgroundColor: '#100d0c'
 						},
 						// Text style baseline
-						'*': {
+						':not(svg, svg *)': {
 							color: 'white',
 							...din.style,
 							fontStyle: 'normal',
@@ -70,12 +73,13 @@ const MyApp: AppType<{ session: Session | null }> = ({
 						'*:focus': {
 							outline: 'none'
 						}
-					})}
+					}}
 				/>
 				<Layout
 					centered={Component.centered}
 					rank={Component.rank}
 					noBreadcrumbs={Component.noBreadcrumbs}
+					expandable={Component.expandable}
 				>
 					<Component {...pageProps} />
 				</Layout>

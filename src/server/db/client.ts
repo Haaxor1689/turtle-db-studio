@@ -1,5 +1,11 @@
-import { PrismaClient as WorldDbClient } from '../../../prisma/generated/worldDb';
-import { PrismaClient as UserDbClient } from '../../../prisma/generated/userDb';
+import {
+	PrismaClient as TurtleDbClient,
+	Prisma as TurtleDefs
+} from '../../../prisma/generated/turtleDb';
+import {
+	PrismaClient as LogonDbClient,
+	Prisma as LogonDefs
+} from '../../../prisma/generated/logonDb';
 import { env } from '../../env/server.mjs';
 
 const log = [
@@ -12,20 +18,22 @@ const log = [
 
 declare global {
 	// eslint-disable-next-line no-var
-	var worldDb: WorldDbClient<{ log: typeof log }> | undefined;
+	var turtleDb: TurtleDbClient<{ log: typeof log }> | undefined;
 	// eslint-disable-next-line no-var
-	var userDb: UserDbClient<{ log: typeof log }> | undefined;
+	var logonDb: LogonDbClient<{ log: typeof log }> | undefined;
 }
 
-export const worldDb = global.worldDb ?? new WorldDbClient({ log });
+export const turtleDb = global.turtleDb ?? new TurtleDbClient({ log });
+export const turtleDefinitions = TurtleDefs.dmmf;
 
-export const userDb = global.userDb ?? new UserDbClient({ log });
+export const logonDb = global.logonDb ?? new LogonDbClient({ log });
+export const logonDefinitions = LogonDefs.dmmf;
 
-userDb.$on('query', e => {
+logonDb.$on('query', e => {
 	console.log(e);
 });
 
 if (env.NODE_ENV !== 'production') {
-	global.worldDb = worldDb;
-	global.userDb = userDb;
+	global.turtleDb = turtleDb;
+	global.logonDb = logonDb;
 }

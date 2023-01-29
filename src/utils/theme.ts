@@ -82,23 +82,29 @@ const typography = {
 };
 export type TypographyVariants = keyof typeof typography | 'p';
 
-const theme = createTheme({
+const Theme = createTheme({
 	palette,
 	typography,
 	shape: {
 		borderRadius: 1,
-		border: (a = '30') => `1px solid ${palette.gray}${a}`,
+		border: (a = '90') => `1px solid ${palette.gray}${a}`,
 		gradientOrange: (a = '') => `linear-gradient(#F1C22D${a}, #FF7757${a})`,
 		gradientGreen: (a = '') => `linear-gradient(#C4CB63${a}, #72B840${a})`,
-		gradientYellow: (a = '') => `linear-gradient(#F7FF8A${a}, #8DD958${a})`
+		gradientYellow: (a = '') => `linear-gradient(#F7FF8A${a}, #8DD958${a})`,
+		svgGradient: {
+			orange: 'url(#gradientOrange)',
+			green: 'url(#gradientGreen)',
+			yellow: 'url(#gradientYellow)'
+		}
 	},
 	spacing: [0, 4, 8, 16, 32, 64, 128, 256, 512],
 	zIndex: {
 		header: 999
 	}
 });
+export type ThemeT = typeof Theme;
 
-export default theme;
+export default Theme;
 
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
 declare module '@mui/system' {
@@ -111,5 +117,10 @@ declare module '@mui/system' {
 		gradientOrange: (alpha?: string) => string;
 		gradientGreen: (alpha?: string) => string;
 		gradientYellow: (alpha?: string) => string;
+		svgGradient: {
+			orange: string;
+			green: string;
+			yellow: string;
+		};
 	}
 }

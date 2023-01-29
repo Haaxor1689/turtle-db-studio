@@ -10,5 +10,6 @@ const Users: ExtendedNextPage = () => {
 };
 
 Users.rank = AuthRanks.Admin;
+Users.expandable = true;
 
 export default Users;

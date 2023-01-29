@@ -1,7 +1,7 @@
 import type { SxProps } from '@mui/system';
 import { Box, keyframes } from '@mui/system';
 
-import type theme from '../../utils/theme';
+import type Theme from '../../utils/theme';
 
 const SpinKeyframes = keyframes`
   to { transform: rotate(360deg); }
@@ -9,7 +9,7 @@ const SpinKeyframes = keyframes`
 
 type Props = {
 	size?: number;
-	sx?: SxProps<typeof theme>;
+	sx?: SxProps<typeof Theme>;
 };
 
 const Spinner = ({ size = 50, sx }: Props) => (

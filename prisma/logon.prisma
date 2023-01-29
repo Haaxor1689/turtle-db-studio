@@ -1,0 +1,222 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/logonDb"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("LOGON_DATABASE_URL")
+}
+
+model account {
+  id             Int      @id @default(autoincrement()) @db.UnsignedInt
+  username       String   @unique(map: "idx_username") @db.VarChar(32)
+  sha_pass_hash  String   @db.VarChar(40)
+  rank           Int      @default(0) @db.UnsignedInt
+  sessionkey     String?  @db.LongText
+  v              String?  @db.LongText
+  s              String?  @db.LongText
+  email          String?  @db.Text
+  joindate       DateTime @default(now()) @db.Timestamp(0)
+  tfa_verif      String?  @db.VarChar(255)
+  last_ip        String   @default("0.0.0.0") @db.VarChar(30)
+  last_local_ip  String   @default("0.0.0.0") @db.VarChar(30)
+  failed_logins  Int      @default(0) @db.UnsignedInt
+  locked         Int      @default(0) @db.UnsignedTinyInt
+  last_login     DateTime @default(dbgenerated("('0000-00-00 00:00:00')")) @db.Timestamp(0)
+  online         Int      @default(0) @db.TinyInt
+  expansion      Int      @default(0) @db.UnsignedTinyInt
+  mutetime       BigInt   @default(0)
+  mutereason     String   @default("") @db.VarChar(255)
+  muteby         String   @default("") @db.VarChar(50)
+  locale         Int      @default(0) @db.UnsignedTinyInt
+  os             String   @default("") @db.VarChar(4)
+  current_realm  Int      @default(0) @db.UnsignedTinyInt
+  banned         Boolean  @default(false)
+  flags          Int      @default(0) @db.UnsignedInt
+  security       String?  @db.VarChar(255)
+  pass_verif     String?  @db.VarChar(255)
+  email_verif    Boolean  @default(false)
+  forum_username String?  @db.VarChar(32)
+  token_key      String?  @default("") @db.VarChar(100)
+  email_keyword  String?  @db.VarChar(16)
+  email_status   Int?
+  email_sub      Int      @default(1) @db.TinyInt
+  comments       String?  @db.Text
+  geolock_pin    Int?     @default(0)
+
+  @@index([rank], map: "idx_gmlevel")
+}
+
+model account_banned {
+  banid     BigInt @unique(map: "banid") @default(autoincrement())
+  id        BigInt @default(0)
+  bandate   BigInt @default(0)
+  unbandate BigInt @default(0)
+  bannedby  String @db.VarChar(50)
+  banreason String @db.VarChar(255)
+  active    Int    @default(1) @db.TinyInt
+  realm     Int    @default(1) @db.TinyInt
+  gmlevel   Int    @default(0) @db.UnsignedTinyInt
+
+  @@id([id, bandate])
+}
+
+model account_mailstatus {
+  message_id Int     @id @default(autoincrement()) @db.UnsignedInt
+  account_id Int     @default(0) @db.UnsignedInt
+  email      String? @db.Text
+  status     Int?
+  letterid   Int?
+}
+
+model account_mailstatus_archive {
+  message_id Int     @id @default(autoincrement()) @db.UnsignedInt
+  account_id Int     @default(0) @db.UnsignedInt
+  email      String? @db.Text
+  status     Int?
+  letterid   Int?
+}
+
+model account_twofactor_allowed {
+  id         Int     @id @default(autoincrement())
+  ip_address String  @default("0") @db.VarChar(30)
+  account_id Int?    @db.UnsignedInt
+  expires_at BigInt? @db.UnsignedBigInt
+}
+
+model antispam_blacklist {
+  string String @id @db.VarChar(64)
+}
+
+model antispam_client {
+  Regex String  @id @db.VarChar(255)
+  Note  String? @db.VarChar(64)
+}
+
+model antispam_replacement {
+  from String @id @default("") @db.VarChar(32)
+  to   String @default("") @db.VarChar(32)
+}
+
+model antispam_unicode_replacement {
+  from Int @id @default(0) @db.UnsignedMediumInt
+  to   Int @default(0) @db.UnsignedMediumInt
+}
+
+model config {
+  id      Int     @id
+  value   String? @db.VarChar(45)
+  comment String? @db.VarChar(255)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model geoip {
+  network_start_integer          Int?
+  network_last_integer           Int?
+  geoname_id                     String? @db.Text
+  registered_country_geoname_id  String? @db.Text
+  represented_country_geoname_id String? @db.Text
+  is_anonymous_proxy             Int?
+  is_satellite_provider          Int?
+  postal_code                    String? @db.Text
+  latitude                       Float?
+  longitude                      Float?
+  accuracy_radius                Int?
+
+  @@index([network_last_integer], map: "ip_end")
+  @@index([network_start_integer], map: "ip_start")
+  @@ignore
+}
+
+model ip_banned {
+  ip        String @default("0.0.0.0") @db.VarChar(32)
+  bandate   Int
+  unbandate Int
+  bannedby  String @default("[Console]") @db.VarChar(50)
+  banreason String @default("no reason") @db.VarChar(128)
+
+  @@id([ip, bandate])
+}
+
+model migrations {
+  id   String @id @db.VarChar(255)
+  Name String @default("") @db.VarChar(255)
+  Hash String @default("0") @db.VarChar(128)
+}
+
+model realmcharacters {
+  realmid  Int    @default(0) @db.UnsignedInt
+  acctid   BigInt @db.UnsignedBigInt
+  numchars Int    @default(0) @db.UnsignedTinyInt
+
+  @@id([realmid, acctid])
+  @@index([acctid], map: "acctid")
+}
+
+model realmlist {
+  id                   Int    @id @default(autoincrement()) @db.UnsignedInt
+  name                 String @unique(map: "idx_name") @default("") @db.VarChar(32)
+  address              String @default("127.0.0.1") @db.VarChar(32)
+  port                 Int    @default(8085)
+  icon                 Int    @default(0) @db.UnsignedTinyInt
+  realmflags           Int    @default(2) @db.UnsignedTinyInt
+  timezone             Int    @default(0) @db.UnsignedTinyInt
+  allowedSecurityLevel Int    @default(0) @db.UnsignedInt
+  population           Float  @default(0) @db.Float
+  realmbuilds          String @default("5875") @db.VarChar(64)
+}
+
+model shop_coins {
+  id    Int @id @db.UnsignedInt
+  coins Int @default(0)
+}
+
+model shop_diff {
+  guid       BigInt  @id @default(autoincrement()) @db.UnsignedBigInt
+  accountid  Int     @default(0) @db.UnsignedInt
+  prev_bonus Int
+  new_bonus  Int
+  date       Int     @default(0) @db.UnsignedInt
+  query      String? @db.VarChar(32)
+}
+
+model statistics_online {
+  guid         Int  @id @default(autoincrement()) @db.UnsignedInt
+  online       Int? @default(0) @db.UnsignedInt
+  online_alli  Int? @default(0)
+  online_horde Int? @default(0)
+  connections  Int? @default(0) @db.UnsignedInt
+  realm        Int? @default(0) @db.UnsignedTinyInt
+  date         Int? @db.UnsignedInt
+}
+
+model system_fingerprint_usage {
+  id           Int      @id @default(autoincrement()) @db.UnsignedInt
+  fingerprint  Int      @db.UnsignedInt
+  account      Int      @db.UnsignedInt
+  ip           String   @db.VarChar(16)
+  realm        Int      @db.UnsignedInt
+  time         DateTime @default(now()) @db.DateTime(0)
+  architecture String?  @db.VarChar(16)
+  cputype      String?  @db.VarChar(64)
+  activecpus   Int?     @db.UnsignedInt
+  totalcpus    Int?     @db.UnsignedInt
+  pagesize     Int?     @db.UnsignedInt
+
+  @@index([account], map: "account")
+  @@index([fingerprint], map: "fingerprint")
+  @@index([ip], map: "ip")
+}
+
+model uptime {
+  realmid       Int    @db.UnsignedInt
+  starttime     BigInt @default(0) @db.UnsignedBigInt
+  startstring   String @default("") @db.VarChar(64)
+  uptime        BigInt @default(0) @db.UnsignedBigInt
+  onlineplayers Int    @default(0) @db.UnsignedSmallInt
+  maxplayers    Int    @default(0) @db.UnsignedSmallInt
+  revision      String @default("Turtle WoW") @db.VarChar(255)
+
+  @@id([realmid, starttime])
+}

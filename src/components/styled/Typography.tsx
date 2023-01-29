@@ -1,6 +1,6 @@
 import { Box, type BoxProps } from '@mui/system';
 
-import type { TypographyVariants } from '../utils/theme';
+import type { TypographyVariants } from '../../utils/theme';
 
 const variantToComponent = (variant: TypographyVariants) => {
 	switch (variant) {

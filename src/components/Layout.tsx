@@ -5,18 +5,24 @@ import { signOut, useSession } from 'next-auth/react';
 import type { PropsWithChildren } from 'react';
 import { useMemo } from 'react';
 import { useRouter } from 'next/router';
+import { Expand, Shrink } from 'lucide-react';
 
 import logo from '../assets/logo.svg';
-import type theme from '../utils/theme';
+import { type ThemeT } from '../utils/theme';
 import PageBackground from '../assets/page_background.png';
 import useAuthGuard from '../hooks/useAuthGuard';
 import { getPageName } from '../utils';
+import useLocalStorage from '../hooks/useLocalStorage';
+import type { ExtendedPageProps } from '../pages/_app';
+import { AuthRanks } from '../types';
 
 import Link from './styled/Link';
 import Typography from './styled/Typography';
 import Surface from './styled/Surface';
 import Spinner from './styled/Spinner';
 import Breadcrumbs from './Breadcrumbs';
+import SvgGradients from './SvgGradients';
+import IconButton from './styled/IconButton';
 
 type NavItem = {
 	label: string;
@@ -27,33 +33,40 @@ const useNavItems = (userRank?: number) =>
 	useMemo(() => {
 		const navItems: NavItem[] = [];
 		switch (userRank) {
-			case 1:
+			case AuthRanks.Admin:
 				navItems.push({ label: 'Users', href: '/admin/users' });
+			// falls through
+			case AuthRanks.User:
+				navItems.push({ label: 'Tables', href: '/tables' });
+				break;
 		}
 		return navItems;
 	}, [userRank]);
 
-const ContainerMixin: SxProps<typeof theme> = {
+const ContainerMixin = (isExpanded?: boolean): SxProps<ThemeT> => ({
 	width: '100%',
-	maxWidth: t => t.breakpoints.values.lg,
+	maxWidth: isExpanded ? '100%' : 'lg',
 	mx: 'auto',
-	px: [3, null, null, 0]
-};
+	px: [3, null, null, isExpanded ? 3 : 0]
+});
 
-type Props = PropsWithChildren<{
-	centered?: boolean;
-	rank?: number;
-	noBreadcrumbs?: boolean;
-}>;
-
-const Layout = ({ centered, rank, noBreadcrumbs, children }: Props) => {
+const Layout = ({
+	centered,
+	rank,
+	noBreadcrumbs,
+	expandable,
+	children
+}: PropsWithChildren<ExtendedPageProps>) => {
 	const { data: session, status: sessionStatus } = useSession();
 	const navItems = useNavItems(session?.user?.rank);
 	const isRedirecting = useAuthGuard(rank);
 	const { asPath } = useRouter();
 
+	const [isExpanded, setExpanded] = useLocalStorage('expanded-mode', false);
+
 	return (
 		<>
+			<SvgGradients />
 			<Surface
 				component="header"
 				sx={{
@@ -69,7 +82,7 @@ const Layout = ({ centered, rank, noBreadcrumbs, children }: Props) => {
 						alignItems: 'center',
 						gap: 3,
 						py: 3,
-						...ContainerMixin
+						...ContainerMixin()
 					}}
 				>
 					<Link
@@ -136,7 +149,7 @@ const Layout = ({ centered, rank, noBreadcrumbs, children }: Props) => {
 							centered || sessionStatus === 'loading' ? 'center' : undefined,
 						gap: 4,
 						py: 4,
-						...ContainerMixin
+						...ContainerMixin(expandable && isExpanded)
 					}}
 				>
 					{sessionStatus === 'loading' || isRedirecting ? (
@@ -144,15 +157,29 @@ const Layout = ({ centered, rank, noBreadcrumbs, children }: Props) => {
 					) : (
 						<>
 							{!noBreadcrumbs && !centered && (
-								<Surface>
-									<Breadcrumbs />
-									<Typography
-										variant="h2"
-										color
-										sx={{ textTransform: 'capitalize' }}
-									>
-										{getPageName(asPath)}
-									</Typography>
+								<Surface
+									sx={{
+										display: 'flex',
+										justifyContent: 'space-between',
+										alignItems: 'center'
+									}}
+								>
+									<Box sx={{ display: 'flex', flexDirection: 'column' }}>
+										<Breadcrumbs />
+										<Typography
+											variant="h2"
+											color
+											sx={{ textTransform: 'capitalize' }}
+										>
+											{getPageName(asPath)}
+										</Typography>
+									</Box>
+									{expandable && (
+										<IconButton
+											icon={isExpanded ? <Shrink /> : <Expand />}
+											onClick={() => setExpanded(!isExpanded)}
+										/>
+									)}
 								</Surface>
 							)}
 							{children}
@@ -163,14 +190,12 @@ const Layout = ({ centered, rank, noBreadcrumbs, children }: Props) => {
 
 			<Surface component="footer" sx={{ mt: 3 }}>
 				<Box
-					component="main"
 					sx={{
 						display: 'flex',
-						flexDirection: 'column',
-						justifyContent: centered ? 'center' : undefined,
+						justifyContent: 'space-between',
 						gap: 4,
 						py: 4,
-						...ContainerMixin
+						...ContainerMixin()
 					}}
 				>
 					To make RMJ&apos;s life easier

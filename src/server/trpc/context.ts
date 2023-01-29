@@ -3,7 +3,12 @@ import { type CreateNextContextOptions } from '@trpc/server/adapters/next';
 import { type Session } from 'next-auth';
 
 import { getServerAuthSession } from '../common/get-server-auth-session';
-import { worldDb, userDb } from '../db/client';
+import {
+	turtleDb,
+	logonDb,
+	turtleDefinitions,
+	logonDefinitions
+} from '../db/client';
 
 type CreateContextOptions = {
 	session: Session | null;
@@ -16,8 +21,10 @@ type CreateContextOptions = {
  **/
 export const createContextInner = async (opts: CreateContextOptions) => ({
 	session: opts.session,
-	worldDb,
-	userDb
+	turtleDb,
+	turtleDefinitions,
+	logonDb,
+	logonDefinitions
 });
 
 /**

@@ -1,11 +1,11 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "./generated/worldDb"
+  output   = "./generated/turtleDb"
 }
 
 datasource db {
   provider = "mysql"
-  url      = env("WORLD_DATABASE_URL")
+  url      = env("TURTLE_DATABASE_URL")
 }
 
 model area_template {

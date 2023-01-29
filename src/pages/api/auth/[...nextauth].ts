@@ -2,7 +2,7 @@ import NextAuth, { type NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { z } from 'zod';
 
-import { userDb } from '../../../server/db/client';
+import { logonDb } from '../../../server/db/client';
 
 export const authOptions: NextAuthOptions = {
 	callbacks: {
@@ -24,7 +24,7 @@ export const authOptions: NextAuthOptions = {
 		CredentialsProvider({
 			credentials: { username: {}, password: {} },
 			authorize: async credentials => {
-				const user = await userDb.account
+				const user = await logonDb.account
 					.findFirst({
 						where: { username: credentials?.username },
 						select: {
