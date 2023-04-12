@@ -1,16 +1,9 @@
 import { type Resolver, type FieldValues } from 'react-hook-form';
 import type { z } from 'zod';
+import { zodResolver as resolver } from '@hookform/resolvers/zod';
 
-const zodResolver =
-	<T extends FieldValues>(schema: z.ZodSchema<T>): Resolver<T> =>
-	async values => {
-		console.log(values);
-
-		const result = await schema.safeParseAsync(values);
-		return {
-			values: result.success ? result.data : {},
-			errors: result.success ? {} : result.error
-		};
-	};
+const zodResolver = <In extends FieldValues, Out extends FieldValues>(
+	schema: z.ZodType<In, z.ZodTypeDef, Out>
+): Resolver<z.infer<z.ZodType<In, z.ZodTypeDef, Out>>> => resolver(schema);
 
 export default zodResolver;

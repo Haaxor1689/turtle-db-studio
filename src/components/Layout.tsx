@@ -4,14 +4,11 @@ import { Box } from '@mui/system';
 import { signOut, useSession } from 'next-auth/react';
 import type { PropsWithChildren } from 'react';
 import { useMemo } from 'react';
-import { useRouter } from 'next/router';
-import { Expand, Shrink } from 'lucide-react';
 
 import logo from '../assets/logo.svg';
 import { type ThemeT } from '../utils/theme';
 import PageBackground from '../assets/page_background.png';
 import useAuthGuard from '../hooks/useAuthGuard';
-import { getPageName } from '../utils';
 import useLocalStorage from '../hooks/useLocalStorage';
 import type { ExtendedPageProps } from '../pages/_app';
 import { AuthRanks } from '../types';
@@ -20,9 +17,7 @@ import Link from './styled/Link';
 import Typography from './styled/Typography';
 import Surface from './styled/Surface';
 import Spinner from './styled/Spinner';
-import Breadcrumbs from './Breadcrumbs';
 import SvgGradients from './SvgGradients';
-import IconButton from './styled/IconButton';
 
 type NavItem = {
 	label: string;
@@ -53,16 +48,14 @@ const ContainerMixin = (isExpanded?: boolean): SxProps<ThemeT> => ({
 const Layout = ({
 	centered,
 	rank,
-	noBreadcrumbs,
 	expandable,
 	children
 }: PropsWithChildren<ExtendedPageProps>) => {
 	const { data: session, status: sessionStatus } = useSession();
 	const navItems = useNavItems(session?.user?.rank);
 	const isRedirecting = useAuthGuard(rank);
-	const { asPath } = useRouter();
 
-	const [isExpanded, setExpanded] = useLocalStorage('expanded-mode', false);
+	const [isExpanded] = useLocalStorage('expanded-mode', false);
 
 	return (
 		<>
@@ -155,35 +148,7 @@ const Layout = ({
 					{sessionStatus === 'loading' || isRedirecting ? (
 						<Spinner size={70} sx={{ alignSelf: 'center' }} />
 					) : (
-						<>
-							{!noBreadcrumbs && !centered && (
-								<Surface
-									sx={{
-										display: 'flex',
-										justifyContent: 'space-between',
-										alignItems: 'center'
-									}}
-								>
-									<Box sx={{ display: 'flex', flexDirection: 'column' }}>
-										<Breadcrumbs />
-										<Typography
-											variant="h2"
-											color
-											sx={{ textTransform: 'capitalize' }}
-										>
-											{getPageName(asPath)}
-										</Typography>
-									</Box>
-									{expandable && (
-										<IconButton
-											icon={isExpanded ? <Shrink /> : <Expand />}
-											onClick={() => setExpanded(!isExpanded)}
-										/>
-									)}
-								</Surface>
-							)}
-							{children}
-						</>
+						children
 					)}
 				</Box>
 			</Box>

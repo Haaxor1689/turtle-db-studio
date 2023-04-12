@@ -1,19 +1,22 @@
 import { useRouter } from 'next/router';
 
-import Table from '../../components/table/Table';
-import { AuthRanks } from '../../types';
-import { trpc } from '../../utils/trpc';
-import type { ExtendedNextPage } from '../_app';
+import PageTitle from '~/components/PageTitle';
+import Table from '~/components/table/Table';
+import { AuthRanks } from '~/types';
+import type { ExtendedNextPage } from '~/pages/_app';
 
 const DbTable: ExtendedNextPage = () => {
 	const router = useRouter();
-	const { table: tName } = router.query;
+	const { table } = router.query;
 
-	const table = trpc.tables.getTableData.useQuery(
-		(Array.isArray(tName) ? tName[0] : tName) ?? ''
+	if (Array.isArray(table) || !table) return null;
+
+	return (
+		<>
+			<PageTitle />
+			<Table table={table} db="turtle" />
+		</>
 	);
-
-	return <Table {...table} />;
 };
 
 DbTable.rank = AuthRanks.User;

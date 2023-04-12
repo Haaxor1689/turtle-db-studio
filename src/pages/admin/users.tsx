@@ -1,13 +1,14 @@
-import Table from '../../components/table/Table';
-import { AuthRanks } from '../../types';
-import { trpc } from '../../utils/trpc';
-import type { ExtendedNextPage } from '../_app';
+import PageTitle from '~/components/PageTitle';
+import Table from '~/components/table/Table';
+import { AuthRanks } from '~/types';
+import type { ExtendedNextPage } from '~/pages/_app';
 
-const Users: ExtendedNextPage = () => {
-	const users = trpc.user.getAll.useQuery();
-
-	return <Table {...users} />;
-};
+const Users: ExtendedNextPage = () => (
+	<>
+		<PageTitle />
+		<Table table="account" db="logon" />
+	</>
+);
 
 Users.rank = AuthRanks.Admin;
 Users.expandable = true;

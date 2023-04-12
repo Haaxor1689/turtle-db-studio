@@ -1,6 +1,6 @@
 import { Box } from '@mui/system';
 
-import Typography from '../components/styled/Typography';
+import Typography from '~/components/styled/Typography';
 
 import type { ExtendedNextPage } from './_app';
 

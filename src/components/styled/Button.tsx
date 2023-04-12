@@ -1,10 +1,16 @@
 import { Box, type BoxProps } from '@mui/system';
 import type { HTMLProps } from 'react';
 
-type Props = { primary?: boolean } & HTMLProps<'button'> & BoxProps;
+import Spinner from './Spinner';
+
+type Props = HTMLProps<'button'> &
+	BoxProps & {
+		primary?: boolean;
+		loading?: boolean;
+	};
 
 // TODO: Loading state
-const Button = ({ primary, children, ...props }: Props) => (
+const Button = ({ primary, loading, children, ...props }: Props) => (
 	<Box
 		component="button"
 		{...props}
@@ -12,6 +18,7 @@ const Button = ({ primary, children, ...props }: Props) => (
 			'overflow': 'hidden',
 			'position': 'relative',
 			'cursor': 'pointer',
+			'pointerEvents': loading ? 'none' : undefined,
 			'py': 2,
 			'px': 4,
 			'backgroundColor': 'darkGray',
@@ -36,6 +43,10 @@ const Button = ({ primary, children, ...props }: Props) => (
 				filter: 'blur(25px)'
 			},
 			'& > span': {
+				display: 'flex',
+				alignItems: 'center',
+				justifyContent: 'center',
+				gap: 2,
 				typography: 'button',
 				background: t =>
 					primary ? t.shape.gradientYellow() : t.shape.gradientOrange(),
@@ -72,7 +83,10 @@ const Button = ({ primary, children, ...props }: Props) => (
 			...(props.sx ?? {})
 		}}
 	>
-		<Box component="span">{children}</Box>
+		<Box component="span">
+			{loading && <Spinner size={23} />}
+			{children}
+		</Box>
 	</Box>
 );
 

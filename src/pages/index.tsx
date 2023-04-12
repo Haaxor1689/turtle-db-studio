@@ -1,7 +1,7 @@
 import { useSession } from 'next-auth/react';
 
-import Surface from '../components/styled/Surface';
-import Typography from '../components/styled/Typography';
+import Surface from '~/components/styled/Surface';
+import Typography from '~/components/styled/Typography';
 
 import type { ExtendedNextPage } from './_app';
 
@@ -13,7 +13,5 @@ const Home: ExtendedNextPage = () => {
 		</Surface>
 	);
 };
-
-Home.noBreadcrumbs = true;
 
 export default Home;

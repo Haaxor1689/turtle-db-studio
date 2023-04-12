@@ -1,10 +1,6 @@
 import { createTheme } from '@mui/system';
-import localFont from '@next/font/local';
 
-const fontin = localFont({
-	src: '../assets/FontinSans-Regular.otf',
-	variable: '--fontin-font'
-});
+import { fontin } from './fonts';
 
 const palette = {
 	mode: 'dark',

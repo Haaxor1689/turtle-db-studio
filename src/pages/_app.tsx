@@ -3,19 +3,18 @@ import { type AppType } from 'next/app';
 import { type Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
 import { GlobalStyles, ThemeProvider } from '@mui/system';
-import localFont from '@next/font/local';
 import Head from 'next/head';
 import type { NextPage } from 'next';
 
-import { trpc } from '../utils/trpc';
-import Layout from '../components/Layout';
-import Theme from '../utils/theme';
+import { api } from '~/utils/api';
+import Layout from '~/components/Layout';
+import Theme from '~/utils/theme';
+import { din } from '~/utils/fonts';
 
 export type ExtendedPageProps = {
 	centered?: boolean;
 	rank?: number;
 	expandable?: boolean;
-	noBreadcrumbs?: boolean;
 };
 
 export type ExtendedNextPage = NextPage & ExtendedPageProps;
@@ -23,11 +22,6 @@ export type ExtendedNextPage = NextPage & ExtendedPageProps;
 type ExtendedAppProps = AppProps & {
 	Component: ExtendedNextPage;
 };
-
-const din = localFont({
-	src: '../assets/DINPro-Regular.otf',
-	variable: '--din-font'
-});
 
 const MyApp: AppType<{ session: Session | null }> = ({
 	Component,
@@ -72,13 +66,21 @@ const MyApp: AppType<{ session: Session | null }> = ({
 						// Focus style reset
 						'*:focus': {
 							outline: 'none'
+						},
+						// Hide number input arrows
+						'input::-webkit-outer-spin-button, input::-webkit-inner-spin-button':
+							{
+								WebkitAppearance: 'none',
+								margin: 0
+							},
+						'input[type=number]': {
+							MozAppearance: 'textfield'
 						}
 					}}
 				/>
 				<Layout
 					centered={Component.centered}
 					rank={Component.rank}
-					noBreadcrumbs={Component.noBreadcrumbs}
 					expandable={Component.expandable}
 				>
 					<Component {...pageProps} />
@@ -88,4 +90,4 @@ const MyApp: AppType<{ session: Session | null }> = ({
 	</>
 );
 
-export default trpc.withTRPC(MyApp);
+export default api.withTRPC(MyApp);

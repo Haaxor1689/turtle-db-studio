@@ -4,20 +4,21 @@ import sha1 from 'sha1';
 import { z } from 'zod';
 import { signIn } from 'next-auth/react';
 
-import zodResolver from '../utils/zodResolver';
-import TextInput from '../components/form/TextInput';
-import Button from '../components/styled/Button';
-import Surface from '../components/styled/Surface';
-import Typography from '../components/styled/Typography';
-import { AuthRanks } from '../types';
+import zodResolver from '~/utils/zodResolver';
+import TextInput from '~/components/form/TextInput';
+import Button from '~/components/styled/Button';
+import Surface from '~/components/styled/Surface';
+import Typography from '~/components/styled/Typography';
+import { AuthRanks } from '~/types';
 
 import type { ExtendedNextPage } from './_app';
 
 const Login: ExtendedNextPage = () => {
 	const {
 		handleSubmit,
-		register
-		// formState: { errors }
+		register,
+		setError,
+		formState: { isSubmitting, errors }
 	} = useForm({
 		resolver: zodResolver(
 			z.object({
@@ -31,7 +32,7 @@ const Login: ExtendedNextPage = () => {
 	});
 
 	// TODO: Error handling
-	// console.log(errors);
+	console.log({ errors });
 
 	return (
 		<>
@@ -42,19 +43,19 @@ const Login: ExtendedNextPage = () => {
 				component="form"
 				onSubmit={handleSubmit(async values => {
 					try {
-						console.log('submit', values);
-
 						const res = await signIn('credentials', {
 							...values,
 							redirect: false
 						});
 						console.log(res);
-						if (!res?.ok) {
-							// TODO: Error handling
-							return;
-						}
+
+						if (!res?.ok) throw new Error(res?.error);
 					} catch (e) {
-						console.log(e);
+						setError('root', {
+							type: 'custom',
+							message:
+								e instanceof Error ? e.message : 'Unexpected error occurred'
+						});
 					}
 				})}
 				sx={{
@@ -77,7 +78,10 @@ const Login: ExtendedNextPage = () => {
 					type="password"
 				/>
 
-				<Button primary sx={{ mt: 4 }}>
+				{errors.root && (
+					<Typography sx={{ color: 'red' }}>{errors.root.message}</Typography>
+				)}
+				<Button primary sx={{ mt: 4 }} loading={isSubmitting}>
 					Login
 				</Button>
 			</Surface>

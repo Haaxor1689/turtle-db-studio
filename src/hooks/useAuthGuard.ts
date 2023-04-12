@@ -3,7 +3,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 
-import { AuthRanks } from '../types';
+import { AuthRanks } from '~/types';
 
 const useAuthGuard = (rank: User['rank'] = AuthRanks.Public) => {
 	const { data: session, status } = useSession();
