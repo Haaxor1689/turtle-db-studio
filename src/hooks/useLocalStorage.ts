@@ -1,22 +1,20 @@
 import { useEffect, useState } from 'react';
 
 const getValue = (key: string) => {
+	if (typeof window === 'undefined') return undefined;
 	const val = localStorage.getItem(key);
 	return val ? JSON.parse(val) : undefined;
 };
 
 const useLocalStorage = <T = string>(key: string, initialValue?: T) => {
-	const [value, setValue] = useState(initialValue);
+	const [value, setValue] = useState(getValue(key) ?? initialValue);
 
 	// Register `storage` listener that updates the state
 	useEffect(() => {
 		const updateState = () => setValue(getValue(key));
-		updateState();
-		addEventListener('storage', updateState);
-		return () => {
-			removeEventListener('storage', updateState);
-		};
-	}, []);
+		addEventListener(`storage-${key}`, updateState);
+		return () => removeEventListener(`storage-${key}`, updateState);
+	}, [key]);
 
 	return [
 		value,
@@ -25,7 +23,7 @@ const useLocalStorage = <T = string>(key: string, initialValue?: T) => {
 			newVal !== undefined
 				? localStorage.setItem(key, JSON.stringify(newVal))
 				: localStorage.removeItem(key);
-			dispatchEvent(new Event('storage'));
+			dispatchEvent(new Event(`storage-${key}`));
 		}
 	] as const;
 };

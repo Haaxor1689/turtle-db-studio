@@ -5,6 +5,7 @@ import { SessionProvider } from 'next-auth/react';
 import { GlobalStyles, ThemeProvider } from '@mui/system';
 import Head from 'next/head';
 import type { NextPage } from 'next';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { api } from '~/utils/api';
 import Layout from '~/components/Layout';
@@ -84,6 +85,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 					expandable={Component.expandable}
 				>
 					<Component {...pageProps} />
+					<ReactQueryDevtools />
 				</Layout>
 			</ThemeProvider>
 		</SessionProvider>

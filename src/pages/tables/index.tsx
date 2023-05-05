@@ -18,7 +18,7 @@ const DbTablesList: ExtendedNextPage = () => {
 	const [search, setSearch] = useState('');
 
 	const filtered = (models.data ?? []).filter(
-		m => !search || m.name.match(search)
+		m => !search || m.name.replace(/_/g, ' ').match(search)
 	);
 
 	console.log(

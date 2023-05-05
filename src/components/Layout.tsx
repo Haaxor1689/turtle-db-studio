@@ -4,6 +4,7 @@ import { Box } from '@mui/system';
 import { signOut, useSession } from 'next-auth/react';
 import type { PropsWithChildren } from 'react';
 import { useMemo } from 'react';
+import { Maximize, Minimize } from 'lucide-react';
 
 import logo from '../assets/logo.svg';
 import { type ThemeT } from '../utils/theme';
@@ -18,6 +19,7 @@ import Typography from './styled/Typography';
 import Surface from './styled/Surface';
 import Spinner from './styled/Spinner';
 import SvgGradients from './SvgGradients';
+import IconButton from './styled/IconButton';
 
 type NavItem = {
 	label: string;
@@ -55,7 +57,7 @@ const Layout = ({
 	const navItems = useNavItems(session?.user?.rank);
 	const isRedirecting = useAuthGuard(rank);
 
-	const [isExpanded] = useLocalStorage('expanded-mode', false);
+	const [isExpanded, setExpanded] = useLocalStorage('expanded-mode', false);
 
 	return (
 		<>
@@ -164,6 +166,13 @@ const Layout = ({
 					}}
 				>
 					To make RMJ&apos;s life easier
+					{expandable && (
+						<IconButton
+							title={isExpanded ? 'Page width' : 'Full width'}
+							onClick={() => setExpanded(!isExpanded)}
+							icon={isExpanded ? <Minimize /> : <Maximize />}
+						/>
+					)}
 				</Box>
 			</Surface>
 		</>
