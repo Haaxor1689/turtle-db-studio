@@ -1,29 +1,17 @@
-import { Box, type BoxProps } from '@mui/system';
+import cls from 'classnames';
 import { forwardRef, type HTMLProps } from 'react';
 
-const TextInput = forwardRef<
-	HTMLInputElement,
-	Omit<HTMLProps<'input'>, 'onChange'> & BoxProps<'input'>
->((props, ref) => (
-	<Box
-		component="input"
-		ref={ref}
-		{...props}
-		sx={{
-			'color': 'white',
-			'backgroundColor': 'darkerGray',
-			'border': t => t.shape.border(),
-			'borderRadius': t => t.shape.borderRadius,
-			'p': 2,
-			':focus': {
-				border: t => t.shape.border('FF')
-			},
-			'::placeholder': {
-				color: 'gray'
-			},
-			...(props.sx ?? {})
-		}}
-	/>
-));
+const TextInput = forwardRef<HTMLInputElement, HTMLProps<HTMLInputElement>>(
+	(props, ref) => (
+		<input
+			ref={ref}
+			{...props}
+			className={cls(
+				'rounded-[1px] border border-gray/40 bg-darkerGray p-2 placeholder:text-gray focus:border-blueGray',
+				props.className
+			)}
+		/>
+	)
+);
 
 export default TextInput;

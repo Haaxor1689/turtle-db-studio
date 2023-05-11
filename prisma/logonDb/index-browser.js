@@ -13,12 +13,12 @@ const Prisma = {}
 exports.Prisma = Prisma
 
 /**
- * Prisma Client JS version: 4.8.0
- * Query Engine version: d6e67a83f971b175a593ccc12e15c4a757f93ffe
+ * Prisma Client JS version: 4.13.0
+ * Query Engine version: 1e7af066ee9cb95cf3a403c78d9aab3e6b04f37a
  */
 Prisma.prismaVersion = {
-  client: "4.8.0",
-  engine: "d6e67a83f971b175a593ccc12e15c4a757f93ffe"
+  client: "4.13.0",
+  engine: "1e7af066ee9cb95cf3a403c78d9aab3e6b04f37a"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -85,11 +85,8 @@ Prisma.NullTypes = {
 /**
  * Enums
  */
-// Based on
-// https://github.com/microsoft/TypeScript/issues/3192#issuecomment-261720275
-function makeEnum(x) { return x; }
 
-exports.Prisma.AccountScalarFieldEnum = makeEnum({
+exports.Prisma.AccountScalarFieldEnum = {
   id: 'id',
   username: 'username',
   sha_pass_hash: 'sha_pass_hash',
@@ -125,9 +122,9 @@ exports.Prisma.AccountScalarFieldEnum = makeEnum({
   email_sub: 'email_sub',
   comments: 'comments',
   geolock_pin: 'geolock_pin'
-});
+};
 
-exports.Prisma.Account_bannedScalarFieldEnum = makeEnum({
+exports.Prisma.Account_bannedScalarFieldEnum = {
   banid: 'banid',
   id: 'id',
   bandate: 'bandate',
@@ -137,77 +134,77 @@ exports.Prisma.Account_bannedScalarFieldEnum = makeEnum({
   active: 'active',
   realm: 'realm',
   gmlevel: 'gmlevel'
-});
+};
 
-exports.Prisma.Account_mailstatusScalarFieldEnum = makeEnum({
+exports.Prisma.Account_mailstatusScalarFieldEnum = {
   message_id: 'message_id',
   account_id: 'account_id',
   email: 'email',
   status: 'status',
   letterid: 'letterid'
-});
+};
 
-exports.Prisma.Account_mailstatus_archiveScalarFieldEnum = makeEnum({
+exports.Prisma.Account_mailstatus_archiveScalarFieldEnum = {
   message_id: 'message_id',
   account_id: 'account_id',
   email: 'email',
   status: 'status',
   letterid: 'letterid'
-});
+};
 
-exports.Prisma.Account_twofactor_allowedScalarFieldEnum = makeEnum({
+exports.Prisma.Account_twofactor_allowedScalarFieldEnum = {
   id: 'id',
   ip_address: 'ip_address',
   account_id: 'account_id',
   expires_at: 'expires_at'
-});
+};
 
-exports.Prisma.Antispam_blacklistScalarFieldEnum = makeEnum({
+exports.Prisma.Antispam_blacklistScalarFieldEnum = {
   string: 'string'
-});
+};
 
-exports.Prisma.Antispam_clientScalarFieldEnum = makeEnum({
+exports.Prisma.Antispam_clientScalarFieldEnum = {
   Regex: 'Regex',
   Note: 'Note'
-});
+};
 
-exports.Prisma.Antispam_replacementScalarFieldEnum = makeEnum({
+exports.Prisma.Antispam_replacementScalarFieldEnum = {
   from: 'from',
   to: 'to'
-});
+};
 
-exports.Prisma.Antispam_unicode_replacementScalarFieldEnum = makeEnum({
+exports.Prisma.Antispam_unicode_replacementScalarFieldEnum = {
   from: 'from',
   to: 'to'
-});
+};
 
-exports.Prisma.ConfigScalarFieldEnum = makeEnum({
+exports.Prisma.ConfigScalarFieldEnum = {
   id: 'id',
   value: 'value',
   comment: 'comment'
-});
+};
 
-exports.Prisma.Ip_bannedScalarFieldEnum = makeEnum({
+exports.Prisma.Ip_bannedScalarFieldEnum = {
   ip: 'ip',
   bandate: 'bandate',
   unbandate: 'unbandate',
   bannedby: 'bannedby',
   banreason: 'banreason'
-});
+};
 
-exports.Prisma.MigrationsScalarFieldEnum = makeEnum({
+exports.Prisma.MigrationsScalarFieldEnum = {
   id: 'id',
   Name: 'Name',
   Hash: 'Hash'
-});
+};
 
-exports.Prisma.RealmcharactersScalarFieldEnum = makeEnum({
+exports.Prisma.RealmcharactersScalarFieldEnum = {
   realmid: 'realmid',
   acctid: 'acctid',
   numchars: 'numchars'
-});
+};
 
-exports.Prisma.RealmlistScalarFieldEnum = makeEnum({
+exports.Prisma.RealmlistScalarFieldEnum = {
   id: 'id',
   name: 'name',
   address: 'address',
@@ -218,28 +215,28 @@ exports.Prisma.RealmlistScalarFieldEnum = makeEnum({
   allowedSecurityLevel: 'allowedSecurityLevel',
   population: 'population',
   realmbuilds: 'realmbuilds'
-});
+};
 
-exports.Prisma.Shop_coinsScalarFieldEnum = makeEnum({
+exports.Prisma.Shop_coinsScalarFieldEnum = {
   id: 'id',
   coins: 'coins'
-});
+};
 
-exports.Prisma.Shop_diffScalarFieldEnum = makeEnum({
+exports.Prisma.Shop_diffScalarFieldEnum = {
   guid: 'guid',
   accountid: 'accountid',
   prev_bonus: 'prev_bonus',
   new_bonus: 'new_bonus',
   date: 'date',
   query: 'query'
-});
+};
 
-exports.Prisma.SortOrder = makeEnum({
+exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
-});
+};
 
-exports.Prisma.Statistics_onlineScalarFieldEnum = makeEnum({
+exports.Prisma.Statistics_onlineScalarFieldEnum = {
   guid: 'guid',
   online: 'online',
   online_alli: 'online_alli',
@@ -247,9 +244,9 @@ exports.Prisma.Statistics_onlineScalarFieldEnum = makeEnum({
   connections: 'connections',
   realm: 'realm',
   date: 'date'
-});
+};
 
-exports.Prisma.System_fingerprint_usageScalarFieldEnum = makeEnum({
+exports.Prisma.System_fingerprint_usageScalarFieldEnum = {
   id: 'id',
   fingerprint: 'fingerprint',
   account: 'account',
@@ -261,7 +258,7 @@ exports.Prisma.System_fingerprint_usageScalarFieldEnum = makeEnum({
   activecpus: 'activecpus',
   totalcpus: 'totalcpus',
   pagesize: 'pagesize'
-});
+};
 
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   ReadUncommitted: 'ReadUncommitted',
@@ -270,7 +267,7 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.UptimeScalarFieldEnum = makeEnum({
+exports.Prisma.UptimeScalarFieldEnum = {
   realmid: 'realmid',
   starttime: 'starttime',
   startstring: 'startstring',
@@ -278,10 +275,10 @@ exports.Prisma.UptimeScalarFieldEnum = makeEnum({
   onlineplayers: 'onlineplayers',
   maxplayers: 'maxplayers',
   revision: 'revision'
-});
+};
 
 
-exports.Prisma.ModelName = makeEnum({
+exports.Prisma.ModelName = {
   account: 'account',
   account_banned: 'account_banned',
   account_mailstatus: 'account_mailstatus',
@@ -301,7 +298,7 @@ exports.Prisma.ModelName = makeEnum({
   statistics_online: 'statistics_online',
   system_fingerprint_usage: 'system_fingerprint_usage',
   uptime: 'uptime'
-});
+};
 
 /**
  * Create the Client

@@ -1,4 +1,3 @@
-import { Box } from '@mui/system';
 import { type DMMF } from '@prisma/client/runtime';
 import type { ColumnDef } from '@tanstack/react-table';
 import {
@@ -10,6 +9,7 @@ import {
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useEffect, useMemo, useRef } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
+import cls from 'classnames';
 
 import type { TableRequest } from '~/server/api/routers/tables';
 
@@ -17,8 +17,6 @@ import { getTablePrimaryKeys, isNotUndefined } from '../../utils';
 import { api } from '../../utils/api';
 import TextInput from '../form/TextInput';
 import Button from '../styled/Button';
-import Surface from '../styled/Surface';
-import Typography from '../styled/Typography';
 
 import TableEmpty from './Empty';
 import TableError from './Error';
@@ -75,22 +73,21 @@ const Table = ({ table, db }: TableRequest) => {
 				const value = useWatch({ control, name });
 				const { isDirty } = getFieldState(name);
 
+				// TODO: Make coercing types better
 				const { type } = column.columnDef.meta as DMMF.Field;
 				const isNumber = type === 'Float' || type === 'Int';
 				const isDate = type === 'DateTime';
 
 				return (
-					<Box
-						sx={{
-							'position': 'relative',
-							'background': isDirty ? t => `${t.palette.orange}44` : undefined,
-							':hover input, :focus-within input': { display: 'block' }
-						}}
+					<div
+						className={cls('tw-table-column relative', {
+							'bg-orange/20': isDirty
+						})}
 					>
-						<Typography sx={{ p: 2 }}>
+						<p className="p-2">
 							{`${value instanceof Date ? value.toISOString() : value}` ||
 								'null'}
-						</Typography>
+						</p>
 						<TextInput
 							{...register(
 								name,
@@ -101,17 +98,11 @@ const Table = ({ table, db }: TableRequest) => {
 									: undefined
 							)}
 							type={isNumber ? 'number' : isDate ? 'datetime-local' : undefined}
-							sx={{
-								display: 'none',
-								position: 'absolute',
-								color: isDirty ? t => t.palette.orange : undefined,
-								top: 0,
-								bottom: 0,
-								left: 0,
-								right: 0
-							}}
+							className={cls('absolute bottom-0 left-0 right-0 top-0 hidden', {
+								'text-orange': isDirty
+							})}
 						/>
-					</Box>
+					</div>
 				);
 			}
 		}),
@@ -129,7 +120,7 @@ const Table = ({ table, db }: TableRequest) => {
 	const { rows } = tableProps.getRowModel();
 
 	// Virtualization
-	const parentRef = useRef<HTMLDivElement>(null);
+	const parentRef = useRef<HTMLFormElement>(null);
 	const rowVirtualizer = useVirtualizer({
 		count: rows.length,
 		getScrollElement: () => parentRef.current,
@@ -148,15 +139,8 @@ const Table = ({ table, db }: TableRequest) => {
 
 	return (
 		<>
-			<Surface
-				sx={{
-					display: 'flex',
-					alignItems: 'center',
-					flexDirection: 'row',
-					gap: 3
-				}}
-			>
-				<Typography sx={{ flexGrow: 1 }}>
+			<div className="tw-surface flex items-center gap-3">
+				<p className="grow">
 					Changes in{' '}
 					{Object.values(formState.dirtyFields.rows ?? {})?.length ?? 0} rows
 					affecting total{' '}
@@ -164,11 +148,9 @@ const Table = ({ table, db }: TableRequest) => {
 						?.map(r => Object.keys(r ?? {}).length)
 						.reduce((s, n) => s + n) ?? 0}{' '}
 					cells
-				</Typography>
+				</p>
 				{formState.errors.root && (
-					<Typography sx={{ color: 'red' }}>
-						{formState.errors.root.message}
-					</Typography>
+					<p className="text-red">{formState.errors.root.message}</p>
 				)}
 				<Button
 					onClick={() => reset({ rows: query.data?.rows ?? [] })}
@@ -184,11 +166,10 @@ const Table = ({ table, db }: TableRequest) => {
 				>
 					Submit
 				</Button>
-			</Surface>
-			<Surface
+			</div>
+			<form
 				id="table-form"
 				ref={parentRef}
-				component="form"
 				onSubmit={handleSubmit(async ({ rows }) => {
 					const dirtyFields = formState.dirtyFields.rows ?? [];
 					try {
@@ -226,78 +207,48 @@ const Table = ({ table, db }: TableRequest) => {
 						});
 					}
 				})}
-				sx={{
-					flexBasis: 400,
-					flexGrow: 1,
-					p: 0,
-					overflow: 'auto',
-					zIndex: 0
-				}}
+				className="tw-surface z-0 grow basis-[400px] overflow-auto !p-0"
 			>
-				<Box
-					component="table"
-					sx={{
-						'minWidth': '100%',
-						'height': rowVirtualizer.getTotalSize(),
-						'overflow': 'hidden',
-						'th': { p: 2 },
-						'th, td': {
-							position: 'relative',
-							borderRight: t => t.shape.border('A0'),
-							borderBottom: t => t.shape.border('A0'),
-							whiteSpace: 'nowrap'
-						},
-						'td:hover::after': {
-							content: '""',
-							position: 'absolute',
-							backgroundColor: t => t.palette.darkPurple,
-							left: 0,
-							top: -5000,
-							height: 10000,
-							width: '100%',
-							zIndex: -1
-						}
-					}}
-				>
-					<Box component="thead" sx={{ position: 'sticky', top: 0, zIndex: 1 }}>
+				<table className="min-w-full">
+					<thead className="sticky top-0 z-10">
 						{tableProps.getHeaderGroups().map(g => (
-							<Box
-								component="tr"
-								key={g.id}
-								sx={{
-									background: t => t.palette.darkGray
-								}}
-							>
+							<tr className="bg-darkGray" key={g.id}>
 								{g.headers.map(h => (
-									<th key={h.id}>
+									<th
+										key={h.id}
+										className="whitespace-nowrap border-b border-r border-gray/60 p-2"
+									>
 										{h.isPlaceholder
 											? null
 											: flexRender(h.column.columnDef.header, h.getContext())}
 									</th>
 								))}
-							</Box>
+							</tr>
 						))}
-					</Box>
+					</thead>
 
-					<tbody>
+					<tbody style={{ height: rowVirtualizer.getTotalSize() }}>
 						<VirtualPadding height={paddingTop} />
 						{rowVirtualizer.getVirtualItems().map(r => (
-							<Box
-								component="tr"
+							<tr
 								key={r.index}
-								sx={{ ':hover': { background: t => t.palette.darkPurple } }}
+								className="hover:bg-darkPurple"
+								style={{ '--last': rows.length - r.index }}
 							>
 								{rows[r.index]?.getVisibleCells().map(c => (
-									<td key={c.id}>
+									<td
+										key={c.id}
+										className="relative whitespace-nowrap border-b border-r border-gray/40 hover:after:absolute hover:after:left-0 hover:after:-z-10 hover:after:w-full hover:after:bg-darkPurple"
+									>
 										{flexRender(c.column.columnDef.cell, c.getContext())}
 									</td>
 								))}
-							</Box>
+							</tr>
 						))}
 						<VirtualPadding height={paddingBottom} />
 					</tbody>
-				</Box>
-			</Surface>
+				</table>
+			</form>
 		</>
 	);
 };

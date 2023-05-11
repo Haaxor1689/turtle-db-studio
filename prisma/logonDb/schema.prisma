@@ -1,6 +1,7 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "."
+  provider        = "prisma-client-js"
+  output          = "."
+  previewFeatures = ["jsonProtocol"]
 }
 
 datasource db {
@@ -8,6 +9,7 @@ datasource db {
   url      = env("LOGON_DATABASE_URL")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model account {
   id             Int      @id @default(autoincrement()) @db.UnsignedInt
   username       String   @unique(map: "idx_username") @db.VarChar(32)
@@ -48,6 +50,7 @@ model account {
   @@index([rank], map: "idx_gmlevel")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model account_banned {
   banid     BigInt @unique(map: "banid") @default(autoincrement())
   id        BigInt @default(0)
@@ -129,6 +132,7 @@ model geoip {
   @@ignore
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model ip_banned {
   ip        String @default("0.0.0.0") @db.VarChar(32)
   bandate   Int
@@ -145,6 +149,7 @@ model migrations {
   Hash String @default("0") @db.VarChar(128)
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model realmcharacters {
   realmid  Int    @default(0) @db.UnsignedInt
   acctid   BigInt @db.UnsignedBigInt
@@ -154,6 +159,7 @@ model realmcharacters {
   @@index([acctid], map: "acctid")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model realmlist {
   id                   Int    @id @default(autoincrement()) @db.UnsignedInt
   name                 String @unique(map: "idx_name") @default("") @db.VarChar(32)
@@ -209,6 +215,7 @@ model system_fingerprint_usage {
   @@index([ip], map: "ip")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model uptime {
   realmid       Int    @db.UnsignedInt
   starttime     BigInt @default(0) @db.UnsignedBigInt

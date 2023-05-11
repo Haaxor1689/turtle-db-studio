@@ -1,12 +1,9 @@
-import { Box } from '@mui/system';
 import { useState } from 'react';
 import { Search } from 'lucide-react';
 import { chain } from 'lodash-es';
 
 import TextInput from '~/components/form/TextInput';
 import Link from '~/components/styled/Link';
-import Surface from '~/components/styled/Surface';
-import Typography from '~/components/styled/Typography';
 import { AuthRanks } from '~/types';
 import type { ExtendedNextPage } from '~/pages/_app';
 import Spinner from '~/components/styled/Spinner';
@@ -32,58 +29,32 @@ const DbTablesList: ExtendedNextPage = () => {
 
 	if (models.isLoading)
 		return (
-			<Surface
-				sx={{
-					flexGrow: 1,
-					display: 'flex',
-					alignItems: 'center',
-					justifyContent: 'center'
-				}}
-			>
+			<div className="tw-surface flex grow items-center justify-center">
 				<Spinner />
-			</Surface>
+			</div>
 		);
 
 	return (
 		<>
 			<PageTitle>
-				<Box sx={{ position: 'relative', width: '100%', maxWidth: 500 }}>
+				<div className="relative w-full max-w-lg">
 					<TextInput
 						name="search"
 						value={search}
 						onChange={e => setSearch(e.target.value)}
 						placeholder="Search"
-						sx={{ width: '100%' }}
+						className="w-full"
 					/>
-					<Box
-						sx={{
-							position: 'absolute',
-							right: 8,
-							top: 0,
-							bottom: 0,
-							height: '100%',
-							display: 'flex',
-							alignItems: 'center',
-							color: t => t.palette.blueGray
-						}}
-					>
+					<div className="absolute bottom-0 right-2 top-0 flex h-full items-center text-blueGray">
 						<Search />
-					</Box>
-				</Box>
+					</div>
+				</div>
 			</PageTitle>
-			<Surface
-				sx={{
-					columnCount: [1, 2, null, 3],
-					gap: 4
-				}}
-			>
+			<div className="tw-surface columns-1 gap-1 md:columns-2 xl:columns-3">
 				{!filtered.length ? (
-					<Typography
-						variant="h4"
-						sx={{ columnSpan: 'all', textAlign: 'center', py: 4 }}
-					>
+					<h4 className="py-1 text-center" style={{ columnSpan: 'all' }}>
 						No tables found
-					</Typography>
+					</h4>
 				) : (
 					chain(filtered)
 						.groupBy(m => m.name.split('_')[0])
@@ -91,30 +62,22 @@ const DbTablesList: ExtendedNextPage = () => {
 						.groupBy('key')
 						.mapValues(v => v.flatMap(u => u.m))
 						.map((models, key) => (
-							<Box key={key} sx={{ breakInside: 'avoid', mb: 4 }}>
-								{key && (
-									<Typography variant="h3" color>
-										{key}
-									</Typography>
-								)}
+							<div key={key} className="mb-1 break-inside-avoid">
+								{key && <h3 className="tw-color">{key}</h3>}
 								{models.map(m => (
 									<Link
 										key={m.name}
 										href={`tables/${m.name}`}
-										sx={{
-											display: 'block',
-											textTransform: 'capitalize',
-											fontSize: '1.2rem'
-										}}
+										className="block text-xl capitalize"
 									>
 										{m.name.replace(/_/g, ' ')}
 									</Link>
 								))}
-							</Box>
+							</div>
 						))
 						.value()
 				)}
-			</Surface>
+			</div>
 		</>
 	);
 };

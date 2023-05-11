@@ -3,6 +3,7 @@ import { type Session } from 'next-auth';
 import type { inferAsyncReturnType } from '@trpc/server';
 import { initTRPC, TRPCError } from '@trpc/server';
 import superjson from 'superjson';
+import { ZodError } from 'zod';
 
 import { getServerAuthSession } from '~/server/auth';
 import {
@@ -50,7 +51,13 @@ const t = initTRPC
 	.context<inferAsyncReturnType<typeof createTRPCContext>>()
 	.create({
 		transformer: superjson,
-		errorFormatter: ({ shape }) => shape
+		errorFormatter: ({ shape, error }) => ({
+			...shape,
+			data: {
+				...shape.data,
+				zodError: error.cause instanceof ZodError ? error.cause.flatten() : null
+			}
+		})
 	});
 
 export const createTRPCRouter = t.router;

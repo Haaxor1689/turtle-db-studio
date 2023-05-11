@@ -1,16 +1,20 @@
-import { useMemo } from 'react';
-import { Box, type BoxProps } from '@mui/system';
+import { type HTMLProps, useMemo, type ButtonHTMLAttributes } from 'react';
 import NextLink, { type LinkProps } from 'next/link';
 import { useRouter } from 'next/router';
+import cls from 'classnames';
 
-type Props = Omit<BoxProps, 'component'> &
-	(
-		| { button: true; href?: never; noActive?: never }
-		| (LinkProps & { noActive?: boolean; button?: false })
-	);
+type Props =
+	| ({
+			button: true;
+			noActive?: never;
+			href?: never;
+	  } & ButtonHTMLAttributes<HTMLButtonElement>)
+	| ({ button?: false; noActive?: boolean } & LinkProps &
+			Omit<HTMLProps<HTMLAnchorElement>, keyof LinkProps | 'ref'>);
 
 const Link = (props: Props) => {
 	const { asPath, isReady } = useRouter();
+
 	const isActive = useMemo(
 		() =>
 			!props.button &&
@@ -20,28 +24,21 @@ const Link = (props: Props) => {
 				(typeof props.href === 'string'
 					? new URL(props.href, location.href).pathname
 					: props.href.pathname),
-		[props.button, props.href, props.noActive, isReady, asPath]
+		[props.button, props.noActive, props.href, isReady, asPath]
 	);
-	const { button: _0, noActive: _1, ...componentProps } = props;
+
+	const classes = cls(
+		'p-2 uppercase no-underline tracking-[0.03em] cursor-pointer hocus:text-orange hocus:shadow-white hocus:drop-shadow-[0px_0px_25px]',
+		{ 'text-white': isActive, 'text-blueGray opacity-75': !isActive },
+		props.className
+	);
+
+	if (!props.button) return <NextLink {...props} className={classes} />;
+
 	return (
-		<Box
-			component={props.button ? 'a' : NextLink}
-			{...componentProps}
-			sx={{
-				'p': 2,
-				'color': isActive ? 'white' : 'blueGray',
-				'opacity': isActive ? 1 : 0.75,
-				'textTransform': 'uppercase',
-				'textDecoration': 'none',
-				'letterSpacing': '0.03em',
-				'cursor': 'pointer',
-				':hover, :focus': {
-					textShadow: '0px 0px 25px #FFFFFF',
-					color: 'orange'
-				},
-				...(props.sx ?? {})
-			}}
-		/>
+		<button {...props} className={classes}>
+			{props.children}
+		</button>
 	);
 };
 

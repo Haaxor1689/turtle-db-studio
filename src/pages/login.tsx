@@ -7,8 +7,6 @@ import { signIn } from 'next-auth/react';
 import zodResolver from '~/utils/zodResolver';
 import TextInput from '~/components/form/TextInput';
 import Button from '~/components/styled/Button';
-import Surface from '~/components/styled/Surface';
-import Typography from '~/components/styled/Typography';
 import { AuthRanks } from '~/types';
 
 import type { ExtendedNextPage } from './_app';
@@ -39,8 +37,7 @@ const Login: ExtendedNextPage = () => {
 			<Head>
 				<title>Login</title>
 			</Head>
-			<Surface
-				component="form"
+			<form
 				onSubmit={handleSubmit(async values => {
 					try {
 						const res = await signIn('credentials', {
@@ -58,18 +55,9 @@ const Login: ExtendedNextPage = () => {
 						});
 					}
 				})}
-				sx={{
-					alignSelf: 'center',
-					display: 'flex',
-					flexDirection: 'column',
-					gap: 3,
-					px: 6,
-					py: 5
-				}}
+				className="tw-surface flex flex-col gap-3 self-center !px-6 !py-5"
 			>
-				<Typography variant="h3" color sx={{ textAlign: 'center', mb: 3 }}>
-					Log in
-				</Typography>
+				<h3 className="tw-color mb-3 text-center">Log in</h3>
 
 				<TextInput {...register('username')} placeholder="Username" />
 				<TextInput
@@ -78,13 +66,11 @@ const Login: ExtendedNextPage = () => {
 					type="password"
 				/>
 
-				{errors.root && (
-					<Typography sx={{ color: 'red' }}>{errors.root.message}</Typography>
-				)}
-				<Button primary sx={{ mt: 4 }} loading={isSubmitting}>
+				{errors.root && <p className="text-red">{errors.root.message}</p>}
+				<Button primary className="mt-4" loading={isSubmitting}>
 					Login
 				</Button>
-			</Surface>
+			</form>
 		</>
 	);
 };

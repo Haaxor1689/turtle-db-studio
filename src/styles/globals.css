@@ -1,0 +1,233 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html,
+body,
+#__next {
+	height: 100vh;
+}
+
+#tw-root {
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	overflow-x: auto;
+	background-color: #100d0c;
+}
+
+:not(svg, svg *) {
+	color: white;
+	@apply font-din;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 26px;
+}
+
+*:focus {
+	outline: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	appearance: none;
+	margin: 0;
+}
+
+input[type='number'] {
+	-moz-appearance: textfield;
+	appearance: textfield;
+}
+
+h1,
+.h1 {
+	@apply font-fontin;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 78px;
+	line-height: 76px;
+	letter-spacing: 0.03em;
+	text-transform: uppercase;
+}
+
+h2,
+.h2 {
+	@apply font-fontin;
+	font-weight: 700;
+	font-size: 54px;
+	line-height: 58px;
+	letter-spacing: 0.03em;
+	text-transform: uppercase;
+}
+
+h3,
+.h3 {
+	@apply font-fontin;
+	font-weight: 400;
+	font-size: 32px;
+	line-height: 38px;
+	letter-spacing: 0.03em;
+	text-transform: uppercase;
+}
+
+h4,
+.h4 {
+	@apply font-fontin;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 26px;
+	letter-spacing: 0.03em;
+	text-transform: uppercase;
+}
+
+.l1 {
+	font-size: 18px;
+	line-height: 32px;
+}
+
+.l2 {
+	font-size: 24px;
+	line-height: 36px;
+}
+
+.s1 {
+	font-size: 12px;
+	line-height: 20px;
+}
+
+.tw-color {
+	display: inline;
+	@apply bg-gradient-to-t;
+	@apply from-yellow;
+	@apply to-pink;
+	-webkit-box-decoration-break: clone;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.tw-surface {
+	position: relative;
+	@apply border;
+	@apply border-gray/40;
+	@apply bg-[#191514];
+	@apply p-4;
+	box-shadow: rgb(0 0 0 / 45%) 0px 25px 20px -20px;
+}
+
+.tw-button {
+	overflow: hidden;
+	position: relative;
+	cursor: pointer;
+	flex-shrink: 0;
+	@apply py-2;
+	@apply px-4;
+	@apply bg-darkGray;
+	@apply border;
+	@apply rounded-[1px];
+}
+
+.tw-button:not(.tw-button-primary) {
+	background: linear-gradient(#f1c22d40, #ff775740);
+	@apply border-darkBrown;
+}
+
+.tw-button-primary {
+	@apply bg-darkGreen/30;
+	@apply border-[#C8FF0022];
+}
+
+.tw-button > span {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 2px;
+	-webkit-box-decoration-break: clone;
+	-webkit-text-fill-color: transparent;
+}
+
+.tw-button:not(.tw-button-primary) > span {
+	background: linear-gradient(#f1c22d, #ff7757);
+	-webkit-background-clip: text;
+}
+
+.tw-button-primary > span {
+	background: linear-gradient(#f7ff8a, #8dd958);
+	-webkit-background-clip: text;
+}
+
+.tw-button:hover > span,
+.tw-button:focus > span {
+	background: white;
+	-webkit-background-clip: text;
+}
+
+.tw-button::before {
+	content: '';
+	position: absolute;
+	top: 5px;
+	bottom: 5px;
+	left: 18px;
+	right: 18px;
+	border-radius: 50%;
+	opacity: 0.75;
+	mix-blend-mode: hard-light;
+	filter: blur(25px);
+}
+
+.tw-button:not(.tw-button-primary)::before {
+	@apply bg-orange;
+}
+
+.tw-button-primary::before {
+	@apply bg-warmGreen;
+}
+
+.tw-button:hover::before,
+.tw-button:focus::before {
+	top: 9px;
+	bottom: 22px;
+	left: 22px;
+	right: 22px;
+}
+
+.tw-button:hover::after,
+.tw-button:focus::after {
+	content: '';
+	position: absolute;
+	top: 12px;
+	bottom: -46px;
+	left: 12px;
+	right: 12px;
+	border-radius: 50%;
+	@apply bg-orange;
+	opacity: 0.75;
+	mix-blend-mode: hard-light;
+	filter: blur(25px);
+}
+
+.tw-button-primary:hover::after,
+.tw-button-primary:focus::after {
+	@apply bg-warmGreen;
+}
+
+.tw-table-column:hover input,
+.tw-table-column:focus-within input {
+	display: block;
+}
+
+tr td:hover::after {
+	top: -100vh;
+	height: calc(100vh + 43px * var(--last));
+}

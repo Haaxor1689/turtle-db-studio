@@ -1,6 +1,7 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "."
+  provider        = "prisma-client-js"
+  output          = "."
+  previewFeatures = ["jsonProtocol"]
 }
 
 datasource db {
@@ -20,6 +21,7 @@ model area_template {
   liquid_type  Int    @default(0) @db.UnsignedTinyInt
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model areatrigger_bg_entrance {
   id               Int     @id @default(0) @db.UnsignedMediumInt
   name             String? @db.Text
@@ -32,16 +34,19 @@ model areatrigger_bg_entrance {
   exit_orientation Float   @default(0) @db.Float
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model areatrigger_involvedrelation {
   id    Int @id @default(0) @db.UnsignedMediumInt
   quest Int @default(0) @db.UnsignedMediumInt
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model areatrigger_tavern {
   id   Int     @id @default(0) @db.UnsignedMediumInt
   name String? @db.Text
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model areatrigger_teleport {
   id                 Int    @id @default(0) @db.UnsignedMediumInt
   name               String @default("") @db.VarChar(64)
@@ -69,6 +74,7 @@ model areatrigger_template {
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model auctionhousebot {
   item   Int @db.UnsignedInt
   stack  Int @default(1) @db.UnsignedTinyInt
@@ -94,6 +100,7 @@ model battleground_events {
   @@id([map, event1, event2])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model battleground_template {
   id                      Int @id @db.UnsignedMediumInt
   min_players_per_team    Int @default(0) @db.UnsignedSmallInt
@@ -109,6 +116,7 @@ model battleground_template {
   player_loot_id          Int @default(0) @db.UnsignedMediumInt
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model battlemaster_entry {
   entry       Int @id @default(0) @db.UnsignedMediumInt
   bg_template Int @default(0) @db.UnsignedMediumInt
@@ -146,6 +154,7 @@ model companion_spells {
   @@id([itemId, spellId])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model conditions {
   condition_entry Int @id @default(autoincrement()) @db.UnsignedMediumInt
   type            Int @default(0) @db.TinyInt
@@ -158,6 +167,7 @@ model conditions {
   @@unique([type, value1, value2, flags, value3, value4], map: "unique_conditions")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model creature {
   guid             Int    @id @default(autoincrement()) @db.UnsignedInt
   id               Int    @default(0) @db.UnsignedMediumInt
@@ -182,6 +192,7 @@ model creature {
   @@index([map], map: "idx_map")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model creature_addon {
   guid             Int     @id @default(0) @db.UnsignedInt
   display_id       Int     @default(0) @db.UnsignedSmallInt
@@ -193,6 +204,7 @@ model creature_addon {
   auras            String? @db.Text
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model creature_ai_events {
   id                       Int    @id @default(autoincrement()) @db.UnsignedInt
   creature_id              Int    @default(0) @db.UnsignedInt
@@ -239,6 +251,7 @@ model creature_ai_scripts {
   @@ignore
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model creature_battleground {
   guid   Int @db.UnsignedInt
   event1 Int @db.UnsignedTinyInt
@@ -247,6 +260,7 @@ model creature_battleground {
   @@id([guid, event1])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model creature_display_info_addon {
   display_id              Int   @id @default(0) @db.UnsignedMediumInt
   bounding_radius         Float @default(0) @db.Float
@@ -255,6 +269,7 @@ model creature_display_info_addon {
   display_id_other_gender Int   @default(0) @db.UnsignedMediumInt
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model creature_equip_template {
   entry       Int @id @default(0) @db.UnsignedMediumInt
   equipentry1 Int @default(0) @db.UnsignedMediumInt
@@ -270,6 +285,7 @@ model creature_groups {
   flags       Int   @db.UnsignedInt
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model creature_involvedrelation {
   id    Int @default(0) @db.UnsignedMediumInt
   quest Int @default(0) @db.UnsignedMediumInt
@@ -277,12 +293,14 @@ model creature_involvedrelation {
   @@id([id, quest])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model creature_linking {
   guid        Int @id @db.UnsignedInt
   master_guid Int @db.UnsignedInt
   flag        Int @db.UnsignedMediumInt
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model creature_linking_template {
   entry        Int @default(0) @db.UnsignedMediumInt
   map          Int @default(0) @db.UnsignedSmallInt
@@ -293,6 +311,7 @@ model creature_linking_template {
   @@id([entry, map])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model creature_loot_template {
   entry               Int   @default(0) @db.UnsignedMediumInt
   item                Int   @default(0) @db.UnsignedMediumInt
@@ -305,6 +324,7 @@ model creature_loot_template {
   @@id([entry, item, groupid])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model creature_movement {
   id              Int   @db.UnsignedInt
   point           Int   @default(0) @db.UnsignedMediumInt
@@ -347,6 +367,7 @@ model creature_movement_scripts {
   @@ignore
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model creature_movement_special {
   id              Int   @db.UnsignedInt
   point           Int   @default(0) @db.UnsignedMediumInt
@@ -361,6 +382,7 @@ model creature_movement_special {
   @@id([id, point])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model creature_movement_template {
   entry           Int   @db.UnsignedMediumInt
   point           Int   @default(0) @db.UnsignedMediumInt
@@ -375,6 +397,7 @@ model creature_movement_template {
   @@id([entry, point])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model creature_onkill_reputation {
   creature_id          Int @id @default(0) @db.UnsignedMediumInt
   RewOnKillRepFaction1 Int @default(0) @db.SmallInt
@@ -388,6 +411,7 @@ model creature_onkill_reputation {
   TeamDependent        Int @default(0) @db.UnsignedTinyInt
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model creature_questrelation {
   id    Int @default(0) @db.UnsignedMediumInt
   quest Int @default(0) @db.UnsignedMediumInt
@@ -516,6 +540,7 @@ model creature_spells_scripts {
   @@ignore
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model creature_template {
   entry                Int     @id @default(0) @db.UnsignedMediumInt
   display_id1          Int     @default(0) @db.UnsignedMediumInt
@@ -598,12 +623,14 @@ model creature_template {
   script_name          String  @default("") @db.Char(64)
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model custom_character_skins {
   token_id    Int @id @default(0) @db.UnsignedMediumInt
   skin_male   Int @default(0) @db.UnsignedSmallInt
   skin_female Int @default(0) @db.UnsignedSmallInt
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model custom_graveyards {
   id                   Int    @id @default(0) @db.UnsignedMediumInt
   name                 String @default("") @db.VarChar(64)
@@ -630,6 +657,7 @@ model daily_quest_timer {
   @@ignore
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model disenchant_loot_template {
   entry               Int   @default(0) @db.UnsignedMediumInt
   item                Int   @default(0) @db.UnsignedMediumInt
@@ -670,6 +698,7 @@ model event_scripts {
   @@ignore
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model exploration_basexp {
   level  Int @id @default(0) @db.TinyInt
   basexp Int @default(0) @db.MediumInt
@@ -730,6 +759,7 @@ model faction_template {
   friend_faction4 Int @default(0) @db.UnsignedMediumInt
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model fishing_loot_template {
   entry               Int   @default(0) @db.UnsignedMediumInt
   item                Int   @default(0) @db.UnsignedMediumInt
@@ -742,6 +772,7 @@ model fishing_loot_template {
   @@id([entry, item])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model game_event {
   entry       Int      @id @db.UnsignedMediumInt
   start_time  DateTime @default(dbgenerated("('0000-00-00 00:00:00')")) @db.Timestamp(0)
@@ -754,6 +785,7 @@ model game_event {
   disabled    Int      @default(0) @db.TinyInt
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model game_event_creature {
   guid  Int @db.UnsignedInt
   event Int @default(0) @db.SmallInt
@@ -773,6 +805,7 @@ model game_event_creature_data {
   @@id([guid, event])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model game_event_gameobject {
   guid  Int @db.UnsignedInt
   event Int @default(0) @db.SmallInt
@@ -780,6 +813,7 @@ model game_event_gameobject {
   @@id([guid, event])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model game_event_mail {
   event          Int @default(0) @db.SmallInt
   raceMask       Int @default(0) @db.UnsignedMediumInt
@@ -790,6 +824,7 @@ model game_event_mail {
   @@id([event, raceMask, quest])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model game_event_quest {
   quest Int @default(0) @db.UnsignedMediumInt
   event Int @default(0) @db.UnsignedSmallInt
@@ -797,6 +832,7 @@ model game_event_quest {
   @@id([quest, event])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model game_graveyard_zone {
   id         Int @default(0) @db.UnsignedMediumInt
   ghost_zone Int @default(0) @db.UnsignedMediumInt
@@ -805,6 +841,7 @@ model game_graveyard_zone {
   @@id([id, ghost_zone])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model game_tele {
   id          Int    @id @default(autoincrement()) @db.UnsignedMediumInt
   position_x  Float  @default(0) @db.Float
@@ -815,6 +852,7 @@ model game_tele {
   name        String @default("") @db.VarChar(100)
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model game_weather {
   zone                Int  @id @default(0) @db.UnsignedMediumInt
   copy_weather_from   Int? @db.UnsignedMediumInt
@@ -832,6 +870,7 @@ model game_weather {
   winter_storm_chance Int  @default(25) @db.UnsignedTinyInt
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model gameobject {
   guid             Int    @id @default(autoincrement()) @db.UnsignedInt
   id               Int    @default(0) @db.UnsignedMediumInt
@@ -855,6 +894,7 @@ model gameobject {
   @@index([map], map: "idx_map")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model gameobject_battleground {
   guid   Int @db.UnsignedInt
   event1 Int @db.UnsignedTinyInt
@@ -873,6 +913,7 @@ model gameobject_display_info_addon {
   max_z      Float @default(0) @db.Float
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model gameobject_involvedrelation {
   id    Int @default(0) @db.UnsignedMediumInt
   quest Int @default(0) @db.UnsignedMediumInt
@@ -880,6 +921,7 @@ model gameobject_involvedrelation {
   @@id([id, quest])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model gameobject_loot_template {
   entry               Int   @default(0) @db.UnsignedMediumInt
   item                Int   @default(0) @db.UnsignedMediumInt
@@ -892,6 +934,7 @@ model gameobject_loot_template {
   @@id([entry, item])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model gameobject_questrelation {
   id    Int @default(0) @db.UnsignedMediumInt
   quest Int @default(0) @db.UnsignedMediumInt
@@ -899,6 +942,7 @@ model gameobject_questrelation {
   @@id([id, quest])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model gameobject_requirement {
   guid    Int @id @default(autoincrement()) @db.UnsignedInt
   reqType Int @default(0) @db.UnsignedInt
@@ -933,6 +977,7 @@ model gameobject_scripts {
   @@ignore
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model gameobject_template {
   entry          Int    @id @default(0) @db.UnsignedMediumInt
   type           Int    @default(0) @db.UnsignedTinyInt
@@ -999,6 +1044,7 @@ model generic_scripts {
   @@ignore
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model gm_subsurveys {
   surveyId    Int    @default(autoincrement()) @db.UnsignedInt
   subsurveyId Int    @default(0) @db.UnsignedInt
@@ -1008,6 +1054,7 @@ model gm_subsurveys {
   @@id([surveyId, subsurveyId])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model gm_surveys {
   surveyId       Int    @id @default(autoincrement()) @db.UnsignedInt
   guid           Int    @default(0) @db.UnsignedInt
@@ -1016,6 +1063,7 @@ model gm_surveys {
   createTime     Int    @default(0) @db.UnsignedInt
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model gm_tickets {
   ticketId         Int    @id @default(autoincrement()) @db.UnsignedInt
   guid             Int    @default(0) @db.UnsignedInt
@@ -1163,6 +1211,7 @@ model guild_bank_tabs {
   minrank5    Int    @default(0)
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model instance_buff_removal {
   map_id   Int     @db.UnsignedInt
   spell_id Int     @db.UnsignedInt
@@ -1181,6 +1230,7 @@ model item_display_info {
   @@ignore
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model item_enchantment_template {
   entry  Int   @default(0) @db.UnsignedMediumInt
   ench   Int   @default(0) @db.UnsignedMediumInt
@@ -1189,6 +1239,7 @@ model item_enchantment_template {
   @@id([entry, ench])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model item_loot_template {
   entry               Int   @default(0) @db.UnsignedMediumInt
   item                Int   @default(0) @db.UnsignedMediumInt
@@ -1209,6 +1260,7 @@ model item_required_target {
   @@unique([entry, type, target_entry], map: "entry_type_target")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model item_template {
   entry                       Int     @id @default(0) @db.UnsignedMediumInt
   class                       Int     @default(0) @db.UnsignedTinyInt
@@ -1619,6 +1671,7 @@ model locales_taxi_node {
   name_loc6 String @default("") @db.VarChar(256)
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model mail_loot_template {
   entry               Int   @default(0) @db.UnsignedMediumInt
   item                Int   @default(0) @db.UnsignedMediumInt
@@ -1788,6 +1841,7 @@ model npc_trainer_template {
   @@unique([entry, spell], map: "entry_spell")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model npc_vendor {
   entry        Int @default(0) @db.UnsignedMediumInt
   slot         Int @default(0) @db.UnsignedSmallInt
@@ -1800,6 +1854,7 @@ model npc_vendor {
   @@id([entry, item])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model npc_vendor_template {
   entry        Int @default(0) @db.UnsignedMediumInt
   slot         Int @default(0) @db.UnsignedSmallInt
@@ -1817,12 +1872,14 @@ model object_scaling {
   scale    Float  @default(0) @db.Float
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model page_text {
   entry     Int    @id @default(0) @db.UnsignedMediumInt
   text      String @db.LongText
   next_page Int    @default(0) @db.UnsignedMediumInt
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model pet_levelstats {
   creature_entry Int @db.UnsignedMediumInt
   level          Int @db.UnsignedTinyInt
@@ -1853,6 +1910,7 @@ model pet_spell_data {
   spell_id4 Int @default(0) @db.UnsignedSmallInt
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model petcreateinfo_spell {
   entry  Int @id @default(0) @db.UnsignedMediumInt
   spell1 Int @default(0) @db.UnsignedMediumInt
@@ -1861,6 +1919,7 @@ model petcreateinfo_spell {
   spell4 Int @default(0) @db.UnsignedMediumInt
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model pickpocketing_loot_template {
   entry               Int   @default(0) @db.UnsignedMediumInt
   item                Int   @default(0) @db.UnsignedMediumInt
@@ -1881,6 +1940,7 @@ model player_census {
   date_time        DateTime @db.DateTime(0)
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model player_classlevelstats {
   class    Int @db.UnsignedTinyInt
   level    Int @db.UnsignedTinyInt
@@ -1930,6 +1990,7 @@ model player_factionchange_spells {
   @@id([alliance_id, horde_id])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model player_levelstats {
   race  Int @db.UnsignedTinyInt
   class Int @db.UnsignedTinyInt
@@ -2008,6 +2069,7 @@ model points_of_interest {
   icon_name String @db.Text
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model pool_creature {
   guid        Int    @id @default(0) @db.UnsignedInt
   pool_entry  Int    @default(0) @db.UnsignedMediumInt
@@ -2018,6 +2080,7 @@ model pool_creature {
   @@index([pool_entry], map: "pool_idx")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model pool_creature_template {
   id          Int    @id @default(0) @db.UnsignedInt
   pool_entry  Int    @default(0) @db.UnsignedMediumInt
@@ -2028,6 +2091,7 @@ model pool_creature_template {
   @@index([pool_entry], map: "pool_idx")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model pool_gameobject {
   guid        Int    @id @default(0) @db.UnsignedInt
   pool_entry  Int    @default(0) @db.UnsignedMediumInt
@@ -2038,6 +2102,7 @@ model pool_gameobject {
   @@index([pool_entry], map: "pool_idx")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model pool_gameobject_template {
   id          Int    @id @default(0) @db.UnsignedInt
   pool_entry  Int    @default(0) @db.UnsignedMediumInt
@@ -2048,6 +2113,7 @@ model pool_gameobject_template {
   @@index([pool_entry], map: "pool_idx")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model pool_pool {
   pool_id     Int    @id @default(0) @db.UnsignedMediumInt
   mother_pool Int    @default(0) @db.UnsignedMediumInt
@@ -2058,6 +2124,7 @@ model pool_pool {
   @@index([mother_pool], map: "pool_idx")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model pool_template {
   entry       Int    @id @default(0) @db.UnsignedMediumInt
   max_limit   Int    @default(0) @db.UnsignedInt
@@ -2140,6 +2207,7 @@ model quest_start_scripts {
   @@ignore
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model quest_template {
   entry                  Int     @id @default(0) @db.UnsignedMediumInt
   Method                 Int     @default(2) @db.UnsignedTinyInt
@@ -2271,6 +2339,7 @@ model quest_template {
   CompleteScript         Int     @default(0) @db.UnsignedMediumInt
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model reference_loot_template {
   entry               Int   @default(0) @db.UnsignedMediumInt
   item                Int   @default(0) @db.UnsignedMediumInt
@@ -2290,6 +2359,7 @@ model reputation_reward_rate {
   spell_rate    Float @default(1) @db.Float
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model reputation_spillover_template {
   faction  Int   @id @default(0) @db.UnsignedSmallInt
   faction1 Int   @default(0) @db.UnsignedSmallInt
@@ -2306,6 +2376,7 @@ model reputation_spillover_template {
   rank_4   Int   @default(0) @db.UnsignedTinyInt
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model reserved_name {
   name String @id @default("") @db.VarChar(12)
 }
@@ -2319,6 +2390,7 @@ model script_escort_data {
   @@ignore
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model script_texts {
   entry           Int     @id @db.MediumInt
   content_default String  @db.Text
@@ -2337,6 +2409,7 @@ model script_texts {
   comment         String? @db.Text
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model script_waypoint {
   entry         Int     @default(0) @db.UnsignedMediumInt
   pointid       Int     @default(0) @db.UnsignedMediumInt
@@ -2354,6 +2427,7 @@ model scripted_areatrigger {
   script_name String @db.Char(64)
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model scripted_event_id {
   id          Int    @id @db.MediumInt
   script_name String @db.Char(64)
@@ -2374,6 +2448,7 @@ model shop_items {
   descriptionLong String  @default("") @db.VarChar(1024)
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model skill_fishing_base_level {
   entry Int @id @default(0) @db.UnsignedMediumInt
   skill Int @default(0) @db.SmallInt
@@ -2393,6 +2468,7 @@ model skill_line_ability {
   req_train_points    Int @default(0) @db.UnsignedInt
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model skinning_loot_template {
   entry               Int   @default(0) @db.UnsignedMediumInt
   item                Int   @default(0) @db.UnsignedMediumInt
@@ -2432,6 +2508,7 @@ model spell_area {
   @@id([spell, area, quest_start, quest_start_active, aura_spell, racemask, gender])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model spell_chain {
   spell_id    Int @id @default(0) @db.MediumInt
   prev_spell  Int @default(0) @db.MediumInt
@@ -2456,6 +2533,7 @@ model spell_check {
   @@id([spellid, SpellFamilyName, SpellFamilyMask, SpellIcon, SpellVisual, SpellCategory, Code])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model spell_disabled {
   entry Int @id @db.UnsignedInt
 }
@@ -2486,6 +2564,7 @@ model spell_effect_mod {
   @@id([Id, EffectIndex])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model spell_elixir {
   entry Int     @id @default(0) @db.UnsignedInt
   mask  Boolean @default(false)
@@ -2496,6 +2575,7 @@ model spell_enchant_charges {
   charges Int @default(0) @db.UnsignedInt
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model spell_group {
   group_id       Int @default(0) @db.UnsignedInt
   group_spell_id Int @default(0) @db.UnsignedInt
@@ -2510,6 +2590,7 @@ model spell_group_stack_rules {
   stack_rule Int @default(1) @db.TinyInt
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model spell_learn_spell {
   entry   Int @default(0) @db.UnsignedSmallInt
   SpellID Int @default(0) @db.UnsignedSmallInt
@@ -2559,6 +2640,7 @@ model spell_mod {
   Comment               String? @db.VarChar(255)
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model spell_pet_auras {
   spell Int @db.UnsignedMediumInt
   pet   Int @default(0) @db.UnsignedMediumInt
@@ -2586,6 +2668,7 @@ model spell_proc_item_enchant {
   ppmRate Float @default(0) @db.Float
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model spell_script_target {
   entry             Int @db.UnsignedMediumInt
   type              Int @default(0) @db.UnsignedTinyInt
@@ -2624,6 +2707,7 @@ model spell_scripts {
   @@ignore
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model spell_target_position {
   id                 Int   @default(0) @db.UnsignedMediumInt
   target_map         Int   @default(0) @db.UnsignedSmallInt
@@ -2635,6 +2719,7 @@ model spell_target_position {
   @@id([id, target_map])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model spell_template {
   entry                         Int    @id @default(0) @db.UnsignedInt
   school                        Int    @default(0) @db.UnsignedInt
@@ -2787,6 +2872,7 @@ model spell_template {
   customFlags                   Int    @default(0) @db.UnsignedInt
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model spell_threat {
   entry      Int   @id @db.UnsignedMediumInt
   Threat     Int   @db.SmallInt
@@ -2815,6 +2901,7 @@ model taxi_path_transitions {
   @@id([in_path, out_path])
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model transports {
   guid   Int     @default(0) @db.UnsignedInt
   entry  Int     @id @default(0) @db.UnsignedMediumInt
@@ -2827,6 +2914,7 @@ model variables {
   value Int @default(0) @db.UnsignedInt
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model warden_checks {
   id       Int     @id @default(autoincrement()) @db.UnsignedSmallInt
   group_id Int     @db.UnsignedSmallInt

@@ -1,27 +1,12 @@
-import { Box } from '@mui/system';
-
-import Typography from '~/components/styled/Typography';
-
 import type { ExtendedNextPage } from './_app';
 
 const NotFound: ExtendedNextPage = () => (
-	<Box
-		sx={{
-			display: 'flex',
-			flexDirection: 'column',
-			gap: 4,
-			textAlign: 'center',
-			maxWidth: 300,
-			alignSelf: 'center'
-		}}
-	>
-		<Typography component="h2" variant="h1" color>
-			404
-		</Typography>
-		<Typography>
+	<div className="flex max-w-sm flex-col gap-4 self-center text-center">
+		<h2 className="h1 tw-color">404</h2>
+		<p>
 			Page you are looking for probably does not exist anymore or never existed.
-		</Typography>
-	</Box>
+		</p>
+	</div>
 );
 
 NotFound.centered = true;

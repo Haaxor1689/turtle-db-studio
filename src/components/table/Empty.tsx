@@ -1,22 +1,8 @@
-import Surface from '../styled/Surface';
-import Typography from '../styled/Typography';
-
 const TableEmpty = () => (
-	<Surface
-		sx={{
-			flexGrow: 1,
-			display: 'flex',
-			flexDirection: 'column',
-			alignItems: 'center',
-			justifyContent: 'center',
-			textAlign: 'center'
-		}}
-	>
-		<Typography variant="h3" color>
-			No data
-		</Typography>
-		<Typography>Current query returned no rows</Typography>
-	</Surface>
+	<div className="tw-surface flex grow flex-col items-center justify-center text-center">
+		<h3 className="tw-color">No data</h3>
+		<p>Current query returned no rows</p>
+	</div>
 );
 
 export default TableEmpty;

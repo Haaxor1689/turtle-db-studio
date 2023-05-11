@@ -1,11 +1,9 @@
-import { Box } from '@mui/system';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 
 import { getPageName } from '../utils';
 
 import Link from './styled/Link';
-import Typography from './styled/Typography';
 
 const Breadcrumbs = () => {
 	const { asPath } = useRouter();
@@ -20,28 +18,19 @@ const Breadcrumbs = () => {
 	);
 
 	return (
-		<Box component="nav" aria-label="breadcrumb">
-			<Box
-				component="ul"
-				sx={{ display: 'flex', listStyleType: 'none', ml: -2 }}
-			>
+		<nav aria-label="breadcrumb">
+			<ul className="-ml-2 flex list-none">
 				{crumbs.slice(0, -1).map(c => (
-					<Box
-						component="li"
-						key={c.href}
-						sx={{ display: 'flex', alignItems: 'center' }}
-					>
+					<li key={c.href} className="flex items-center">
 						<Link href={c.href}>{c.label}</Link>
-						<Typography sx={{ color: 'blueGray', p: 2 }}>/</Typography>
-					</Box>
+						<p className="p-2 text-blueGray">/</p>
+					</li>
 				))}
 				<li>
-					<Typography sx={{ p: 2, textTransform: 'uppercase' }}>
-						{crumbs.at(-1)?.label}
-					</Typography>
+					<p className="p-2 uppercase">{crumbs.at(-1)?.label}</p>
 				</li>
-			</Box>
-		</Box>
+			</ul>
+		</nav>
 	);
 };
 

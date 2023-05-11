@@ -13,12 +13,12 @@ const Prisma = {}
 exports.Prisma = Prisma
 
 /**
- * Prisma Client JS version: 4.8.0
- * Query Engine version: d6e67a83f971b175a593ccc12e15c4a757f93ffe
+ * Prisma Client JS version: 4.13.0
+ * Query Engine version: 1e7af066ee9cb95cf3a403c78d9aab3e6b04f37a
  */
 Prisma.prismaVersion = {
-  client: "4.8.0",
-  engine: "d6e67a83f971b175a593ccc12e15c4a757f93ffe"
+  client: "4.13.0",
+  engine: "1e7af066ee9cb95cf3a403c78d9aab3e6b04f37a"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -85,11 +85,8 @@ Prisma.NullTypes = {
 /**
  * Enums
  */
-// Based on
-// https://github.com/microsoft/TypeScript/issues/3192#issuecomment-261720275
-function makeEnum(x) { return x; }
 
-exports.Prisma.Area_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Area_templateScalarFieldEnum = {
   entry: 'entry',
   map_id: 'map_id',
   zone_id: 'zone_id',
@@ -99,9 +96,9 @@ exports.Prisma.Area_templateScalarFieldEnum = makeEnum({
   name: 'name',
   team: 'team',
   liquid_type: 'liquid_type'
-});
+};
 
-exports.Prisma.Areatrigger_bg_entranceScalarFieldEnum = makeEnum({
+exports.Prisma.Areatrigger_bg_entranceScalarFieldEnum = {
   id: 'id',
   name: 'name',
   team: 'team',
@@ -111,19 +108,19 @@ exports.Prisma.Areatrigger_bg_entranceScalarFieldEnum = makeEnum({
   exit_position_y: 'exit_position_y',
   exit_position_z: 'exit_position_z',
   exit_orientation: 'exit_orientation'
-});
+};
 
-exports.Prisma.Areatrigger_involvedrelationScalarFieldEnum = makeEnum({
+exports.Prisma.Areatrigger_involvedrelationScalarFieldEnum = {
   id: 'id',
   quest: 'quest'
-});
+};
 
-exports.Prisma.Areatrigger_tavernScalarFieldEnum = makeEnum({
+exports.Prisma.Areatrigger_tavernScalarFieldEnum = {
   id: 'id',
   name: 'name'
-});
+};
 
-exports.Prisma.Areatrigger_teleportScalarFieldEnum = makeEnum({
+exports.Prisma.Areatrigger_teleportScalarFieldEnum = {
   id: 'id',
   name: 'name',
   message: 'message',
@@ -134,9 +131,9 @@ exports.Prisma.Areatrigger_teleportScalarFieldEnum = makeEnum({
   target_position_y: 'target_position_y',
   target_position_z: 'target_position_z',
   target_orientation: 'target_orientation'
-});
+};
 
-exports.Prisma.Areatrigger_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Areatrigger_templateScalarFieldEnum = {
   id: 'id',
   map_id: 'map_id',
   x: 'x',
@@ -147,16 +144,16 @@ exports.Prisma.Areatrigger_templateScalarFieldEnum = makeEnum({
   box_y: 'box_y',
   box_z: 'box_z',
   box_orientation: 'box_orientation'
-});
+};
 
-exports.Prisma.Battleground_eventsScalarFieldEnum = makeEnum({
+exports.Prisma.Battleground_eventsScalarFieldEnum = {
   map: 'map',
   event1: 'event1',
   event2: 'event2',
   description: 'description'
-});
+};
 
-exports.Prisma.Battleground_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Battleground_templateScalarFieldEnum = {
   id: 'id',
   min_players_per_team: 'min_players_per_team',
   max_players_per_team: 'max_players_per_team',
@@ -169,14 +166,14 @@ exports.Prisma.Battleground_templateScalarFieldEnum = makeEnum({
   alliance_start_location: 'alliance_start_location',
   horde_start_location: 'horde_start_location',
   player_loot_id: 'player_loot_id'
-});
+};
 
-exports.Prisma.Battlemaster_entryScalarFieldEnum = makeEnum({
+exports.Prisma.Battlemaster_entryScalarFieldEnum = {
   entry: 'entry',
   bg_template: 'bg_template'
-});
+};
 
-exports.Prisma.Broadcast_textScalarFieldEnum = makeEnum({
+exports.Prisma.Broadcast_textScalarFieldEnum = {
   entry: 'entry',
   male_text: 'male_text',
   female_text: 'female_text',
@@ -189,9 +186,9 @@ exports.Prisma.Broadcast_textScalarFieldEnum = makeEnum({
   emote_delay1: 'emote_delay1',
   emote_delay2: 'emote_delay2',
   emote_delay3: 'emote_delay3'
-});
+};
 
-exports.Prisma.Cinematic_waypointsScalarFieldEnum = makeEnum({
+exports.Prisma.Cinematic_waypointsScalarFieldEnum = {
   cinematic: 'cinematic',
   timer: 'timer',
   position_x: 'position_x',
@@ -199,14 +196,14 @@ exports.Prisma.Cinematic_waypointsScalarFieldEnum = makeEnum({
   position_z: 'position_z',
   comment: 'comment',
   id: 'id'
-});
+};
 
-exports.Prisma.Companion_spellsScalarFieldEnum = makeEnum({
+exports.Prisma.Companion_spellsScalarFieldEnum = {
   itemId: 'itemId',
   spellId: 'spellId'
-});
+};
 
-exports.Prisma.ConditionsScalarFieldEnum = makeEnum({
+exports.Prisma.ConditionsScalarFieldEnum = {
   condition_entry: 'condition_entry',
   type: 'type',
   value1: 'value1',
@@ -214,9 +211,9 @@ exports.Prisma.ConditionsScalarFieldEnum = makeEnum({
   value3: 'value3',
   value4: 'value4',
   flags: 'flags'
-});
+};
 
-exports.Prisma.CreatureScalarFieldEnum = makeEnum({
+exports.Prisma.CreatureScalarFieldEnum = {
   guid: 'guid',
   id: 'id',
   id2: 'id2',
@@ -235,9 +232,9 @@ exports.Prisma.CreatureScalarFieldEnum = makeEnum({
   movement_type: 'movement_type',
   spawn_flags: 'spawn_flags',
   visibility_mod: 'visibility_mod'
-});
+};
 
-exports.Prisma.Creature_addonScalarFieldEnum = makeEnum({
+exports.Prisma.Creature_addonScalarFieldEnum = {
   guid: 'guid',
   display_id: 'display_id',
   mount_display_id: 'mount_display_id',
@@ -246,9 +243,9 @@ exports.Prisma.Creature_addonScalarFieldEnum = makeEnum({
   sheath_state: 'sheath_state',
   emote_state: 'emote_state',
   auras: 'auras'
-});
+};
 
-exports.Prisma.Creature_ai_eventsScalarFieldEnum = makeEnum({
+exports.Prisma.Creature_ai_eventsScalarFieldEnum = {
   id: 'id',
   creature_id: 'creature_id',
   condition_id: 'condition_id',
@@ -264,57 +261,57 @@ exports.Prisma.Creature_ai_eventsScalarFieldEnum = makeEnum({
   action2_script: 'action2_script',
   action3_script: 'action3_script',
   comment: 'comment'
-});
+};
 
-exports.Prisma.Creature_battlegroundScalarFieldEnum = makeEnum({
+exports.Prisma.Creature_battlegroundScalarFieldEnum = {
   guid: 'guid',
   event1: 'event1',
   event2: 'event2'
-});
+};
 
-exports.Prisma.Creature_display_info_addonScalarFieldEnum = makeEnum({
+exports.Prisma.Creature_display_info_addonScalarFieldEnum = {
   display_id: 'display_id',
   bounding_radius: 'bounding_radius',
   combat_reach: 'combat_reach',
   gender: 'gender',
   display_id_other_gender: 'display_id_other_gender'
-});
+};
 
-exports.Prisma.Creature_equip_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Creature_equip_templateScalarFieldEnum = {
   entry: 'entry',
   equipentry1: 'equipentry1',
   equipentry2: 'equipentry2',
   equipentry3: 'equipentry3'
-});
+};
 
-exports.Prisma.Creature_groupsScalarFieldEnum = makeEnum({
+exports.Prisma.Creature_groupsScalarFieldEnum = {
   leader_guid: 'leader_guid',
   member_guid: 'member_guid',
   dist: 'dist',
   angle: 'angle',
   flags: 'flags'
-});
+};
 
-exports.Prisma.Creature_involvedrelationScalarFieldEnum = makeEnum({
+exports.Prisma.Creature_involvedrelationScalarFieldEnum = {
   id: 'id',
   quest: 'quest'
-});
+};
 
-exports.Prisma.Creature_linkingScalarFieldEnum = makeEnum({
+exports.Prisma.Creature_linkingScalarFieldEnum = {
   guid: 'guid',
   master_guid: 'master_guid',
   flag: 'flag'
-});
+};
 
-exports.Prisma.Creature_linking_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Creature_linking_templateScalarFieldEnum = {
   entry: 'entry',
   map: 'map',
   master_entry: 'master_entry',
   flag: 'flag',
   search_range: 'search_range'
-});
+};
 
-exports.Prisma.Creature_loot_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Creature_loot_templateScalarFieldEnum = {
   entry: 'entry',
   item: 'item',
   ChanceOrQuestChance: 'ChanceOrQuestChance',
@@ -322,9 +319,9 @@ exports.Prisma.Creature_loot_templateScalarFieldEnum = makeEnum({
   mincountOrRef: 'mincountOrRef',
   maxcount: 'maxcount',
   condition_id: 'condition_id'
-});
+};
 
-exports.Prisma.Creature_movementScalarFieldEnum = makeEnum({
+exports.Prisma.Creature_movementScalarFieldEnum = {
   id: 'id',
   point: 'point',
   position_x: 'position_x',
@@ -334,9 +331,9 @@ exports.Prisma.Creature_movementScalarFieldEnum = makeEnum({
   waittime: 'waittime',
   wander_distance: 'wander_distance',
   script_id: 'script_id'
-});
+};
 
-exports.Prisma.Creature_movement_specialScalarFieldEnum = makeEnum({
+exports.Prisma.Creature_movement_specialScalarFieldEnum = {
   id: 'id',
   point: 'point',
   position_x: 'position_x',
@@ -346,9 +343,9 @@ exports.Prisma.Creature_movement_specialScalarFieldEnum = makeEnum({
   waittime: 'waittime',
   wander_distance: 'wander_distance',
   script_id: 'script_id'
-});
+};
 
-exports.Prisma.Creature_movement_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Creature_movement_templateScalarFieldEnum = {
   entry: 'entry',
   point: 'point',
   position_x: 'position_x',
@@ -358,9 +355,9 @@ exports.Prisma.Creature_movement_templateScalarFieldEnum = makeEnum({
   waittime: 'waittime',
   wander_distance: 'wander_distance',
   script_id: 'script_id'
-});
+};
 
-exports.Prisma.Creature_onkill_reputationScalarFieldEnum = makeEnum({
+exports.Prisma.Creature_onkill_reputationScalarFieldEnum = {
   creature_id: 'creature_id',
   RewOnKillRepFaction1: 'RewOnKillRepFaction1',
   RewOnKillRepFaction2: 'RewOnKillRepFaction2',
@@ -371,14 +368,14 @@ exports.Prisma.Creature_onkill_reputationScalarFieldEnum = makeEnum({
   IsTeamAward2: 'IsTeamAward2',
   RewOnKillRepValue2: 'RewOnKillRepValue2',
   TeamDependent: 'TeamDependent'
-});
+};
 
-exports.Prisma.Creature_questrelationScalarFieldEnum = makeEnum({
+exports.Prisma.Creature_questrelationScalarFieldEnum = {
   id: 'id',
   quest: 'quest'
-});
+};
 
-exports.Prisma.Creature_spellsScalarFieldEnum = makeEnum({
+exports.Prisma.Creature_spellsScalarFieldEnum = {
   entry: 'entry',
   name: 'name',
   spellId_1: 'spellId_1',
@@ -469,9 +466,9 @@ exports.Prisma.Creature_spellsScalarFieldEnum = makeEnum({
   delayRepeatMin_8: 'delayRepeatMin_8',
   delayRepeatMax_8: 'delayRepeatMax_8',
   scriptId_8: 'scriptId_8'
-});
+};
 
-exports.Prisma.Creature_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Creature_templateScalarFieldEnum = {
   entry: 'entry',
   display_id1: 'display_id1',
   display_id2: 'display_id2',
@@ -551,15 +548,15 @@ exports.Prisma.Creature_templateScalarFieldEnum = makeEnum({
   flags_extra: 'flags_extra',
   phase_quest_id: 'phase_quest_id',
   script_name: 'script_name'
-});
+};
 
-exports.Prisma.Custom_character_skinsScalarFieldEnum = makeEnum({
+exports.Prisma.Custom_character_skinsScalarFieldEnum = {
   token_id: 'token_id',
   skin_male: 'skin_male',
   skin_female: 'skin_female'
-});
+};
 
-exports.Prisma.Custom_graveyardsScalarFieldEnum = makeEnum({
+exports.Prisma.Custom_graveyardsScalarFieldEnum = {
   id: 'id',
   name: 'name',
   map_id: 'map_id',
@@ -576,9 +573,9 @@ exports.Prisma.Custom_graveyardsScalarFieldEnum = makeEnum({
   gy_y_horde: 'gy_y_horde',
   gy_z_horde: 'gy_z_horde',
   orientation_horde: 'orientation_horde'
-});
+};
 
-exports.Prisma.Disenchant_loot_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Disenchant_loot_templateScalarFieldEnum = {
   entry: 'entry',
   item: 'item',
   ChanceOrQuestChance: 'ChanceOrQuestChance',
@@ -586,14 +583,14 @@ exports.Prisma.Disenchant_loot_templateScalarFieldEnum = makeEnum({
   mincountOrRef: 'mincountOrRef',
   maxcount: 'maxcount',
   condition_id: 'condition_id'
-});
+};
 
-exports.Prisma.Exploration_basexpScalarFieldEnum = makeEnum({
+exports.Prisma.Exploration_basexpScalarFieldEnum = {
   level: 'level',
   basexp: 'basexp'
-});
+};
 
-exports.Prisma.FactionScalarFieldEnum = makeEnum({
+exports.Prisma.FactionScalarFieldEnum = {
   id: 'id',
   reputation_list_id: 'reputation_list_id',
   base_rep_race_mask1: 'base_rep_race_mask1',
@@ -629,9 +626,9 @@ exports.Prisma.FactionScalarFieldEnum = makeEnum({
   description6: 'description6',
   description7: 'description7',
   description8: 'description8'
-});
+};
 
-exports.Prisma.Faction_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Faction_templateScalarFieldEnum = {
   id: 'id',
   faction_id: 'faction_id',
   faction_flags: 'faction_flags',
@@ -646,9 +643,9 @@ exports.Prisma.Faction_templateScalarFieldEnum = makeEnum({
   friend_faction2: 'friend_faction2',
   friend_faction3: 'friend_faction3',
   friend_faction4: 'friend_faction4'
-});
+};
 
-exports.Prisma.Fishing_loot_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Fishing_loot_templateScalarFieldEnum = {
   entry: 'entry',
   item: 'item',
   ChanceOrQuestChance: 'ChanceOrQuestChance',
@@ -656,9 +653,9 @@ exports.Prisma.Fishing_loot_templateScalarFieldEnum = makeEnum({
   mincountOrRef: 'mincountOrRef',
   maxcount: 'maxcount',
   condition_id: 'condition_id'
-});
+};
 
-exports.Prisma.Game_eventScalarFieldEnum = makeEnum({
+exports.Prisma.Game_eventScalarFieldEnum = {
   entry: 'entry',
   start_time: 'start_time',
   end_time: 'end_time',
@@ -668,14 +665,14 @@ exports.Prisma.Game_eventScalarFieldEnum = makeEnum({
   description: 'description',
   hardcoded: 'hardcoded',
   disabled: 'disabled'
-});
+};
 
-exports.Prisma.Game_event_creatureScalarFieldEnum = makeEnum({
+exports.Prisma.Game_event_creatureScalarFieldEnum = {
   guid: 'guid',
   event: 'event'
-});
+};
 
-exports.Prisma.Game_event_creature_dataScalarFieldEnum = makeEnum({
+exports.Prisma.Game_event_creature_dataScalarFieldEnum = {
   guid: 'guid',
   entry_id: 'entry_id',
   display_id: 'display_id',
@@ -683,33 +680,33 @@ exports.Prisma.Game_event_creature_dataScalarFieldEnum = makeEnum({
   spell_start: 'spell_start',
   spell_end: 'spell_end',
   event: 'event'
-});
+};
 
-exports.Prisma.Game_event_gameobjectScalarFieldEnum = makeEnum({
+exports.Prisma.Game_event_gameobjectScalarFieldEnum = {
   guid: 'guid',
   event: 'event'
-});
+};
 
-exports.Prisma.Game_event_mailScalarFieldEnum = makeEnum({
+exports.Prisma.Game_event_mailScalarFieldEnum = {
   event: 'event',
   raceMask: 'raceMask',
   quest: 'quest',
   mailTemplateId: 'mailTemplateId',
   senderEntry: 'senderEntry'
-});
+};
 
-exports.Prisma.Game_event_questScalarFieldEnum = makeEnum({
+exports.Prisma.Game_event_questScalarFieldEnum = {
   quest: 'quest',
   event: 'event'
-});
+};
 
-exports.Prisma.Game_graveyard_zoneScalarFieldEnum = makeEnum({
+exports.Prisma.Game_graveyard_zoneScalarFieldEnum = {
   id: 'id',
   ghost_zone: 'ghost_zone',
   faction: 'faction'
-});
+};
 
-exports.Prisma.Game_teleScalarFieldEnum = makeEnum({
+exports.Prisma.Game_teleScalarFieldEnum = {
   id: 'id',
   position_x: 'position_x',
   position_y: 'position_y',
@@ -717,9 +714,9 @@ exports.Prisma.Game_teleScalarFieldEnum = makeEnum({
   orientation: 'orientation',
   map: 'map',
   name: 'name'
-});
+};
 
-exports.Prisma.Game_weatherScalarFieldEnum = makeEnum({
+exports.Prisma.Game_weatherScalarFieldEnum = {
   zone: 'zone',
   copy_weather_from: 'copy_weather_from',
   spring_rain_chance: 'spring_rain_chance',
@@ -734,9 +731,9 @@ exports.Prisma.Game_weatherScalarFieldEnum = makeEnum({
   winter_rain_chance: 'winter_rain_chance',
   winter_snow_chance: 'winter_snow_chance',
   winter_storm_chance: 'winter_storm_chance'
-});
+};
 
-exports.Prisma.GameobjectScalarFieldEnum = makeEnum({
+exports.Prisma.GameobjectScalarFieldEnum = {
   guid: 'guid',
   id: 'id',
   map: 'map',
@@ -754,15 +751,15 @@ exports.Prisma.GameobjectScalarFieldEnum = makeEnum({
   state: 'state',
   spawn_flags: 'spawn_flags',
   visibility_mod: 'visibility_mod'
-});
+};
 
-exports.Prisma.Gameobject_battlegroundScalarFieldEnum = makeEnum({
+exports.Prisma.Gameobject_battlegroundScalarFieldEnum = {
   guid: 'guid',
   event1: 'event1',
   event2: 'event2'
-});
+};
 
-exports.Prisma.Gameobject_display_info_addonScalarFieldEnum = makeEnum({
+exports.Prisma.Gameobject_display_info_addonScalarFieldEnum = {
   display_id: 'display_id',
   min_x: 'min_x',
   min_y: 'min_y',
@@ -770,14 +767,14 @@ exports.Prisma.Gameobject_display_info_addonScalarFieldEnum = makeEnum({
   max_x: 'max_x',
   max_y: 'max_y',
   max_z: 'max_z'
-});
+};
 
-exports.Prisma.Gameobject_involvedrelationScalarFieldEnum = makeEnum({
+exports.Prisma.Gameobject_involvedrelationScalarFieldEnum = {
   id: 'id',
   quest: 'quest'
-});
+};
 
-exports.Prisma.Gameobject_loot_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Gameobject_loot_templateScalarFieldEnum = {
   entry: 'entry',
   item: 'item',
   ChanceOrQuestChance: 'ChanceOrQuestChance',
@@ -785,20 +782,20 @@ exports.Prisma.Gameobject_loot_templateScalarFieldEnum = makeEnum({
   mincountOrRef: 'mincountOrRef',
   maxcount: 'maxcount',
   condition_id: 'condition_id'
-});
+};
 
-exports.Prisma.Gameobject_questrelationScalarFieldEnum = makeEnum({
+exports.Prisma.Gameobject_questrelationScalarFieldEnum = {
   id: 'id',
   quest: 'quest'
-});
+};
 
-exports.Prisma.Gameobject_requirementScalarFieldEnum = makeEnum({
+exports.Prisma.Gameobject_requirementScalarFieldEnum = {
   guid: 'guid',
   reqType: 'reqType',
   reqGuid: 'reqGuid'
-});
+};
 
-exports.Prisma.Gameobject_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Gameobject_templateScalarFieldEnum = {
   entry: 'entry',
   type: 'type',
   displayId: 'displayId',
@@ -834,24 +831,24 @@ exports.Prisma.Gameobject_templateScalarFieldEnum = makeEnum({
   maxgold: 'maxgold',
   phase_quest_id: 'phase_quest_id',
   script_name: 'script_name'
-});
+};
 
-exports.Prisma.Gm_subsurveysScalarFieldEnum = makeEnum({
+exports.Prisma.Gm_subsurveysScalarFieldEnum = {
   surveyId: 'surveyId',
   subsurveyId: 'subsurveyId',
   rank: 'rank',
   comment: 'comment'
-});
+};
 
-exports.Prisma.Gm_surveysScalarFieldEnum = makeEnum({
+exports.Prisma.Gm_surveysScalarFieldEnum = {
   surveyId: 'surveyId',
   guid: 'guid',
   mainSurvey: 'mainSurvey',
   overallComment: 'overallComment',
   createTime: 'createTime'
-});
+};
 
-exports.Prisma.Gm_ticketsScalarFieldEnum = makeEnum({
+exports.Prisma.Gm_ticketsScalarFieldEnum = {
   ticketId: 'ticketId',
   guid: 'guid',
   name: 'name',
@@ -872,15 +869,15 @@ exports.Prisma.Gm_ticketsScalarFieldEnum = makeEnum({
   haveTicket: 'haveTicket',
   ticketType: 'ticketType',
   securityNeeded: 'securityNeeded'
-});
+};
 
-exports.Prisma.Gossip_menuScalarFieldEnum = makeEnum({
+exports.Prisma.Gossip_menuScalarFieldEnum = {
   entry: 'entry',
   text_id: 'text_id',
   condition_id: 'condition_id'
-});
+};
 
-exports.Prisma.Gossip_menu_optionScalarFieldEnum = makeEnum({
+exports.Prisma.Gossip_menu_optionScalarFieldEnum = {
   menu_id: 'menu_id',
   id: 'id',
   option_icon: 'option_icon',
@@ -896,9 +893,9 @@ exports.Prisma.Gossip_menu_optionScalarFieldEnum = makeEnum({
   box_text: 'box_text',
   BoxBroadcastTextID: 'BoxBroadcastTextID',
   condition_id: 'condition_id'
-});
+};
 
-exports.Prisma.Guild_bankScalarFieldEnum = makeEnum({
+exports.Prisma.Guild_bankScalarFieldEnum = {
   guildid: 'guildid',
   guid: 'guid',
   tab: 'tab',
@@ -916,9 +913,9 @@ exports.Prisma.Guild_bankScalarFieldEnum = makeEnum({
   durability: 'durability',
   text: 'text',
   generated_loot: 'generated_loot'
-});
+};
 
-exports.Prisma.Guild_bank_logScalarFieldEnum = makeEnum({
+exports.Prisma.Guild_bank_logScalarFieldEnum = {
   log_id: 'log_id',
   guildid: 'guildid',
   player: 'player',
@@ -929,14 +926,14 @@ exports.Prisma.Guild_bank_logScalarFieldEnum = makeEnum({
   enchant: 'enchant',
   count: 'count',
   stamp: 'stamp'
-});
+};
 
-exports.Prisma.Guild_bank_moneyScalarFieldEnum = makeEnum({
+exports.Prisma.Guild_bank_moneyScalarFieldEnum = {
   guildid: 'guildid',
   money: 'money'
-});
+};
 
-exports.Prisma.Guild_bank_tabsScalarFieldEnum = makeEnum({
+exports.Prisma.Guild_bank_tabsScalarFieldEnum = {
   id: 'id',
   guildid: 'guildid',
   tabs: 'tabs',
@@ -960,23 +957,23 @@ exports.Prisma.Guild_bank_tabsScalarFieldEnum = makeEnum({
   minrank3: 'minrank3',
   minrank4: 'minrank4',
   minrank5: 'minrank5'
-});
+};
 
-exports.Prisma.Instance_buff_removalScalarFieldEnum = makeEnum({
+exports.Prisma.Instance_buff_removalScalarFieldEnum = {
   map_id: 'map_id',
   spell_id: 'spell_id',
   enabled: 'enabled',
   flags: 'flags',
   comment: 'comment'
-});
+};
 
-exports.Prisma.Item_enchantment_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Item_enchantment_templateScalarFieldEnum = {
   entry: 'entry',
   ench: 'ench',
   chance: 'chance'
-});
+};
 
-exports.Prisma.Item_loot_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Item_loot_templateScalarFieldEnum = {
   entry: 'entry',
   item: 'item',
   ChanceOrQuestChance: 'ChanceOrQuestChance',
@@ -984,15 +981,15 @@ exports.Prisma.Item_loot_templateScalarFieldEnum = makeEnum({
   mincountOrRef: 'mincountOrRef',
   maxcount: 'maxcount',
   condition_id: 'condition_id'
-});
+};
 
-exports.Prisma.Item_required_targetScalarFieldEnum = makeEnum({
+exports.Prisma.Item_required_targetScalarFieldEnum = {
   entry: 'entry',
   type: 'type',
   target_entry: 'target_entry'
-});
+};
 
-exports.Prisma.Item_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Item_templateScalarFieldEnum = {
   entry: 'entry',
   class: 'class',
   subclass: 'subclass',
@@ -1122,16 +1119,16 @@ exports.Prisma.Item_templateScalarFieldEnum = makeEnum({
   extra_flags: 'extra_flags',
   other_team_entry: 'other_team_entry',
   script_name: 'script_name'
-});
+};
 
-exports.Prisma.Item_transmogrify_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Item_transmogrify_templateScalarFieldEnum = {
   ID: 'ID',
   ItemID: 'ItemID',
   DisplayID: 'DisplayID',
   SourceID: 'SourceID'
-});
+};
 
-exports.Prisma.Locales_areaScalarFieldEnum = makeEnum({
+exports.Prisma.Locales_areaScalarFieldEnum = {
   Entry: 'Entry',
   NameLoc1: 'NameLoc1',
   NameLoc2: 'NameLoc2',
@@ -1141,9 +1138,9 @@ exports.Prisma.Locales_areaScalarFieldEnum = makeEnum({
   NameLoc6: 'NameLoc6',
   NameLoc7: 'NameLoc7',
   NameLoc8: 'NameLoc8'
-});
+};
 
-exports.Prisma.Locales_broadcast_textScalarFieldEnum = makeEnum({
+exports.Prisma.Locales_broadcast_textScalarFieldEnum = {
   entry: 'entry',
   male_text_loc1: 'male_text_loc1',
   male_text_loc2: 'male_text_loc2',
@@ -1161,9 +1158,9 @@ exports.Prisma.Locales_broadcast_textScalarFieldEnum = makeEnum({
   female_text_loc6: 'female_text_loc6',
   female_text_loc7: 'female_text_loc7',
   female_text_loc8: 'female_text_loc8'
-});
+};
 
-exports.Prisma.Locales_creatureScalarFieldEnum = makeEnum({
+exports.Prisma.Locales_creatureScalarFieldEnum = {
   entry: 'entry',
   name_loc1: 'name_loc1',
   name_loc2: 'name_loc2',
@@ -1181,9 +1178,9 @@ exports.Prisma.Locales_creatureScalarFieldEnum = makeEnum({
   subname_loc6: 'subname_loc6',
   subname_loc7: 'subname_loc7',
   subname_loc8: 'subname_loc8'
-});
+};
 
-exports.Prisma.Locales_factionScalarFieldEnum = makeEnum({
+exports.Prisma.Locales_factionScalarFieldEnum = {
   entry: 'entry',
   name_loc1: 'name_loc1',
   name_loc2: 'name_loc2',
@@ -1197,9 +1194,9 @@ exports.Prisma.Locales_factionScalarFieldEnum = makeEnum({
   description_loc4: 'description_loc4',
   description_loc5: 'description_loc5',
   description_loc6: 'description_loc6'
-});
+};
 
-exports.Prisma.Locales_gameobjectScalarFieldEnum = makeEnum({
+exports.Prisma.Locales_gameobjectScalarFieldEnum = {
   entry: 'entry',
   name_loc1: 'name_loc1',
   name_loc2: 'name_loc2',
@@ -1209,9 +1206,9 @@ exports.Prisma.Locales_gameobjectScalarFieldEnum = makeEnum({
   name_loc6: 'name_loc6',
   name_loc7: 'name_loc7',
   name_loc8: 'name_loc8'
-});
+};
 
-exports.Prisma.Locales_gossip_menu_optionScalarFieldEnum = makeEnum({
+exports.Prisma.Locales_gossip_menu_optionScalarFieldEnum = {
   menu_id: 'menu_id',
   id: 'id',
   option_text_loc1: 'option_text_loc1',
@@ -1230,9 +1227,9 @@ exports.Prisma.Locales_gossip_menu_optionScalarFieldEnum = makeEnum({
   box_text_loc6: 'box_text_loc6',
   box_text_loc7: 'box_text_loc7',
   box_text_loc8: 'box_text_loc8'
-});
+};
 
-exports.Prisma.Locales_itemScalarFieldEnum = makeEnum({
+exports.Prisma.Locales_itemScalarFieldEnum = {
   entry: 'entry',
   name_loc1: 'name_loc1',
   name_loc2: 'name_loc2',
@@ -1250,9 +1247,9 @@ exports.Prisma.Locales_itemScalarFieldEnum = makeEnum({
   description_loc6: 'description_loc6',
   description_loc7: 'description_loc7',
   description_loc8: 'description_loc8'
-});
+};
 
-exports.Prisma.Locales_page_textScalarFieldEnum = makeEnum({
+exports.Prisma.Locales_page_textScalarFieldEnum = {
   entry: 'entry',
   Text_loc1: 'Text_loc1',
   Text_loc2: 'Text_loc2',
@@ -1262,9 +1259,9 @@ exports.Prisma.Locales_page_textScalarFieldEnum = makeEnum({
   Text_loc6: 'Text_loc6',
   Text_loc7: 'Text_loc7',
   Text_loc8: 'Text_loc8'
-});
+};
 
-exports.Prisma.Locales_points_of_interestScalarFieldEnum = makeEnum({
+exports.Prisma.Locales_points_of_interestScalarFieldEnum = {
   entry: 'entry',
   icon_name_loc1: 'icon_name_loc1',
   icon_name_loc2: 'icon_name_loc2',
@@ -1274,9 +1271,9 @@ exports.Prisma.Locales_points_of_interestScalarFieldEnum = makeEnum({
   icon_name_loc6: 'icon_name_loc6',
   icon_name_loc7: 'icon_name_loc7',
   icon_name_loc8: 'icon_name_loc8'
-});
+};
 
-exports.Prisma.Locales_questScalarFieldEnum = makeEnum({
+exports.Prisma.Locales_questScalarFieldEnum = {
   entry: 'entry',
   Title_loc1: 'Title_loc1',
   Title_loc2: 'Title_loc2',
@@ -1358,9 +1355,9 @@ exports.Prisma.Locales_questScalarFieldEnum = makeEnum({
   ObjectiveText4_loc6: 'ObjectiveText4_loc6',
   ObjectiveText4_loc7: 'ObjectiveText4_loc7',
   ObjectiveText4_loc8: 'ObjectiveText4_loc8'
-});
+};
 
-exports.Prisma.Locales_spellScalarFieldEnum = makeEnum({
+exports.Prisma.Locales_spellScalarFieldEnum = {
   entry: 'entry',
   name_loc1: 'name_loc1',
   name_loc2: 'name_loc2',
@@ -1386,9 +1383,9 @@ exports.Prisma.Locales_spellScalarFieldEnum = makeEnum({
   auraDescription_loc4: 'auraDescription_loc4',
   auraDescription_loc5: 'auraDescription_loc5',
   auraDescription_loc6: 'auraDescription_loc6'
-});
+};
 
-exports.Prisma.Locales_taxi_nodeScalarFieldEnum = makeEnum({
+exports.Prisma.Locales_taxi_nodeScalarFieldEnum = {
   entry: 'entry',
   name_loc1: 'name_loc1',
   name_loc2: 'name_loc2',
@@ -1396,9 +1393,9 @@ exports.Prisma.Locales_taxi_nodeScalarFieldEnum = makeEnum({
   name_loc4: 'name_loc4',
   name_loc5: 'name_loc5',
   name_loc6: 'name_loc6'
-});
+};
 
-exports.Prisma.Mail_loot_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Mail_loot_templateScalarFieldEnum = {
   entry: 'entry',
   item: 'item',
   ChanceOrQuestChance: 'ChanceOrQuestChance',
@@ -1406,9 +1403,9 @@ exports.Prisma.Mail_loot_templateScalarFieldEnum = makeEnum({
   mincountOrRef: 'mincountOrRef',
   maxcount: 'maxcount',
   condition_id: 'condition_id'
-});
+};
 
-exports.Prisma.Mail_text_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Mail_text_templateScalarFieldEnum = {
   entry: 'entry',
   content_default: 'content_default',
   content_loc1: 'content_loc1',
@@ -1418,9 +1415,9 @@ exports.Prisma.Mail_text_templateScalarFieldEnum = makeEnum({
   content_loc5: 'content_loc5',
   content_loc6: 'content_loc6',
   content_loc7: 'content_loc7'
-});
+};
 
-exports.Prisma.Mangos_stringScalarFieldEnum = makeEnum({
+exports.Prisma.Mangos_stringScalarFieldEnum = {
   entry: 'entry',
   content_default: 'content_default',
   content_loc1: 'content_loc1',
@@ -1431,14 +1428,14 @@ exports.Prisma.Mangos_stringScalarFieldEnum = makeEnum({
   content_loc6: 'content_loc6',
   content_loc7: 'content_loc7',
   content_loc8: 'content_loc8'
-});
+};
 
-exports.Prisma.Map_loot_disabledScalarFieldEnum = makeEnum({
+exports.Prisma.Map_loot_disabledScalarFieldEnum = {
   map_id: 'map_id',
   comment: 'comment'
-});
+};
 
-exports.Prisma.Map_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Map_templateScalarFieldEnum = {
   entry: 'entry',
   parent: 'parent',
   map_type: 'map_type',
@@ -1450,26 +1447,26 @@ exports.Prisma.Map_templateScalarFieldEnum = makeEnum({
   ghost_entrance_y: 'ghost_entrance_y',
   map_name: 'map_name',
   script_name: 'script_name'
-});
+};
 
-exports.Prisma.MigrationsScalarFieldEnum = makeEnum({
+exports.Prisma.MigrationsScalarFieldEnum = {
   Id: 'Id',
   Name: 'Name',
   Hash: 'Hash',
   AppliedAt: 'AppliedAt'
-});
+};
 
-exports.Prisma.Mount_spellsScalarFieldEnum = makeEnum({
+exports.Prisma.Mount_spellsScalarFieldEnum = {
   itemId: 'itemId',
   spellId: 'spellId'
-});
+};
 
-exports.Prisma.Npc_gossipScalarFieldEnum = makeEnum({
+exports.Prisma.Npc_gossipScalarFieldEnum = {
   npc_guid: 'npc_guid',
   textid: 'textid'
-});
+};
 
-exports.Prisma.Npc_textScalarFieldEnum = makeEnum({
+exports.Prisma.Npc_textScalarFieldEnum = {
   ID: 'ID',
   BroadcastTextID0: 'BroadcastTextID0',
   Probability0: 'Probability0',
@@ -1487,18 +1484,18 @@ exports.Prisma.Npc_textScalarFieldEnum = makeEnum({
   Probability6: 'Probability6',
   BroadcastTextID7: 'BroadcastTextID7',
   Probability7: 'Probability7'
-});
+};
 
-exports.Prisma.Npc_trainerScalarFieldEnum = makeEnum({
+exports.Prisma.Npc_trainerScalarFieldEnum = {
   entry: 'entry',
   spell: 'spell',
   spellcost: 'spellcost',
   reqskill: 'reqskill',
   reqskillvalue: 'reqskillvalue',
   reqlevel: 'reqlevel'
-});
+};
 
-exports.Prisma.Npc_trainer_greetingScalarFieldEnum = makeEnum({
+exports.Prisma.Npc_trainer_greetingScalarFieldEnum = {
   entry: 'entry',
   content_default: 'content_default',
   content_loc1: 'content_loc1',
@@ -1509,18 +1506,18 @@ exports.Prisma.Npc_trainer_greetingScalarFieldEnum = makeEnum({
   content_loc6: 'content_loc6',
   content_loc7: 'content_loc7',
   content_loc8: 'content_loc8'
-});
+};
 
-exports.Prisma.Npc_trainer_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Npc_trainer_templateScalarFieldEnum = {
   entry: 'entry',
   spell: 'spell',
   spellcost: 'spellcost',
   reqskill: 'reqskill',
   reqskillvalue: 'reqskillvalue',
   reqlevel: 'reqlevel'
-});
+};
 
-exports.Prisma.Npc_vendorScalarFieldEnum = makeEnum({
+exports.Prisma.Npc_vendorScalarFieldEnum = {
   entry: 'entry',
   slot: 'slot',
   item: 'item',
@@ -1528,9 +1525,9 @@ exports.Prisma.Npc_vendorScalarFieldEnum = makeEnum({
   incrtime: 'incrtime',
   itemflags: 'itemflags',
   condition_id: 'condition_id'
-});
+};
 
-exports.Prisma.Npc_vendor_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Npc_vendor_templateScalarFieldEnum = {
   entry: 'entry',
   slot: 'slot',
   item: 'item',
@@ -1538,20 +1535,20 @@ exports.Prisma.Npc_vendor_templateScalarFieldEnum = makeEnum({
   incrtime: 'incrtime',
   itemflags: 'itemflags',
   condition_id: 'condition_id'
-});
+};
 
-exports.Prisma.Object_scalingScalarFieldEnum = makeEnum({
+exports.Prisma.Object_scalingScalarFieldEnum = {
   fullGuid: 'fullGuid',
   scale: 'scale'
-});
+};
 
-exports.Prisma.Page_textScalarFieldEnum = makeEnum({
+exports.Prisma.Page_textScalarFieldEnum = {
   entry: 'entry',
   text: 'text',
   next_page: 'next_page'
-});
+};
 
-exports.Prisma.Pet_levelstatsScalarFieldEnum = makeEnum({
+exports.Prisma.Pet_levelstatsScalarFieldEnum = {
   creature_entry: 'creature_entry',
   level: 'level',
   hp: 'hp',
@@ -1562,32 +1559,32 @@ exports.Prisma.Pet_levelstatsScalarFieldEnum = makeEnum({
   sta: 'sta',
   inte: 'inte',
   spi: 'spi'
-});
+};
 
-exports.Prisma.Pet_name_generationScalarFieldEnum = makeEnum({
+exports.Prisma.Pet_name_generationScalarFieldEnum = {
   id: 'id',
   word: 'word',
   entry: 'entry',
   half: 'half'
-});
+};
 
-exports.Prisma.Pet_spell_dataScalarFieldEnum = makeEnum({
+exports.Prisma.Pet_spell_dataScalarFieldEnum = {
   entry: 'entry',
   spell_id1: 'spell_id1',
   spell_id2: 'spell_id2',
   spell_id3: 'spell_id3',
   spell_id4: 'spell_id4'
-});
+};
 
-exports.Prisma.Petcreateinfo_spellScalarFieldEnum = makeEnum({
+exports.Prisma.Petcreateinfo_spellScalarFieldEnum = {
   entry: 'entry',
   spell1: 'spell1',
   spell2: 'spell2',
   spell3: 'spell3',
   spell4: 'spell4'
-});
+};
 
-exports.Prisma.Pickpocketing_loot_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Pickpocketing_loot_templateScalarFieldEnum = {
   entry: 'entry',
   item: 'item',
   ChanceOrQuestChance: 'ChanceOrQuestChance',
@@ -1595,54 +1592,54 @@ exports.Prisma.Pickpocketing_loot_templateScalarFieldEnum = makeEnum({
   mincountOrRef: 'mincountOrRef',
   maxcount: 'maxcount',
   condition_id: 'condition_id'
-});
+};
 
-exports.Prisma.Player_censusScalarFieldEnum = makeEnum({
+exports.Prisma.Player_censusScalarFieldEnum = {
   id: 'id',
   alliance_players: 'alliance_players',
   horde_players: 'horde_players',
   total_players: 'total_players',
   date_time: 'date_time'
-});
+};
 
-exports.Prisma.Player_classlevelstatsScalarFieldEnum = makeEnum({
+exports.Prisma.Player_classlevelstatsScalarFieldEnum = {
   class: 'class',
   level: 'level',
   basehp: 'basehp',
   basemana: 'basemana'
-});
+};
 
-exports.Prisma.Player_factionchange_itemsScalarFieldEnum = makeEnum({
+exports.Prisma.Player_factionchange_itemsScalarFieldEnum = {
   alliance_id: 'alliance_id',
   horde_id: 'horde_id',
   comment: 'comment'
-});
+};
 
-exports.Prisma.Player_factionchange_mountsScalarFieldEnum = makeEnum({
+exports.Prisma.Player_factionchange_mountsScalarFieldEnum = {
   RaceId: 'RaceId',
   MountNum: 'MountNum',
   ItemEntry: 'ItemEntry',
   Comment: 'Comment'
-});
+};
 
-exports.Prisma.Player_factionchange_questsScalarFieldEnum = makeEnum({
+exports.Prisma.Player_factionchange_questsScalarFieldEnum = {
   alliance_id: 'alliance_id',
   horde_id: 'horde_id',
   comment: 'comment'
-});
+};
 
-exports.Prisma.Player_factionchange_reputationsScalarFieldEnum = makeEnum({
+exports.Prisma.Player_factionchange_reputationsScalarFieldEnum = {
   alliance_id: 'alliance_id',
   horde_id: 'horde_id'
-});
+};
 
-exports.Prisma.Player_factionchange_spellsScalarFieldEnum = makeEnum({
+exports.Prisma.Player_factionchange_spellsScalarFieldEnum = {
   alliance_id: 'alliance_id',
   horde_id: 'horde_id',
   comment: 'comment'
-});
+};
 
-exports.Prisma.Player_levelstatsScalarFieldEnum = makeEnum({
+exports.Prisma.Player_levelstatsScalarFieldEnum = {
   race: 'race',
   class: 'class',
   level: 'level',
@@ -1651,20 +1648,20 @@ exports.Prisma.Player_levelstatsScalarFieldEnum = makeEnum({
   sta: 'sta',
   inte: 'inte',
   spi: 'spi'
-});
+};
 
-exports.Prisma.Player_xp_for_levelScalarFieldEnum = makeEnum({
+exports.Prisma.Player_xp_for_levelScalarFieldEnum = {
   lvl: 'lvl',
   xp_for_next_level: 'xp_for_next_level'
-});
+};
 
-exports.Prisma.PlayerbotScalarFieldEnum = makeEnum({
+exports.Prisma.PlayerbotScalarFieldEnum = {
   char_guid: 'char_guid',
   chance: 'chance',
   comment: 'comment'
-});
+};
 
-exports.Prisma.PlayercreateinfoScalarFieldEnum = makeEnum({
+exports.Prisma.PlayercreateinfoScalarFieldEnum = {
   race: 'race',
   class: 'class',
   map: 'map',
@@ -1673,24 +1670,24 @@ exports.Prisma.PlayercreateinfoScalarFieldEnum = makeEnum({
   position_y: 'position_y',
   position_z: 'position_z',
   orientation: 'orientation'
-});
+};
 
-exports.Prisma.Playercreateinfo_actionScalarFieldEnum = makeEnum({
+exports.Prisma.Playercreateinfo_actionScalarFieldEnum = {
   race: 'race',
   class: 'class',
   button: 'button',
   action: 'action',
   type: 'type'
-});
+};
 
-exports.Prisma.Playercreateinfo_spellScalarFieldEnum = makeEnum({
+exports.Prisma.Playercreateinfo_spellScalarFieldEnum = {
   race: 'race',
   class: 'class',
   spell: 'spell',
   note: 'note'
-});
+};
 
-exports.Prisma.Points_of_interestScalarFieldEnum = makeEnum({
+exports.Prisma.Points_of_interestScalarFieldEnum = {
   entry: 'entry',
   x: 'x',
   y: 'y',
@@ -1698,57 +1695,57 @@ exports.Prisma.Points_of_interestScalarFieldEnum = makeEnum({
   flags: 'flags',
   data: 'data',
   icon_name: 'icon_name'
-});
+};
 
-exports.Prisma.Pool_creatureScalarFieldEnum = makeEnum({
+exports.Prisma.Pool_creatureScalarFieldEnum = {
   guid: 'guid',
   pool_entry: 'pool_entry',
   chance: 'chance',
   description: 'description',
   flags: 'flags'
-});
+};
 
-exports.Prisma.Pool_creature_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Pool_creature_templateScalarFieldEnum = {
   id: 'id',
   pool_entry: 'pool_entry',
   chance: 'chance',
   description: 'description',
   flags: 'flags'
-});
+};
 
-exports.Prisma.Pool_gameobjectScalarFieldEnum = makeEnum({
+exports.Prisma.Pool_gameobjectScalarFieldEnum = {
   guid: 'guid',
   pool_entry: 'pool_entry',
   chance: 'chance',
   description: 'description',
   flags: 'flags'
-});
+};
 
-exports.Prisma.Pool_gameobject_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Pool_gameobject_templateScalarFieldEnum = {
   id: 'id',
   pool_entry: 'pool_entry',
   chance: 'chance',
   description: 'description',
   flags: 'flags'
-});
+};
 
-exports.Prisma.Pool_poolScalarFieldEnum = makeEnum({
+exports.Prisma.Pool_poolScalarFieldEnum = {
   pool_id: 'pool_id',
   mother_pool: 'mother_pool',
   chance: 'chance',
   description: 'description',
   flags: 'flags'
-});
+};
 
-exports.Prisma.Pool_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Pool_templateScalarFieldEnum = {
   entry: 'entry',
   max_limit: 'max_limit',
   description: 'description',
   flags: 'flags',
   instance: 'instance'
-});
+};
 
-exports.Prisma.Quest_greetingScalarFieldEnum = makeEnum({
+exports.Prisma.Quest_greetingScalarFieldEnum = {
   entry: 'entry',
   type: 'type',
   content_default: 'content_default',
@@ -1762,9 +1759,9 @@ exports.Prisma.Quest_greetingScalarFieldEnum = makeEnum({
   content_loc8: 'content_loc8',
   emote_id: 'emote_id',
   emote_delay: 'emote_delay'
-});
+};
 
-exports.Prisma.Quest_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Quest_templateScalarFieldEnum = {
   entry: 'entry',
   Method: 'Method',
   ZoneOrSort: 'ZoneOrSort',
@@ -1893,9 +1890,9 @@ exports.Prisma.Quest_templateScalarFieldEnum = makeEnum({
   OfferRewardEmoteDelay4: 'OfferRewardEmoteDelay4',
   StartScript: 'StartScript',
   CompleteScript: 'CompleteScript'
-});
+};
 
-exports.Prisma.Reference_loot_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Reference_loot_templateScalarFieldEnum = {
   entry: 'entry',
   item: 'item',
   ChanceOrQuestChance: 'ChanceOrQuestChance',
@@ -1903,16 +1900,16 @@ exports.Prisma.Reference_loot_templateScalarFieldEnum = makeEnum({
   mincountOrRef: 'mincountOrRef',
   maxcount: 'maxcount',
   condition_id: 'condition_id'
-});
+};
 
-exports.Prisma.Reputation_reward_rateScalarFieldEnum = makeEnum({
+exports.Prisma.Reputation_reward_rateScalarFieldEnum = {
   faction: 'faction',
   quest_rate: 'quest_rate',
   creature_rate: 'creature_rate',
   spell_rate: 'spell_rate'
-});
+};
 
-exports.Prisma.Reputation_spillover_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Reputation_spillover_templateScalarFieldEnum = {
   faction: 'faction',
   faction1: 'faction1',
   rate_1: 'rate_1',
@@ -1926,13 +1923,13 @@ exports.Prisma.Reputation_spillover_templateScalarFieldEnum = makeEnum({
   faction4: 'faction4',
   rate_4: 'rate_4',
   rank_4: 'rank_4'
-});
+};
 
-exports.Prisma.Reserved_nameScalarFieldEnum = makeEnum({
+exports.Prisma.Reserved_nameScalarFieldEnum = {
   name: 'name'
-});
+};
 
-exports.Prisma.Script_textsScalarFieldEnum = makeEnum({
+exports.Prisma.Script_textsScalarFieldEnum = {
   entry: 'entry',
   content_default: 'content_default',
   content_loc1: 'content_loc1',
@@ -1948,9 +1945,9 @@ exports.Prisma.Script_textsScalarFieldEnum = makeEnum({
   language: 'language',
   emote: 'emote',
   comment: 'comment'
-});
+};
 
-exports.Prisma.Script_waypointScalarFieldEnum = makeEnum({
+exports.Prisma.Script_waypointScalarFieldEnum = {
   entry: 'entry',
   pointid: 'pointid',
   location_x: 'location_x',
@@ -1958,39 +1955,39 @@ exports.Prisma.Script_waypointScalarFieldEnum = makeEnum({
   location_z: 'location_z',
   waittime: 'waittime',
   point_comment: 'point_comment'
-});
+};
 
-exports.Prisma.Scripted_areatriggerScalarFieldEnum = makeEnum({
+exports.Prisma.Scripted_areatriggerScalarFieldEnum = {
   entry: 'entry',
   script_name: 'script_name'
-});
+};
 
-exports.Prisma.Scripted_event_idScalarFieldEnum = makeEnum({
+exports.Prisma.Scripted_event_idScalarFieldEnum = {
   id: 'id',
   script_name: 'script_name'
-});
+};
 
-exports.Prisma.Shop_categoriesScalarFieldEnum = makeEnum({
+exports.Prisma.Shop_categoriesScalarFieldEnum = {
   id: 'id',
   name: 'name',
   icon: 'icon'
-});
+};
 
-exports.Prisma.Shop_itemsScalarFieldEnum = makeEnum({
+exports.Prisma.Shop_itemsScalarFieldEnum = {
   id: 'id',
   category: 'category',
   item: 'item',
   description: 'description',
   price: 'price',
   descriptionLong: 'descriptionLong'
-});
+};
 
-exports.Prisma.Skill_fishing_base_levelScalarFieldEnum = makeEnum({
+exports.Prisma.Skill_fishing_base_levelScalarFieldEnum = {
   entry: 'entry',
   skill: 'skill'
-});
+};
 
-exports.Prisma.Skill_line_abilityScalarFieldEnum = makeEnum({
+exports.Prisma.Skill_line_abilityScalarFieldEnum = {
   id: 'id',
   skill_id: 'skill_id',
   spell_id: 'spell_id',
@@ -2002,9 +1999,9 @@ exports.Prisma.Skill_line_abilityScalarFieldEnum = makeEnum({
   max_value: 'max_value',
   min_value: 'min_value',
   req_train_points: 'req_train_points'
-});
+};
 
-exports.Prisma.Skinning_loot_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Skinning_loot_templateScalarFieldEnum = {
   entry: 'entry',
   item: 'item',
   ChanceOrQuestChance: 'ChanceOrQuestChance',
@@ -2012,25 +2009,25 @@ exports.Prisma.Skinning_loot_templateScalarFieldEnum = makeEnum({
   mincountOrRef: 'mincountOrRef',
   maxcount: 'maxcount',
   condition_id: 'condition_id'
-});
+};
 
-exports.Prisma.SortOrder = makeEnum({
+exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
-});
+};
 
-exports.Prisma.Sound_entriesScalarFieldEnum = makeEnum({
+exports.Prisma.Sound_entriesScalarFieldEnum = {
   id: 'id',
   name: 'name'
-});
+};
 
-exports.Prisma.Spell_affectScalarFieldEnum = makeEnum({
+exports.Prisma.Spell_affectScalarFieldEnum = {
   entry: 'entry',
   effectId: 'effectId',
   SpellFamilyMask: 'SpellFamilyMask'
-});
+};
 
-exports.Prisma.Spell_areaScalarFieldEnum = makeEnum({
+exports.Prisma.Spell_areaScalarFieldEnum = {
   spell: 'spell',
   area: 'area',
   quest_start: 'quest_start',
@@ -2040,17 +2037,17 @@ exports.Prisma.Spell_areaScalarFieldEnum = makeEnum({
   racemask: 'racemask',
   gender: 'gender',
   autocast: 'autocast'
-});
+};
 
-exports.Prisma.Spell_chainScalarFieldEnum = makeEnum({
+exports.Prisma.Spell_chainScalarFieldEnum = {
   spell_id: 'spell_id',
   prev_spell: 'prev_spell',
   first_spell: 'first_spell',
   rank: 'rank',
   req_spell: 'req_spell'
-});
+};
 
-exports.Prisma.Spell_checkScalarFieldEnum = makeEnum({
+exports.Prisma.Spell_checkScalarFieldEnum = {
   spellid: 'spellid',
   SpellFamilyName: 'SpellFamilyName',
   SpellFamilyMask: 'SpellFamilyMask',
@@ -2062,13 +2059,13 @@ exports.Prisma.Spell_checkScalarFieldEnum = makeEnum({
   EffectIdx: 'EffectIdx',
   Name: 'Name',
   Code: 'Code'
-});
+};
 
-exports.Prisma.Spell_disabledScalarFieldEnum = makeEnum({
+exports.Prisma.Spell_disabledScalarFieldEnum = {
   entry: 'entry'
-});
+};
 
-exports.Prisma.Spell_effect_modScalarFieldEnum = makeEnum({
+exports.Prisma.Spell_effect_modScalarFieldEnum = {
   Id: 'Id',
   EffectIndex: 'EffectIndex',
   Effect: 'Effect',
@@ -2090,36 +2087,36 @@ exports.Prisma.Spell_effect_modScalarFieldEnum = makeEnum({
   EffectMiscValue: 'EffectMiscValue',
   EffectTriggerSpell: 'EffectTriggerSpell',
   Comment: 'Comment'
-});
+};
 
-exports.Prisma.Spell_elixirScalarFieldEnum = makeEnum({
+exports.Prisma.Spell_elixirScalarFieldEnum = {
   entry: 'entry',
   mask: 'mask'
-});
+};
 
-exports.Prisma.Spell_enchant_chargesScalarFieldEnum = makeEnum({
+exports.Prisma.Spell_enchant_chargesScalarFieldEnum = {
   entry: 'entry',
   charges: 'charges'
-});
+};
 
-exports.Prisma.Spell_groupScalarFieldEnum = makeEnum({
+exports.Prisma.Spell_groupScalarFieldEnum = {
   group_id: 'group_id',
   group_spell_id: 'group_spell_id',
   spell_id: 'spell_id'
-});
+};
 
-exports.Prisma.Spell_group_stack_rulesScalarFieldEnum = makeEnum({
+exports.Prisma.Spell_group_stack_rulesScalarFieldEnum = {
   group_id: 'group_id',
   stack_rule: 'stack_rule'
-});
+};
 
-exports.Prisma.Spell_learn_spellScalarFieldEnum = makeEnum({
+exports.Prisma.Spell_learn_spellScalarFieldEnum = {
   entry: 'entry',
   SpellID: 'SpellID',
   Active: 'Active'
-});
+};
 
-exports.Prisma.Spell_modScalarFieldEnum = makeEnum({
+exports.Prisma.Spell_modScalarFieldEnum = {
   Id: 'Id',
   procChance: 'procChance',
   procFlags: 'procFlags',
@@ -2158,15 +2155,15 @@ exports.Prisma.Spell_modScalarFieldEnum = makeEnum({
   Mechanic: 'Mechanic',
   EquippedItemClass: 'EquippedItemClass',
   Comment: 'Comment'
-});
+};
 
-exports.Prisma.Spell_pet_aurasScalarFieldEnum = makeEnum({
+exports.Prisma.Spell_pet_aurasScalarFieldEnum = {
   spell: 'spell',
   pet: 'pet',
   aura: 'aura'
-});
+};
 
-exports.Prisma.Spell_proc_eventScalarFieldEnum = makeEnum({
+exports.Prisma.Spell_proc_eventScalarFieldEnum = {
   entry: 'entry',
   SchoolMask: 'SchoolMask',
   SpellFamilyName: 'SpellFamilyName',
@@ -2178,31 +2175,31 @@ exports.Prisma.Spell_proc_eventScalarFieldEnum = makeEnum({
   ppmRate: 'ppmRate',
   CustomChance: 'CustomChance',
   Cooldown: 'Cooldown'
-});
+};
 
-exports.Prisma.Spell_proc_item_enchantScalarFieldEnum = makeEnum({
+exports.Prisma.Spell_proc_item_enchantScalarFieldEnum = {
   entry: 'entry',
   ppmRate: 'ppmRate'
-});
+};
 
-exports.Prisma.Spell_script_targetScalarFieldEnum = makeEnum({
+exports.Prisma.Spell_script_targetScalarFieldEnum = {
   entry: 'entry',
   type: 'type',
   targetEntry: 'targetEntry',
   conditionId: 'conditionId',
   inverseEffectMask: 'inverseEffectMask'
-});
+};
 
-exports.Prisma.Spell_target_positionScalarFieldEnum = makeEnum({
+exports.Prisma.Spell_target_positionScalarFieldEnum = {
   id: 'id',
   target_map: 'target_map',
   target_position_x: 'target_position_x',
   target_position_y: 'target_position_y',
   target_position_z: 'target_position_z',
   target_orientation: 'target_orientation'
-});
+};
 
-exports.Prisma.Spell_templateScalarFieldEnum = makeEnum({
+exports.Prisma.Spell_templateScalarFieldEnum = {
   entry: 'entry',
   school: 'school',
   category: 'category',
@@ -2352,16 +2349,16 @@ exports.Prisma.Spell_templateScalarFieldEnum = makeEnum({
   minReputation: 'minReputation',
   requiredAuraVision: 'requiredAuraVision',
   customFlags: 'customFlags'
-});
+};
 
-exports.Prisma.Spell_threatScalarFieldEnum = makeEnum({
+exports.Prisma.Spell_threatScalarFieldEnum = {
   entry: 'entry',
   Threat: 'Threat',
   multiplier: 'multiplier',
   ap_bonus: 'ap_bonus'
-});
+};
 
-exports.Prisma.Taxi_nodesScalarFieldEnum = makeEnum({
+exports.Prisma.Taxi_nodesScalarFieldEnum = {
   id: 'id',
   map_id: 'map_id',
   x: 'x',
@@ -2370,15 +2367,15 @@ exports.Prisma.Taxi_nodesScalarFieldEnum = makeEnum({
   name: 'name',
   mount_creature_id1: 'mount_creature_id1',
   mount_creature_id2: 'mount_creature_id2'
-});
+};
 
-exports.Prisma.Taxi_path_transitionsScalarFieldEnum = makeEnum({
+exports.Prisma.Taxi_path_transitionsScalarFieldEnum = {
   in_path: 'in_path',
   out_path: 'out_path',
   in_node: 'in_node',
   out_node: 'out_node',
   comment: 'comment'
-});
+};
 
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   ReadUncommitted: 'ReadUncommitted',
@@ -2387,19 +2384,19 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.TransportsScalarFieldEnum = makeEnum({
+exports.Prisma.TransportsScalarFieldEnum = {
   guid: 'guid',
   entry: 'entry',
   name: 'name',
   period: 'period'
-});
+};
 
-exports.Prisma.VariablesScalarFieldEnum = makeEnum({
+exports.Prisma.VariablesScalarFieldEnum = {
   index: 'index',
   value: 'value'
-});
+};
 
-exports.Prisma.Warden_checksScalarFieldEnum = makeEnum({
+exports.Prisma.Warden_checksScalarFieldEnum = {
   id: 'id',
   group_id: 'group_id',
   type: 'type',
@@ -2410,9 +2407,9 @@ exports.Prisma.Warden_checksScalarFieldEnum = makeEnum({
   result: 'result',
   penalty: 'penalty',
   comment: 'comment'
-});
+};
 
-exports.Prisma.Warden_scansScalarFieldEnum = makeEnum({
+exports.Prisma.Warden_scansScalarFieldEnum = {
   id: 'id',
   type: 'type',
   str: 'str',
@@ -2422,15 +2419,15 @@ exports.Prisma.Warden_scansScalarFieldEnum = makeEnum({
   result: 'result',
   flags: 'flags',
   comment: 'comment'
-});
+};
 
-exports.Prisma.World_safe_locs_facingScalarFieldEnum = makeEnum({
+exports.Prisma.World_safe_locs_facingScalarFieldEnum = {
   id: 'id',
   orientation: 'orientation'
-});
+};
 
 
-exports.Prisma.ModelName = makeEnum({
+exports.Prisma.ModelName = {
   area_template: 'area_template',
   areatrigger_bg_entrance: 'areatrigger_bg_entrance',
   areatrigger_involvedrelation: 'areatrigger_involvedrelation',
@@ -2596,7 +2593,7 @@ exports.Prisma.ModelName = makeEnum({
   warden_checks: 'warden_checks',
   warden_scans: 'warden_scans',
   world_safe_locs_facing: 'world_safe_locs_facing'
-});
+};
 
 /**
  * Create the Client

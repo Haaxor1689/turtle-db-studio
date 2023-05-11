@@ -1,17 +1,9 @@
 import Spinner from '../styled/Spinner';
-import Surface from '../styled/Surface';
 
 const TableLoading = () => (
-	<Surface
-		sx={{
-			flexGrow: 1,
-			display: 'flex',
-			alignItems: 'center',
-			justifyContent: 'center'
-		}}
-	>
+	<div className="tw-surface flex grow items-center justify-center">
 		<Spinner />
-	</Surface>
+	</div>
 );
 
 export default TableLoading;

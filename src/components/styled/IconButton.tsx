@@ -1,4 +1,3 @@
-import { Box } from '@mui/system';
 import type { ReactElement } from 'react';
 
 type Props = {
@@ -7,21 +6,14 @@ type Props = {
 	onClick: () => void;
 };
 
-// TODO: Styling
 const IconButton = ({ title, icon, onClick }: Props) => (
-	<Box
-		component="button"
+	<button
 		title={title}
 		onClick={onClick}
-		sx={{
-			background: 'none',
-			border: 'none',
-			cursor: 'pointer',
-			p: 2
-		}}
+		className="cursor-pointer border-0 p-2 hocus:text-orange hocus:shadow-white hocus:drop-shadow-[0px_0px_25px]"
 	>
 		{icon}
-	</Box>
+	</button>
 );
 
 export default IconButton;

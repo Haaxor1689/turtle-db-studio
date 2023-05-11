@@ -1,16 +1,14 @@
-import type { AppProps } from 'next/app';
-import { type AppType } from 'next/app';
+import type { AppProps, AppType } from 'next/app';
 import { type Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
-import { GlobalStyles, ThemeProvider } from '@mui/system';
 import Head from 'next/head';
 import type { NextPage } from 'next';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { api } from '~/utils/api';
 import Layout from '~/components/Layout';
-import Theme from '~/utils/theme';
-import { din } from '~/utils/fonts';
+
+import '~/styles/globals.css';
 
 export type ExtendedPageProps = {
 	centered?: boolean;
@@ -35,59 +33,14 @@ const MyApp: AppType<{ session: Session | null }> = ({
 			<link rel="icon" href="/favicon.ico" />
 		</Head>
 		<SessionProvider session={session}>
-			<ThemeProvider theme={Theme}>
-				<GlobalStyles
-					styles={{
-						// Box model baseline
-						'*, *::before, *::after': {
-							margin: 0,
-							padding: 0,
-							boxSizing: 'border-box'
-						},
-						'html, body, #__next': {
-							height: '100vh'
-						},
-						'#__next': {
-							width: '100%',
-							height: '100vh',
-							display: 'flex',
-							flexDirection: 'column',
-							overflowX: 'auto',
-							backgroundColor: '#100d0c'
-						},
-						// Text style baseline
-						':not(svg, svg *)': {
-							color: 'white',
-							...din.style,
-							fontStyle: 'normal',
-							fontWeight: 400,
-							fontSize: 16,
-							lineHeight: '26px'
-						},
-						// Focus style reset
-						'*:focus': {
-							outline: 'none'
-						},
-						// Hide number input arrows
-						'input::-webkit-outer-spin-button, input::-webkit-inner-spin-button':
-							{
-								WebkitAppearance: 'none',
-								margin: 0
-							},
-						'input[type=number]': {
-							MozAppearance: 'textfield'
-						}
-					}}
-				/>
-				<Layout
-					centered={Component.centered}
-					rank={Component.rank}
-					expandable={Component.expandable}
-				>
-					<Component {...pageProps} />
-					<ReactQueryDevtools />
-				</Layout>
-			</ThemeProvider>
+			<Layout
+				centered={Component.centered}
+				rank={Component.rank}
+				expandable={Component.expandable}
+			>
+				<Component {...pageProps} />
+				<ReactQueryDevtools />
+			</Layout>
 		</SessionProvider>
 	</>
 );
